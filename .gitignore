@@ -38,3 +38,20 @@ Thumbs.db
 # Environment
 .env
 .env.local
+
+# ─── Per-machine AI/dev tooling (never committed) ────────────────────
+# Standardized 2026-05-09 across all lastapicloud repos
+.claude/
+.mcp.json
+.repowise/
+.opencode/
+.zencoder/
+.zenflow/
+.agents/
+.marketingskills/
+.playwright-mcp/
+.cursor/
+.vscode/
+.idea/
+graphify-out/
+
