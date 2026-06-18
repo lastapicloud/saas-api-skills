@@ -1,0 +1,4 @@
+# Repo-local culture-guard configuration (engine: ~/master/culture-guard).
+# tighten: always honored · overrides: only for overridable rules · waivers: expiring, journaled
+version: 1
+branch_model: main-only

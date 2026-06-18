@@ -1,0 +1,94 @@
+name: PR
+
+on:
+  pull_request:
+    branches: [develop, main]
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  # _security-audit.yml declares security-events: write + actions: read (for the
+  # CodeQL SARIF upload). A called reusable's permissions must be a subset of the
+  # caller's granted token, or GitHub fails the whole run at startup
+  # (startup_failure) — even when the CodeQL steps are gated off at runtime.
+  security-events: write
+  actions: read
+
+concurrency:
+  group: pr-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  changed-files:
+    uses: cpsmuniz/obsidian/.github/workflows/_changed-files.yml@main
+
+  doc-sync:
+    # ALWAYS runs (even doc-only PRs). The allow label waives the assertions.
+    uses: cpsmuniz/obsidian/.github/workflows/_doc-sync-check.yml@main
+    with:
+      # Quoted because the label literal embeds a colon ('docs: N/A'), so the
+      # expression must be a YAML string. The reusable's `skip` input is typed
+      # `string` and compared `== 'true'` — a boolean-typed input would reject
+      # this string value at startup (the original startup_failure cause).
+      skip: "${{ contains(github.event.pull_request.labels.*.name, 'docs: N/A') }}"
+
+  harness:
+    # ALWAYS runs — it's a drift gate, not a behavior lane; never gate on docs_only.
+    uses: cpsmuniz/obsidian/.github/workflows/_harness-check.yml@main
+
+  budget:
+    uses: cpsmuniz/obsidian/.github/workflows/_runner-budget-check.yml@main
+    with:
+      always_hosted: false
+
+  node-checks:
+    needs: [changed-files, budget]
+    if: ${{ needs.changed-files.outputs.docs_only == 'false' }}
+    uses: cpsmuniz/obsidian/.github/workflows/_node-checks.yml@main
+    with:
+      runs_on: ubuntu-latest
+
+  security:
+    needs: changed-files
+    if: ${{ needs.changed-files.outputs.docs_only == 'false' }}
+    uses: cpsmuniz/obsidian/.github/workflows/_security-audit.yml@main
+    # NOTE: CodeQL (init/analyze) requires GitHub Advanced Security. On a PRIVATE
+    # repo without GHAS, add `with: { run_codeql: false }` here (npm audit still
+    # runs). Public repos and GHAS-enabled private repos keep the default (true).
+
+  e2e:
+    needs: [changed-files, budget, harness]
+    if: ${{ needs.changed-files.outputs.docs_only == 'false' }}
+    uses: cpsmuniz/obsidian/.github/workflows/_playwright-e2e.yml@main
+    with:
+      runs_on: ${{ needs.budget.outputs.runs_on }}
+    secrets: inherit
+
+  gate:
+    # The single required status. Doc-only PRs leave behavior lanes skipped, so
+    # this stays green; it fails only when a needed job actually FAILED.
+    needs: [doc-sync, harness, node-checks, security, e2e]
+    if: ${{ always() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Evaluate required lanes
+        env:
+          NEEDS: ${{ toJSON(needs) }}
+        run: |
+          set -euo pipefail
+          echo "$NEEDS"
+          failed=$(node -e '
+            const needs = JSON.parse(process.env.NEEDS);
+            const bad = Object.entries(needs)
+              .filter(([, v]) => v.result === "failure")
+              .map(([k]) => k);
+            if (bad.length) {
+              console.log(bad.join(" "));
+              process.exit(0);
+            }
+          ')
+          if [ -n "$failed" ]; then
+            echo "::error::required lane(s) failed: $failed"
+            exit 1
+          fi
+          echo "All required lanes passed or were skipped."
