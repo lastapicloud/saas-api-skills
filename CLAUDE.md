@@ -1,3 +1,11 @@
+# Culture — invariable, read first
+
+@~/master/CULTURE.md
+
+The rules in `master/CULTURE.md` are the machine-wide source of truth and override anything below unless the below is more restrictive. The Obsidian vault at `~/master/` is this machine's central knowledge base — when this file or the project's other docs don't answer a question, query the vault first (`obsidian search` / `obsidian read` locally; `rg` / `cat` on `~/master/` in CI or headless contexts) before searching the broader internet or asking the user.
+
+---
+
 # CLAUDE.md — saas-api-skills
 
 > **Public** repo. Curated catalog of 368+ API integration skills following the [agentskills.io](https://agentskills.io/specification) spec. Sub-repo of the LastAPI workspace; root router: `../CLAUDE.md`. README owns the marketing-side narrative — this file owns the engineering / contributor view.
