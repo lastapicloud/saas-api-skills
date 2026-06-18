@@ -57,3 +57,7 @@ graphify-out/
 
 .mempalace_dr_last_run
 .codegraph/
+
+.auth/
+
+.env*.local

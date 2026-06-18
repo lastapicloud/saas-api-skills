@@ -1,0 +1,17 @@
+name: Nightly E2E
+
+on:
+  schedule:
+    # 07:00 UTC daily — off-peak for the self-hosted runner.
+    - cron: '0 7 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  e2e:
+    uses: cpsmuniz/obsidian/.github/workflows/_playwright-e2e.yml@main
+    with:
+      runs_on: '["self-hosted","linux","x64"]'
+    secrets: inherit
