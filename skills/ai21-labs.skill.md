@@ -17,6 +17,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://docs.ai21.com/
+compatibility: Requires AI21_BASE_URL and AI21_API_KEY environment variables.
 ---
 
 # Ai21-Labs

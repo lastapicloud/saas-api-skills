@@ -17,6 +17,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://api-docs.deepseek.com/
+compatibility: Requires DEEPSEEK_BASE_URL and DEEPSEEK_API_KEY environment variables.
 ---
 
 # Deepseek-AI

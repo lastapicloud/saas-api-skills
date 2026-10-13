@@ -18,6 +18,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://docs.hanko.io/api-reference/introduction
+compatibility: Requires HANKO_BASE_URL and HANKO_API_KEY environment variables.
 ---
 
 # Hanko-Auth

@@ -17,6 +17,7 @@ license: Proprietary
 metadata:
   author: lastapi
   version: 1.0.0
+compatibility: Requires PIXLR_BASE_URL and PIXLR_API_KEY environment variables.
 ---
 
 # Pixlr-Image-Editor

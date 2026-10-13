@@ -17,6 +17,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://developers.frontegg.com/
+compatibility: Requires FRONTEGG_BASE_URL and FRONTEGG_API_KEY environment variables.
 ---
 
 # Frontegg-Auth

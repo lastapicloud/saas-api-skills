@@ -17,6 +17,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://docs.getmontecarlo.com/
+compatibility: Requires MONTE_CARLO_BASE_URL and MONTE_CARLO_API_KEY environment variables.
 ---
 
 # Monte-Carlo-Observability

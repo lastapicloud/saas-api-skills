@@ -16,14 +16,14 @@
 </p>
 
 <p align="center">
-  🦸 A curated collection of <strong>368+ API integration skills</strong> for instantly connecting AI agents to the tools your team uses every day.
+  🦸 A curated collection of <strong>368 API integration skills</strong> for instantly connecting AI agents to the tools your team uses every day.
 </p>
 
 ---
 
 ## What Are These Skills?
 
-This repository contains **API integration skills** that enable AI agents (like Claude, GPT, and other LLMs) to interact with **340+ SaaS platforms** — from CRMs and databases to email, analytics, and more.
+This repository contains **API integration skills** that enable AI agents (like Claude, GPT, and other LLMs) to interact with **hundreds of SaaS platforms** (one skill per service surface, 368 in total) — from CRMs and databases to email, analytics, and more.
 
 Think of each skill file as a **blueprint** that tells an AI:
 - What endpoints exist for this service
@@ -152,6 +152,7 @@ license: MIT
 metadata:
   author: your-github-username
   version: 1.0.0
+compatibility: Requires SERVICE_BASE_URL and SERVICE_API_KEY environment variables.
 ---
 
 # Service Name

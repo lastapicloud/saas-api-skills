@@ -17,6 +17,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://developer.frame.io/
+compatibility: Requires FRAMEIO_BASE_URL and FRAMEIO_TOKEN environment variables.
 ---
 
 # Frameio-Video

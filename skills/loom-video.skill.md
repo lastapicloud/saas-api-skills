@@ -17,6 +17,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://www.loom.com/developer
+compatibility: Requires LOOM_BASE_URL and LOOM_API_KEY environment variables.
 ---
 
 # Loom-Video

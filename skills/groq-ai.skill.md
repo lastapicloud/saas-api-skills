@@ -17,6 +17,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://console.groq.com/docs
+compatibility: Requires GROQ_BASE_URL and GROQ_API_KEY environment variables.
 ---
 
 # Groq-AI

@@ -17,6 +17,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://docs.mistral.ai/
+compatibility: Requires MISTRAL_BASE_URL and MISTRAL_API_KEY environment variables.
 ---
 
 # Mistral-AI

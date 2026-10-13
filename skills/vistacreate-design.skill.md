@@ -19,6 +19,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://create.vista.com/suite-api/doc/
+compatibility: Requires VISTACREATE_BASE_URL and VISTACREATE_API_KEY environment variables.
 ---
 
 # VistaCreate-Design

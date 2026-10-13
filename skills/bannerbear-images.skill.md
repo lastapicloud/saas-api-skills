@@ -18,6 +18,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   api_version: v2
+compatibility: Requires BANNERBEAR_BASE_URL and BANNERBEAR_API_KEY environment variables.
 ---
 
 # Bannerbear-Images

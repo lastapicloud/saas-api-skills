@@ -17,6 +17,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://ai.google.dev/gemini-api/docs
+compatibility: Requires GOOGLE_GEMINI_BASE_URL and GOOGLE_GEMINI_API_KEY environment variables.
 ---
 
 # Google-Gemini

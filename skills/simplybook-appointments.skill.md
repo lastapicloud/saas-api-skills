@@ -18,6 +18,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://help.simplybook.me/index.php/User_API_guide
+compatibility: Requires SIMPLYBOOK_BASE_URL and SIMPLYBOOK_API_KEY environment variables.
 ---
 
 # Simplybook-Appointments
