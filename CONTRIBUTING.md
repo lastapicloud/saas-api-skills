@@ -28,6 +28,7 @@ license: MIT
 metadata:
   author: your-github-username
   version: 1.0.0
+compatibility: Requires SERVICE_BASE_URL and SERVICE_API_KEY environment variables.
 ---
 
 # Service Name
@@ -61,6 +62,8 @@ Description of what this skill enables.
 {"name": "Example", "type": "resource"}
 ```
 ```
+
+**Frontmatter keys:** `name` (must equal the filename stem), `description`, `version`, `skill_type`, `base_url_env`, `auth_env_var`, `auth_type`, `triggers`, `license`, `metadata` (`author`, `version`, optional `documentation`), `compatibility`. Add `auth_user_env` when the API needs a second credential (e.g. username + password for basic auth).
 
 ### 2. Improving Existing Skills
 

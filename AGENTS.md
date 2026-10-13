@@ -8,17 +8,16 @@ The rules in `master/CULTURE.md` are the machine-wide source of truth and overri
 
 # CLAUDE.md — saas-api-skills
 
-> **Public** repo. Curated catalog of 368+ API integration skills following the [agentskills.io](https://agentskills.io/specification) spec. Sub-repo of the LastAPI workspace; root router: `../CLAUDE.md`. README owns the marketing-side narrative — this file owns the engineering / contributor view.
+> **Public** repo. Curated catalog of 368 API integration skills following the [agentskills.io](https://agentskills.io/specification) spec. Sub-repo of the LastAPI workspace; root router: `../CLAUDE.md`. README owns the marketing-side narrative — this file owns the engineering / contributor view.
 
 ## What This Is
 
 A community-oriented index of `*.skill.md` files, each describing how an AI agent (Claude, GPT, generic LLM) should call a specific SaaS HTTP API: endpoints, parameters, auth, example payloads. Used by:
 
-- `lastapi-framework` `/assistant/*` routes — every customer Lambda's auto-generated Skill Loader pulls from this catalog at deploy time
-- `lastapi-frontend` integrations browser — surfaces metadata for the 387 integrations the dashboard offers
 - External agents — anyone running an MCP-style agent can clone this repo and load the skill files
+- Public showcase of the integrations LastAPI-generated APIs ship with
 
-Single source of truth: the `skills/` directory. Everything else (README badges, license, contributor docs) is metadata around that.
+**This repo is a published mirror, not the runtime source.** The canonical skill files live in `lastapi-framework` (`apigenerator/resources/1 - Project/1 - BaseProject/Project/skills/`); that copy is committed into every generated customer API and read by its `SkillLoader` (`/assistant/*` routes). Nothing fetches this repo at deploy time. The two copies share filenames but have drifted (the framework copy is newer); syncing framework → this repo is manual and currently pending (no automation exists).
 
 ## Stack
 
@@ -41,11 +40,13 @@ saas-api-skills
   └── LICENSE                 — MIT
 ```
 
-Each `*.skill.md` is self-contained and consumable by an LLM with no external lookups. Categories surface via filename prefix and frontmatter `category` field (Payments, Communication, Productivity, Observability, AI & LLM, etc.).
+Each `*.skill.md` is self-contained and consumable by an LLM with no external lookups. There is no `category` frontmatter field; README groups skills into categories by hand.
+
+Frontmatter keys in use: `name`, `description`, `version`, `skill_type`, `base_url_env`, `auth_env_var`, `auth_type`, `triggers`, `license`, `metadata` (`author`, `version`, optional `documentation`), `compatibility` (`Requires <base_url_env> and <auth_env_var> environment variables.`), plus `auth_user_env` for two-credential auth. Body sections: `API Endpoints`, `Actions`, `Fields`, `Example Request Bodies` (a few files use `Example Requests`).
 
 ## Capabilities
 
-- **368+ service integrations** ready for AI-agent consumption (Stripe, Slack, Notion, Datadog, OpenAI, …)
+- **368 service integrations** ready for AI-agent consumption (Stripe, Slack, Notion, Datadog, OpenAI, …)
 - **Spec-compliant** — follows agentskills.io specification, so any compliant agent runtime can load these without per-skill custom code
 - **Versioned via git** — every skill file's history is the audit trail
 - **Public + community-extensible** — accepts PRs from external contributors per CONTRIBUTING.md
@@ -56,7 +57,7 @@ Each `*.skill.md` is self-contained and consumable by an LLM with no external lo
 |---|---|
 | Catalog browse | [`skills/`](skills/) directory + README's example table |
 | Direct skill URLs | `https://github.com/lastapicloud/saas-api-skills/blob/main/skills/<name>.skill.md` (raw via `raw.githubusercontent.com/...`) |
-| Pulled by | `lastapi-framework` Skill Loader at customer-Lambda deploy time |
+| Canonical source | `lastapi-framework` template `skills/` (this repo mirrors it) |
 
 No HTTP API of its own — consumers fetch raw files from GitHub.
 
@@ -65,7 +66,7 @@ No HTTP API of its own — consumers fetch raw files from GitHub.
 - **Public — open source under MIT.** External contributors welcome.
 - **Catalog scope:** SaaS HTTP APIs that an AI agent might call. Not for SDK-style libraries, not for non-HTTP protocols.
 - **Spec-bound:** any file in `skills/` MUST follow agentskills.io. Use CONTRIBUTING.md as the gate.
-- **Customer-Lambda contract:** changes here ripple into every deployed customer API at next deploy time. Treat schema-incompatible changes as breaking and version them deliberately.
+- **Mirror contract:** skill content changes should land in `lastapi-framework` first, then be synced here; a change made only here never reaches customer APIs.
 
 ## Repo
 
@@ -73,16 +74,16 @@ No HTTP API of its own — consumers fetch raw files from GitHub.
 - **License:** MIT
 - **Default branch:** `main`
 - **Branch protection:** none (open contribution model)
-- **CI:** none today — skill files validated by reviewers + downstream consumers
+- **CI:** `.github/workflows/pr.yml` (PRs to `develop`/`main`: changed-files, doc-sync, harness, runner budget, node checks, security audit, e2e lanes behind a single `gate` job) and `nightly-e2e.yml` (daily 07:00 UTC). Both call shared reusable workflows; there is no skill-schema validator yet — reviewers check frontmatter against CONTRIBUTING.md.
 
 ## Cross-Repo Dependencies
 
 ```
-saas-api-skills (this repo)
-  ↓ consumed by
-lastapi-framework  ← Skill Loader injects skills into every customer Lambda at deploy
-  ↓
-customer Lambdas   ← /assistant/skills exposes the loaded catalog at runtime
+lastapi-framework template skills/   ← canonical; committed into every generated API
+  ↓ manual sync (pending)
+saas-api-skills (this repo)          ← public mirror
+
+customer Lambdas  ← SkillLoader reads their own bundled skills/; /assistant/skills exposes them
 ```
 
 ## Workflow
@@ -99,7 +100,7 @@ gh pr create --base main
 ## Rules
 
 - Every skill must follow [agentskills.io](https://agentskills.io/specification) spec exactly — frontmatter + section ordering + parameter shape.
-- Filename pattern: `<service>-<primary-surface>.skill.md` (lowercase, hyphenated, e.g. `stripe-payments.skill.md`).
+- Filename pattern: `<service>-<primary-surface>.skill.md` (lowercase, hyphenated, e.g. `stripe-payments.skill.md`); frontmatter `name` should equal the filename stem. Known exceptions inherited from the framework copy: `auth0-users` (`name: auth0-management`), `cloudflareDNS-domains` (`cloudflaredns-domains`), `klaviyo-marketing` (`klaviyo-marketing-campaigns`) — fix in the framework first, since `name` is the runtime skill id.
 - Never embed credentials in examples — use placeholder tokens like `${YOUR_STRIPE_API_KEY}`.
 - New category? Update README's example table + add a section if there are 5+ skills in the category.
 - Don't force-push `main` — public history is the audit trail for all downstream consumers.
