@@ -17,6 +17,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://docs.x.ai/
+compatibility: Requires XAI_BASE_URL and XAI_API_KEY environment variables.
 ---
 
 # Xai-Grok

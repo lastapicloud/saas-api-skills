@@ -18,6 +18,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://developer.squareup.com/docs/bookings-api
+compatibility: Requires SQUARE_BASE_URL and SQUARE_ACCESS_TOKEN environment variables.
 ---
 
 # Square-Appointments

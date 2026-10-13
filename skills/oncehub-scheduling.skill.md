@@ -17,6 +17,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://developers.oncehub.com/
+compatibility: Requires ONCEHUB_BASE_URL and ONCEHUB_API_KEY environment variables.
 ---
 
 # Oncehub-Scheduling

@@ -16,6 +16,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://ycbm.stoplight.io/
+compatibility: Requires YOUCANBOOKME_BASE_URL and YOUCANBOOKME_API_KEY environment variables.
 ---
 
 # Youcanbookme-Scheduling

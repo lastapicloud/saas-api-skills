@@ -17,6 +17,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://api-docs.webwork-tracker.com/
+compatibility: Requires WEBWORK_BASE_URL and WEBWORK_API_KEY environment variables.
 ---
 
 # Webwork-Time

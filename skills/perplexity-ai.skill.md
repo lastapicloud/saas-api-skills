@@ -18,6 +18,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://docs.perplexity.ai/
+compatibility: Requires PERPLEXITY_BASE_URL and PERPLEXITY_API_KEY environment variables.
 ---
 
 # Perplexity-AI

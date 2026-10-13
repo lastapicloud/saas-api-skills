@@ -17,6 +17,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://developers.mural.co/
+compatibility: Requires MURAL_BASE_URL and MURAL_CLIENT_ID environment variables.
 ---
 
 # Mural-Collaboration

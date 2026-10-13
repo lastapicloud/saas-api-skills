@@ -17,6 +17,7 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://clickhouse.com/docs/interfaces/http
+compatibility: Requires CLICKHOUSE_BASE_URL and CLICKHOUSE_API_KEY environment variables.
 ---
 
 # Clickhouse-Analytics
