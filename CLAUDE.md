@@ -74,7 +74,7 @@ No HTTP API of its own — consumers fetch raw files from GitHub.
 - **License:** MIT
 - **Default branch:** `main`
 - **Branch protection:** none (open contribution model)
-- **CI:** `.github/workflows/pr.yml` (PRs to `develop`/`main`: changed-files, doc-sync, harness, runner budget, node checks, security audit, e2e lanes behind a single `gate` job) and `nightly-e2e.yml` (daily 07:00 UTC). Both call shared reusable workflows; there is no skill-schema validator yet — reviewers check frontmatter against CONTRIBUTING.md.
+- **CI:** `.github/workflows/pr.yml` (PRs to `develop`/`main`: changed-files, doc-sync, harness, runner budget, node checks, security audit, e2e lanes behind a single `gate` job) and `nightly-e2e.yml` (cron 07:00 UTC; currently disabled by GitHub for repository inactivity). Both call shared reusable workflows; there is no skill-schema validator yet — reviewers check frontmatter against CONTRIBUTING.md.
 
 ## Cross-Repo Dependencies
 
