@@ -1,14 +1,6 @@
-# Culture — invariable, read first
+# AGENTS.md — saas-api-skills
 
-@~/master/CULTURE.md
-
-The rules in `master/CULTURE.md` are the machine-wide source of truth and override anything below unless the below is more restrictive. The Obsidian vault at `~/master/` is this machine's central knowledge base — when this file or the project's other docs don't answer a question, query the vault first (`obsidian search` / `obsidian read` locally; `rg` / `cat` on `~/master/` in CI or headless contexts) before searching the broader internet or asking the user.
-
----
-
-# CLAUDE.md — saas-api-skills
-
-> **Public** repo. Curated catalog of 368 API integration skills following the [agentskills.io](https://agentskills.io/specification) spec. Sub-repo of the LastAPI workspace; root router: `../CLAUDE.md`. README owns the marketing-side narrative — this file owns the engineering / contributor view.
+> **Public** repo. Curated catalog of 368 API integration skills following the [agentskills.io](https://agentskills.io/specification) spec. Maintained by the LastAPI team. README owns the marketing-side narrative — this file owns the engineering / contributor view.
 
 ## What This Is
 
@@ -74,7 +66,7 @@ No HTTP API of its own — consumers fetch raw files from GitHub.
 - **License:** MIT
 - **Default branch:** `main`
 - **Branch protection:** none (open contribution model)
-- **CI:** `.github/workflows/pr.yml` (PRs to `develop`/`main`: changed-files, doc-sync, harness, runner budget, node checks, security audit, e2e lanes behind a single `gate` job) and `nightly-e2e.yml` (cron 07:00 UTC; currently disabled by GitHub for repository inactivity). Both call shared reusable workflows; there is no skill-schema validator yet — reviewers check frontmatter against CONTRIBUTING.md.
+- **CI:** none. There is no skill-schema validator yet — reviewers check frontmatter against CONTRIBUTING.md.
 
 ## Cross-Repo Dependencies
 
