@@ -1,8 +1,10 @@
 ---
 name: copper-crm
-description: Manage leads, people, opportunities, and companies in Copper CRM. Use
+description: 'Manage leads, people, opportunities, and companies in Copper CRM. Use
   when the user mentions copper, copper crm, copper lead, copper opportunity, copper
   people.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: COPPER_BASE_URL
@@ -19,11 +21,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires COPPER_BASE_URL and COPPER_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Copper-Crm
 
 Manage leads, people, opportunities, and companies in Copper CRM. Use when the user mentions copper, copper crm, copper lead, copper opportunity, copper people.
+
 
 ## API Endpoints
 
@@ -46,22 +53,22 @@ Manage leads, people, opportunities, and companies in Copper CRM. Use when the u
 - update: Update a lead (PUT /developer_api/v1/leads/{id})
 - delete: Delete a lead (DELETE /developer_api/v1/leads/{id})
 - search_people: Search people (POST /developer_api/v1/people/search)
-- create_people: Create a person (POST /developer_api/v1/people)
+- create_person: Create a person (POST /developer_api/v1/people)
 - search_opportunities: Search opportunities (POST /developer_api/v1/opportunities/search)
-- create_opportunities: Create an opportunity (POST /developer_api/v1/opportunities)
+- create_opportunity: Create an opportunity (POST /developer_api/v1/opportunities)
 - search_companies: Search companies (POST /developer_api/v1/companies/search)
 
 ## Fields
 
-- `id`: integer [REQUIRED for get_lead, update_lead, delete_lead] (record ID)
-- `name`: string [REQUIRED for create_lead, create_person, create_opportunity] (name)
-- `email`: object [OPTIONAL] (email with category and address fields)
-- `phone_numbers`: array [OPTIONAL] (phone numbers)
-- `company_name`: string [OPTIONAL] (company name)
-- `monetary_value`: number [OPTIONAL] (opportunity value)
-- `pipeline_id`: integer [OPTIONAL] (pipeline ID)
-- `page_size`: integer [OPTIONAL] (results per page, max 200)
-- `page_number`: integer [OPTIONAL] (page number for pagination)
+- `id`: integer [REQUIRED for get_lead, update_lead, delete_lead] (record ID) — Unique identifier
+- `name`: string [REQUIRED for create_lead, create_person, create_opportunity] (name) — Display name
+- `email`: object [OPTIONAL] (email with category and address fields) — Email address
+- `phone_numbers`: array [OPTIONAL] (phone numbers) — List of phone numbers
+- `company_name`: string [OPTIONAL] (company name) — Company display name
+- `monetary_value`: number [OPTIONAL] (opportunity value) — Monetary Value
+- `pipeline_id`: integer [OPTIONAL] (pipeline ID) — Pipeline unique identifier
+- `page_size`: integer [OPTIONAL] (results per page, max 200) — Page Size value
+- `page_number`: integer [OPTIONAL] (page number for pagination) — Page Number value
 
 ## Example Request Bodies
 
@@ -74,3 +81,24 @@ Manage leads, people, opportunities, and companies in Copper CRM. Use when the u
 ```json
 {"page_size": 25, "page_number": 1}
 ```
+
+## Response
+
+**Search object:**
+- `id`: string — Unique search identifier
+- `name`: string — Search name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

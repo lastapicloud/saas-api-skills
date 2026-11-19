@@ -1,8 +1,10 @@
 ---
 name: braintree-payments
-description: Process payments, manage customers, and handle transactions via Braintree.
+description: 'Process payments, manage customers, and handle transactions via Braintree.
   Use when the user mentions braintree, payment, transaction, customer, subscription,
   vault.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: BRAINTREE_BASE_URL
@@ -21,11 +23,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires BRAINTREE_BASE_URL and BRAINTREE_PRIVATE_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Braintree-Payments
 
 Process payments, manage customers, and handle transactions via Braintree. Use when the user mentions braintree, payment, transaction, customer, subscription, vault.
+
 
 ## API Endpoints
 
@@ -44,16 +51,16 @@ Process payments, manage customers, and handle transactions via Braintree. Use w
 - get_by_id: Get transaction by ID (GET /merchants/{merchantId}/transactions/{transactionId})
 - put_void: Void a transaction (PUT /merchants/{merchantId}/transactions/{transactionId}/void)
 - put_refund: Refund a transaction (PUT /merchants/{merchantId}/transactions/{transactionId}/refund)
-- create_customers: Create a customer (POST /merchants/{merchantId}/customers)
-- get_by_id_customers: Get customer by ID (GET /merchants/{merchantId}/customers/{customerId})
+- create_customer: Create a customer (POST /merchants/{merchantId}/customers)
+- get_customer_id: Get customer by ID (GET /merchants/{merchantId}/customers/{customerId})
 - delete: Delete a customer (DELETE /merchants/{merchantId}/customers/{customerId})
-- create_client_token: Generate client token (POST /merchants/{merchantId}/client_token)
+- generate_client_token: Generate client token (POST /merchants/{merchantId}/client_token)
 
 ## Fields
 
-- `amount`: string [REQUIRED for create]
-- `payment_method_nonce`: string [REQUIRED for create]
-- `merchantId`: string [REQUIRED]
+- `amount`: string [REQUIRED for create] — Amount in smallest currency unit
+- `payment_method_nonce`: string [REQUIRED for create] — Payment Method Nonce
+- `merchantId`: string [REQUIRED] — Merchant unique identifier
 
 ## Example Request Bodies
 
@@ -65,3 +72,24 @@ Process payments, manage customers, and handle transactions via Braintree. Use w
 **Create Customer:**
 ```json
 {"firstName": "John", "lastName": "Doe", "email": "john@example.com"}
+
+## Response
+
+**Transaction object:**
+- `id`: string — Unique transaction identifier
+- `name`: string — Transaction name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

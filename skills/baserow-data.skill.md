@@ -1,7 +1,9 @@
 ---
 name: baserow-data
-description: Manage Baserow databases, tables, and rows. Use when the user mentions
+description: 'Manage Baserow databases, tables, and rows. Use when the user mentions
   baserow, database, table, row.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: BASEROW_BASE_URL
@@ -17,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires BASEROW_BASE_URL and BASEROW_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Baserow-Data
 
 Manage Baserow databases, tables, and rows. Use when the user mentions baserow, database, table, row.
+
 
 ## API Endpoints
 
@@ -40,19 +47,19 @@ Manage Baserow databases, tables, and rows. Use when the user mentions baserow, 
 
 - list: List applications (databases) (GET /api/applications/)
 - get_by_id: Get table info (GET /api/database/tables/{tableId}/)
-- get_by_id_table: List rows (GET /api/database/rows/table/{tableId}/)
-- get_by_id_table_2: Get a row (GET /api/database/rows/table/{tableId}/{rowId}/)
+- list_rows: List rows (GET /api/database/rows/table/{tableId}/)
+- get_row: Get a row (GET /api/database/rows/table/{tableId}/{rowId}/)
 - add_table: Create a row (POST /api/database/rows/table/{tableId}/)
 - update: Update a row (PATCH /api/database/rows/table/{tableId}/{rowId}/)
 - delete: Delete a row (DELETE /api/database/rows/table/{tableId}/{rowId}/)
-- get_by_id_table_3: List fields (GET /api/database/fields/table/{tableId}/)
-- add_table_fields: Create a field (POST /api/database/fields/table/{tableId}/)
-- get_by_id_database: List tables (GET /api/database/tables/database/{databaseId}/)
+- list_fields: List fields (GET /api/database/fields/table/{tableId}/)
+- create_field: Create a field (POST /api/database/fields/table/{tableId}/)
+- list_tables: List tables (GET /api/database/tables/database/{databaseId}/)
 
 ## Fields
 
 - Field values are dynamic based on table schema (key-value pairs)
-- `field_{fieldId}`: value matching the field type
+- `field_{fieldId}`: value matching the field type [REQUIRED for create]
 
 ## Example Request Bodies
 
@@ -64,3 +71,24 @@ Manage Baserow databases, tables, and rows. Use when the user mentions baserow, 
 **Update Row:**
 ```json
 {"field_123": "Jane Doe", "field_124": "jane@example.com"}
+
+## Response
+
+**Table object:**
+- `id`: string — Unique table identifier
+- `name`: string — Table name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

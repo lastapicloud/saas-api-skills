@@ -1,7 +1,6 @@
 ---
 name: pinpoint-ats
-description: Manage Pinpoint ATS candidates, jobs, and applications. Use when the
-  user mentions pinpoint, candidate, job, ATS, hiring, application.
+description: "Manage Pinpoint ATS candidates, jobs, and applications. Use when the user mentions pinpoint, candidate, job, ATS, hiring, application."
 version: 1.0.0
 skill_type: external
 base_url_env: PINPOINT_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires PINPOINT_BASE_URL and PINPOINT_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Pinpoint-Ats
 
 Manage Pinpoint ATS candidates, jobs, and applications. Use when the user mentions pinpoint, candidate, job, ATS, hiring, application.
+
 
 ## API Endpoints
 
@@ -79,3 +83,14 @@ Manage Pinpoint ATS candidates, jobs, and applications. Use when the user mentio
 ```json
 {"title": "Product Manager", "department_id": "dept-123", "status": "published"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

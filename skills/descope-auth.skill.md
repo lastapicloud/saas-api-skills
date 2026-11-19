@@ -1,7 +1,6 @@
 ---
 name: descope-auth
-description: Manage users, tenants, and authentication via Descope. Use when the user
-  mentions descope, auth, authentication, user, tenant, sso.
+description: "Manage users, tenants, and authentication via Descope. Use when the user mentions descope, auth, authentication, user, tenant, sso."
 version: 1.0.0
 skill_type: external
 base_url_env: DESCOPE_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires DESCOPE_BASE_URL and DESCOPE_MANAGEMENT_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Descope-Auth
 
 Manage users, tenants, and authentication via Descope. Use when the user mentions descope, auth, authentication, user, tenant, sso.
+
 
 ## API Endpoints
 
@@ -65,3 +69,14 @@ Manage users, tenants, and authentication via Descope. Use when the user mention
 ```json
 {"loginId": "user@example.com", "name": "Alex T. Thompson", "phone": "+1-555-987-6543"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

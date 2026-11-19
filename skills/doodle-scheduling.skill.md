@@ -1,7 +1,6 @@
 ---
 name: doodle-scheduling
-description: Create and manage polls and scheduling via Doodle. Use when the user
-  mentions doodle, poll, scheduling, meeting, availability.
+description: "Create and manage polls and scheduling via Doodle. Use when the user mentions doodle, poll, scheduling, meeting, availability."
 version: 1.0.0
 skill_type: external
 base_url_env: DOODLE_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires DOODLE_BASE_URL and DOODLE_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Doodle-Scheduling
 
 Create and manage polls and scheduling via Doodle. Use when the user mentions doodle, poll, scheduling, meeting, availability.
+
 
 ## API Endpoints
 
@@ -60,3 +64,14 @@ Create and manage polls and scheduling via Doodle. Use when the user mentions do
 **Add Participant:**
 ```json
 {"name": "Jane Doe", "preferences": [{"optionId": "opt_1", "preference": 1}]}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

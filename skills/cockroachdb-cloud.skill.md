@@ -1,7 +1,6 @@
 ---
 name: cockroachdb-cloud
-description: Manage CockroachDB clusters and databases via CockroachDB Cloud. Use
-  when the user mentions cockroachdb cloud, cockroach, cluster, serverless, database.
+description: "Manage CockroachDB clusters and databases via CockroachDB Cloud. Use when the user mentions cockroachdb cloud, cockroach, cluster, serverless, database."
 version: 1.0.0
 skill_type: external
 base_url_env: COCKROACHDB_CLOUD_BASE_URL
@@ -17,13 +16,20 @@ license: Apache-2.0
 metadata:
   author: lastapi
   version: 1.0.0
-compatibility: Requires COCKROACHDB_CLOUD_BASE_URL and COCKROACHDB_CLOUD_API_KEY environment
-  variables.
+compatibility: 'Requires COCKROACHDB_CLOUD_BASE_URL and COCKROACHDB_CLOUD_API_KEY
+  environment variables.
+
+  '
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Cockroachdb-Cloud
 
 Manage CockroachDB clusters and databases via CockroachDB Cloud. Use when the user mentions cockroachdb cloud, cockroach, cluster, serverless, database.
+
 
 ## API Endpoints
 
@@ -63,3 +69,14 @@ Manage CockroachDB clusters and databases via CockroachDB Cloud. Use when the us
 **Create SQL User:**
 ```json
 {"name": "app_user", "password": "securePass123!"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

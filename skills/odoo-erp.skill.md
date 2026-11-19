@@ -1,7 +1,6 @@
 ---
 name: odoo-erp
-description: Manage records via Odoo ERP. Use when the user mentions odoo, erp, crm,
-  invoice, product, sale order, purchase.
+description: "Manage records via Odoo ERP. Use when the user mentions odoo, erp, crm, invoice, product, sale order, purchase."
 version: 1.0.0
 skill_type: external
 base_url_env: ODOO_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires ODOO_BASE_URL and ODOO_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Odoo-Erp
 
 Manage records via Odoo ERP. Use when the user mentions odoo, erp, crm, invoice, product, sale order, purchase.
+
 
 ## API Endpoints
 
@@ -80,3 +84,14 @@ Manage records via Odoo ERP. Use when the user mentions odoo, erp, crm, invoice,
 ```json
 {"model": "res.partner", "method": "create", "args": [{"name": "Acme Corp", "email": "info@acme.com"}], "kwargs": {}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

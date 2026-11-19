@@ -1,7 +1,6 @@
 ---
 name: magento-store
-description: Manage products, orders, and customers via Magento. Use when the user
-  mentions magento, product, order, customer, catalog, ecommerce, e-commerce.
+description: "Manage products, orders, and customers via Magento. Use when the user mentions magento, product, order, customer, catalog, ecommerce, e-commerce."
 version: 1.0.0
 skill_type: external
 base_url_env: MAGENTO_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires MAGENTO_BASE_URL and MAGENTO_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Magento-Store
 
 Manage products, orders, and customers via Magento. Use when the user mentions magento, product, order, customer, catalog, ecommerce, e-commerce.
+
 
 ## API Endpoints
 
@@ -78,3 +82,14 @@ Manage products, orders, and customers via Magento. Use when the user mentions m
 ```json
 {"customer": {"email": "shopper@example.com", "firstname": "Maria", "lastname": "Garcia", "store_id": 1, "group_id": 1}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

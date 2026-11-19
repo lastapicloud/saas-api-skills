@@ -1,7 +1,6 @@
 ---
 name: render-services
-description: Manage Render services, deploys, and databases. Use when the user mentions
-  render, service, deploy, web service.
+description: "Manage Render services, deploys, and databases. Use when the user mentions render, service, deploy, web service."
 version: 1.0.0
 skill_type: external
 base_url_env: RENDER_BASE_URL
@@ -17,11 +16,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires RENDER_BASE_URL and RENDER_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Render-Services
 
 Manage Render services, deploys, and databases. Use when the user mentions render, service, deploy, web service.
+
 
 ## API Endpoints
 
@@ -79,3 +83,14 @@ Manage Render services, deploys, and databases. Use when the user mentions rende
 ```json
 [{"key": "DATABASE_URL", "value": "postgres://user:pass@host/db"}, {"key": "NODE_ENV", "value": "production"}]
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

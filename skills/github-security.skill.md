@@ -1,9 +1,6 @@
 ---
 name: github-security
-description: Manage code scanning alerts, secret scanning, Dependabot alerts, and
-  security advisories via the GitHub API. Use when the user mentions code scanning,
-  secret scanning, dependabot, security advisory, CVE, vulnerability alert, github
-  security, SARIF.
+description: "Manage code scanning alerts, secret scanning, Dependabot alerts, and security advisories via the GitHub API. Use when the user mentions code scanning, secret scanning, dependabot, security advisory, CVE, vulnerability alert, github security, SARIF."
 version: 1.0.0
 skill_type: external
 base_url_env: GITHUB_API_BASE_URL
@@ -23,11 +20,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires GITHUB_API_BASE_URL and GITHUB_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Github-Security
 
 Manage code scanning alerts, secret scanning, Dependabot alerts, and security advisories via the GitHub API. Use when the user mentions code scanning, secret scanning, dependabot, security advisory, CVE, vulnerability alert, github security, SARIF.
+
 
 ## API Endpoints
 
@@ -86,3 +88,14 @@ Manage code scanning alerts, secret scanning, Dependabot alerts, and security ad
 ```json
 {"state": "dismissed", "dismissed_reason": "tolerable_risk", "dismissed_comment": "Accepted risk"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

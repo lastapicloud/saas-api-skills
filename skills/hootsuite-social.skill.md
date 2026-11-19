@@ -1,7 +1,6 @@
 ---
 name: hootsuite-social
-description: Manage social media posts and profiles via Hootsuite. Use when the user
-  mentions hootsuite, social media, post, schedule, profile, publish.
+description: "Manage social media posts and profiles via Hootsuite. Use when the user mentions hootsuite, social media, post, schedule, profile, publish."
 version: 1.0.0
 skill_type: external
 base_url_env: HOOTSUITE_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires HOOTSUITE_BASE_URL and HOOTSUITE_ACCESS_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Hootsuite-Social
 
 Manage social media posts and profiles via Hootsuite. Use when the user mentions hootsuite, social media, post, schedule, profile, publish.
+
 
 ## API Endpoints
 
@@ -65,3 +69,14 @@ Manage social media posts and profiles via Hootsuite. Use when the user mentions
 ```json
 {"url": "https://example.com/image.png", "mimeType": "image/png"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

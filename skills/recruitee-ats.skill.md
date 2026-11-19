@@ -1,8 +1,6 @@
 ---
 name: recruitee-ats
-description: Manage candidates, offers, and job pipelines in Recruitee (Tellent) ATS.
-  Use when the user mentions recruitee, tellent, recruitee candidate, recruitee offer,
-  recruitee pipeline.
+description: "Manage candidates, offers, and job pipelines in Recruitee (Tellent) ATS. Use when the user mentions recruitee, tellent, recruitee candidate, recruitee offer, recruitee pipeline."
 version: 1.0.0
 skill_type: external
 base_url_env: RECRUITEE_BASE_URL
@@ -19,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires RECRUITEE_BASE_URL and RECRUITEE_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Recruitee-Ats
 
 Manage candidates, offers, and job pipelines in Recruitee (Tellent) ATS. Use when the user mentions recruitee, tellent, recruitee candidate, recruitee offer, recruitee pipeline.
+
 
 ## API Endpoints
 
@@ -75,3 +78,14 @@ Manage candidates, offers, and job pipelines in Recruitee (Tellent) ATS. Use whe
 ```json
 {"offer": {"title": "Senior Software Engineer", "description": "Build scalable systems", "department_id": 1}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

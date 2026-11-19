@@ -1,7 +1,6 @@
 ---
 name: opensearch-search
-description: Manage indices and documents via OpenSearch. Use when the user mentions
-  opensearch, search, index, document, query, analytics.
+description: "Manage indices and documents via OpenSearch. Use when the user mentions opensearch, search, index, document, query, analytics."
 version: 1.0.0
 skill_type: external
 base_url_env: OPENSEARCH_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires OPENSEARCH_BASE_URL and OPENSEARCH_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Opensearch-Search
 
 Manage indices and documents via OpenSearch. Use when the user mentions opensearch, search, index, document, query, analytics.
+
 
 ## API Endpoints
 
@@ -65,3 +69,14 @@ Manage indices and documents via OpenSearch. Use when the user mentions opensear
 ```json
 {"query": {"bool": {"must": [{"match": {"content": "deployment"}}], "filter": [{"term": {"tags": "guide"}}]}}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

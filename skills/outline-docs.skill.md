@@ -1,7 +1,9 @@
 ---
 name: outline-docs
-description: Manage documents and collections via Outline. Use when the user mentions
+description: 'Manage documents and collections via Outline. Use when the user mentions
   outline, docs, document, collection, wiki, knowledge base.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: OUTLINE_BASE_URL
@@ -19,11 +21,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires OUTLINE_BASE_URL and OUTLINE_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Outline-Docs
 
 Manage documents and collections via Outline. Use when the user mentions outline, docs, document, collection, wiki, knowledge base.
+
 
 ## API Endpoints
 
@@ -39,20 +46,20 @@ Manage documents and collections via Outline. Use when the user mentions outline
 ## Actions
 
 - create: List documents (POST /api/documents.list)
-- create_documents_create: Create document (POST /api/documents.create)
-- create_documents_info: Get document (POST /api/documents.info)
-- create_documents_update: Update document (POST /api/documents.update)
-- create_documents_delete: Delete document (POST /api/documents.delete)
+- create_document: Create document (POST /api/documents.create)
+- get_document: Get document (POST /api/documents.info)
+- update_document: Update document (POST /api/documents.update)
+- delete_document: Delete document (POST /api/documents.delete)
 - search: Search documents (POST /api/documents.search)
-- create_collections_list: List collections (POST /api/collections.list)
-- create_collections_create: Create collection (POST /api/collections.create)
+- list_collections: List collections (POST /api/collections.list)
+- create_collection: Create collection (POST /api/collections.create)
 
 ## Fields
 
-- `title`: string [REQUIRED for create]
-- `text`: string [OPTIONAL]
-- `collectionId`: string [REQUIRED for create]
-- `query`: string [REQUIRED for search]
+- `title`: string [REQUIRED for create] — Title or heading
+- `text`: string [OPTIONAL] — Text content
+- `collectionId`: string [REQUIRED for create] — Collection unique identifier
+- `query`: string [REQUIRED for search] — Search or filter query
 
 ## Example Request Bodies
 
@@ -72,3 +79,23 @@ Manage documents and collections via Outline. Use when the user mentions outline
   "query": "integration guide"
 }
 ```
+
+## Response
+
+**Documents.List object:**
+- `id`: string — Unique documents.list identifier
+- `name`: string — Documents.List name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

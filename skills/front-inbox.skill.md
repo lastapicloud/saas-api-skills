@@ -1,7 +1,6 @@
 ---
 name: front-inbox
-description: Manage conversations, contacts, and inboxes via Front. Use when the user
-  mentions front, inbox, conversation, contact, message, email.
+description: "Manage conversations, contacts, and inboxes via Front. Use when the user mentions front, inbox, conversation, contact, message, email."
 version: 1.0.0
 skill_type: external
 base_url_env: FRONT_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires FRONT_BASE_URL and FRONT_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Front-Inbox
 
 Manage conversations, contacts, and inboxes via Front. Use when the user mentions front, inbox, conversation, contact, message, email.
+
 
 ## API Endpoints
 
@@ -35,9 +39,9 @@ Manage conversations, contacts, and inboxes via Front. Use when the user mention
 - **GET** `/contacts/{contact_id}` - Get contact
 - **GET** `/inboxes` - List inboxes
 - **GET** `/teammates` - List teammates
-- **POST** `/providers/Microsoft.Network/checkFrontDoorNameAvailability` - Check the availability of a Front Door resource name.
+- **POST** `/providers/Microsoft.Network/{id}` - Check the availability of a Front Door resource name.
 - **GET** `/subscriptions/{subscriptionId}/providers/Microsoft.Network/frontDoors` - Lists all of the Front Doors within an Azure subscription.
-- **POST** `/subscriptions/{subscriptionId}/providers/Microsoft.Network/checkFrontDoorNameAvailability` - Check the availability of a Front Door subdomain.
+- **POST** `/subscriptions/{subscriptionId}/providers/Microsoft.Network/{id}` - Check the availability of a Front Door subdomain.
 - **GET** `/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/frontDoors` - Lists all of the Front Doors within a resource group under a subscription.
 - **GET** `/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/frontDoors/{frontDoorName}` - Gets a Front Door with the specified Front Door name under the specified subscription and resource group.
 - **PUT** `/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/frontDoors/{frontDoorName}` - Creates a new Front Door with a Front Door name under the specified subscription and resource group.
@@ -53,9 +57,9 @@ Manage conversations, contacts, and inboxes via Front. Use when the user mention
 - get_by_id_contacts: Get contact (GET /contacts/{contact_id})
 - list_inboxes: List inboxes (GET /inboxes)
 - list_teammates: List teammates (GET /teammates)
-- create_checkfrontdoornameavailability: Check the availability of a Front Door resource name. (POST /providers/Microsoft.Network/checkFrontDoorNameAvailability)
+- add_microsoft.network: Check the availability of a Front Door resource name. (POST /providers/Microsoft.Network/{id})
 - list_frontdoors: Lists all of the Front Doors within an Azure subscription. (GET /subscriptions/{subscriptionId}/providers/Microsoft.Network/frontDoors)
-- create_checkfrontdoornameavailability_2: Check the availability of a Front Door subdomain. (POST /subscriptions/{subscriptionId}/providers/Microsoft.Network/checkFrontDoorNameAvailability)
+- add_microsoft.network_microsoft_network: Check the availability of a Front Door subdomain. (POST /subscriptions/{subscriptionId}/providers/Microsoft.Network/{id})
 - list_frontdoors_2: Lists all of the Front Doors within a resource group under a subscription. (GET /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/frontDoors)
 - get_by_id_frontdoors: Gets a Front Door with the specified Front Door name under the specified subscri (GET /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/frontDoors/{frontDoorName})
 - update: Creates a new Front Door with a Front Door name under the specified subscription (PUT /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/frontDoors/{frontDoorName})
@@ -78,3 +82,14 @@ Manage conversations, contacts, and inboxes via Front. Use when the user mention
 ```json
 {"handles": [{"handle": "customer@example.com", "source": "email"}], "name": "Jane Smith"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

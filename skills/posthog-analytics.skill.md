@@ -1,8 +1,6 @@
 ---
 name: posthog-analytics
-description: Track events, manage feature flags, cohorts, and experiments in PostHog.
-  Use when the user mentions posthog, analytics, event, feature flag, cohort, insight,
-  funnel, experiment.
+description: "Track events, manage feature flags, cohorts, and experiments in PostHog. Use when the user mentions posthog, analytics, event, feature flag, cohort, insight, funnel, experiment."
 version: 1.0.0
 skill_type: external
 base_url_env: POSTHOG_BASE_URL
@@ -22,11 +20,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires POSTHOG_BASE_URL and POSTHOG_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Posthog-Analytics
 
 Track events, manage feature flags, cohorts, and experiments in PostHog. Use when the user mentions posthog, analytics, event, feature flag, cohort, insight, funnel, experiment.
+
 
 ## API Endpoints
 
@@ -106,3 +109,14 @@ Track events, manage feature flags, cohorts, and experiments in PostHog. Use whe
   "active": true
 }
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

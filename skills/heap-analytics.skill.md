@@ -1,7 +1,6 @@
 ---
 name: heap-analytics
-description: Track events, manage users, and query analytics data via Heap. Use when
-  the user mentions heap, analytics, event, user, track, session.
+description: "Track events, manage users, and query analytics data via Heap. Use when the user mentions heap, analytics, event, user, track, session."
 version: 1.0.0
 skill_type: external
 base_url_env: HEAP_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires HEAP_BASE_URL and HEAP_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Heap-Analytics
 
 Track events, manage users, and query analytics data via Heap. Use when the user mentions heap, analytics, event, user, track, session.
+
 
 ## API Endpoints
 
@@ -68,3 +72,14 @@ Track events, manage users, and query analytics data via Heap. Use when the user
 ```json
 {"app_id": "1234567890", "identity": "user@example.com", "properties": {"plan": "premium", "signup_date": "2024-01-15"}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

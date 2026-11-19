@@ -1,8 +1,6 @@
 ---
 name: pinecone-vectors
-description: Manage vector indexes and perform similarity searches via the Pinecone
-  API. Use when the user mentions pinecone, vector, embedding, similarity, search
-  vectors.
+description: "Manage vector indexes and perform similarity searches via the Pinecone API. Use when the user mentions pinecone, vector, embedding, similarity, search vectors."
 version: 1.0.0
 skill_type: external
 base_url_env: PINECONE_BASE_URL
@@ -19,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires PINECONE_BASE_URL and PINECONE_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Pinecone-Vectors
 
 Manage vector indexes and perform similarity searches via the Pinecone API. Use when the user mentions pinecone, vector, embedding, similarity, search vectors.
+
 
 ## API Endpoints
 
@@ -82,3 +85,14 @@ Manage vector indexes and perform similarity searches via the Pinecone API. Use 
 ```json
 {"vector": [0.1, 0.2, 0.3], "top_k": 10, "namespace": "default"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

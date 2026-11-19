@@ -1,7 +1,6 @@
 ---
 name: formstack-forms
-description: Manage forms and submissions via Formstack. Use when the user mentions
-  formstack, form, submission, field, survey.
+description: "Manage forms and submissions via Formstack. Use when the user mentions formstack, form, submission, field, survey."
 version: 1.0.0
 skill_type: external
 base_url_env: FORMSTACK_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires FORMSTACK_BASE_URL and FORMSTACK_ACCESS_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Formstack-Forms
 
 Manage forms and submissions via Formstack. Use when the user mentions formstack, form, submission, field, survey.
+
 
 ## API Endpoints
 
@@ -62,3 +66,14 @@ Manage forms and submissions via Formstack. Use when the user mentions formstack
 **Create Submission:**
 ```json
 {"field_12345": "John Doe", "field_12346": "john@example.com", "field_12347": "How can I help?"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

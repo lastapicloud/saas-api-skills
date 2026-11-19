@@ -1,7 +1,6 @@
 ---
 name: vonage-communications
-description: Send SMS and manage Vonage messaging. Use when the user mentions vonage,
-  nexmo, SMS, message, voice, verify.
+description: "Send SMS and manage Vonage messaging. Use when the user mentions vonage, nexmo, SMS, message, voice, verify."
 version: 1.0.0
 skill_type: external
 base_url_env: VONAGE_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires VONAGE_BASE_URL and VONAGE_API_SECRET environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Vonage-Communications
 
 Send SMS and manage Vonage messaging. Use when the user mentions vonage, nexmo, SMS, message, voice, verify.
+
 
 ## API Endpoints
 
@@ -83,3 +87,14 @@ Send SMS and manage Vonage messaging. Use when the user mentions vonage, nexmo, 
 ```json
 {"number": "14155550101", "brand": "MyApp"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: turso-database
-description: Manage databases and groups via Turso. Use when the user mentions turso,
-  database, sqlite, edge database, libsql.
+description: "Manage databases and groups via Turso. Use when the user mentions turso, database, sqlite, edge database, libsql."
 version: 1.0.0
 skill_type: external
 base_url_env: TURSO_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires TURSO_BASE_URL and TURSO_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Turso-Database
 
 Manage databases and groups via Turso. Use when the user mentions turso, database, sqlite, edge database, libsql.
+
 
 ## API Endpoints
 
@@ -59,3 +63,14 @@ Manage databases and groups via Turso. Use when the user mentions turso, databas
 **Create Group:**
 ```json
 {"name": "us-east-production", "location": "iad"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

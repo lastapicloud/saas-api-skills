@@ -1,7 +1,6 @@
 ---
 name: openai-api
-description: Generate text, embeddings, and images via OpenAI API. Use when the user
-  mentions openai, gpt, chat, completion, embedding, image, dall-e, ai.
+description: "Generate text, embeddings, and images via OpenAI API. Use when the user mentions openai, gpt, chat, completion, embedding, image, dall-e, ai."
 version: 1.0.0
 skill_type: external
 base_url_env: OPENAI_API_BASE_URL
@@ -21,11 +20,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires OPENAI_API_BASE_URL and OPENAI_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Openai-Api
 
 Generate text, embeddings, and images via OpenAI API. Use when the user mentions openai, gpt, chat, completion, embedding, image, dall-e, ai.
+
 
 ## API Endpoints
 
@@ -81,3 +85,14 @@ Generate text, embeddings, and images via OpenAI API. Use when the user mentions
 ```json
 {"model": "text-embedding-3-small", "input": "Sample text for embedding"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

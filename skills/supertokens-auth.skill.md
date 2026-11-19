@@ -1,7 +1,6 @@
 ---
 name: supertokens-auth
-description: Manage users and sessions via SuperTokens. Use when the user mentions
-  supertokens, auth, authentication, user, session, recipe.
+description: "Manage users and sessions via SuperTokens. Use when the user mentions supertokens, auth, authentication, user, session, recipe."
 version: 1.0.0
 skill_type: external
 base_url_env: SUPERTOKENS_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires SUPERTOKENS_BASE_URL and SUPERTOKENS_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Supertokens-Auth
 
 Manage users and sessions via SuperTokens. Use when the user mentions supertokens, auth, authentication, user, session, recipe.
+
 
 ## API Endpoints
 
@@ -64,3 +68,14 @@ Manage users and sessions via SuperTokens. Use when the user mentions supertoken
 ```json
 {"userId": "abc123-def456"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

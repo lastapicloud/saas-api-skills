@@ -1,7 +1,6 @@
 ---
 name: trello-boards
-description: Manage boards, lists, and cards in Trello. Use when the user mentions
-  trello, board, card, list, kanban.
+description: "Manage boards, lists, and cards in Trello. Use when the user mentions trello, board, card, list, kanban."
 version: 1.0.0
 skill_type: external
 base_url_env: TRELLO_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires TRELLO_BASE_URL and TRELLO_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Trello-Boards
 
 Manage boards, lists, and cards in Trello. Use when the user mentions trello, board, card, list, kanban.
+
 
 ## API Endpoints
 
@@ -88,3 +92,14 @@ Manage boards, lists, and cards in Trello. Use when the user mentions trello, bo
 ```json
 {"text": "This has been resolved in the latest deploy"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

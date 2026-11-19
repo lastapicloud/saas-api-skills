@@ -1,8 +1,6 @@
 ---
 name: breezyhr-ats
-description: Manage candidates, positions, and pipelines in Breezy HR ATS. Use when
-  the user mentions breezy hr, breezyhr, breezy candidate, breezy position, breezy
-  hiring.
+description: "Manage candidates, positions, and pipelines in Breezy HR ATS. Use when the user mentions breezy hr, breezyhr, breezy candidate, breezy position, breezy hiring."
 version: 1.0.0
 skill_type: external
 base_url_env: BREEZYHR_BASE_URL
@@ -19,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires BREEZYHR_BASE_URL and BREEZYHR_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Breezyhr-Ats
 
 Manage candidates, positions, and pipelines in Breezy HR ATS. Use when the user mentions breezy hr, breezyhr, breezy candidate, breezy position, breezy hiring.
+
 
 ## API Endpoints
 
@@ -73,3 +76,14 @@ Manage candidates, positions, and pipelines in Breezy HR ATS. Use when the user 
 ```json
 {"name": "Senior Software Engineer", "description": "Build scalable systems", "type": "full-time"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

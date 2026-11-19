@@ -1,10 +1,6 @@
 ---
 name: stripe-payments
-description: "Complete Stripe payment processing \u2014 customers, payment intents,\
-  \ subscriptions, invoices, products, prices, refunds, disputes, payouts, checkout,\
-  \ coupons, webhooks, and balance. Use when the user mentions stripe, payment, charge,\
-  \ invoice, subscription, customer, refund, billing, checkout, payout, dispute, product,\
-  \ price, coupon. (API 2022-11-15)"
+description: "Complete Stripe payment processing \u2014 customers, payment intents, subscriptions, invoices, products, prices, refunds, disputes, payouts, checkout, coupons, webhooks, and balance. Use when the user mentions stripe, payment, charge, invoice, subscription, customer, refund, billing, checkout, payout, dispute, product, price, coupon. (API 2022-11-15). Native /stripe/* routes are available when STRIPE_SECRET_KEY is set (preferred). Falls back to STRIPE_API_KEY for backward compatibility."
 version: 1.0.0
 skill_type: external
 base_url_env: STRIPE_BASE_URL
@@ -23,48 +19,57 @@ license: Apache-2.0
 metadata:
   author: lastapi
   version: 2.0.0
-compatibility: Requires STRIPE_BASE_URL and STRIPE_API_KEY environment variables.
+compatibility: 'External skill: Requires STRIPE_BASE_URL and STRIPE_API_KEY environment
+  variables. Native routes: Set STRIPE_SECRET_KEY (and optionally STRIPE_PUBLISHABLE_KEY,
+  STRIPE_WEBHOOK_SECRET) to enable /stripe/* endpoints directly in this API.
+
+  '
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Stripe-Payments
 
-Complete Stripe payment processing — customers, payment intents, subscriptions, invoices, products, prices, refunds, disputes, payouts, checkout, coupons, webhooks, and balance. Use when the user mentions stripe, payment, charge, invoice, subscription, customer, refund, billing, checkout, payout, dispute, product, price, coupon. (API 2022-11-15)
+Complete Stripe payment processing — customers, payment intents, subscriptions, invoices, products, prices, refunds, disputes, payouts, checkout, coupons, webhooks, and balance. Use when the user mentions stripe, payment, charge, invoice, subscription, customer, refund, billing, checkout, payout, dispute, product, price, coupon. (API 2022-11-15). Native /stripe/* routes are available when STRIPE_SECRET_KEY is set (preferred). Falls back to STRIPE_API_KEY for backward compatibility.
+
 
 ## API Endpoints
 
-- **GET** `/v1/products/search` - <p>Search for products you’ve previously created using Stripe’s <a href="/docs/search#search-query-language">Search
-- **POST** `/v1/products` - <p>Creates a new product object.</p>
-- **DELETE** `/v1/products/{id}` - <p>Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting
-- **GET** `/v1/coupons` - <p>Returns a list of your coupons.</p>
-- **POST** `/v1/coupons` - <p>You can create coupons easily via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of
-- **DELETE** `/v1/coupons/{coupon}` - <p>You can delete coupons via the <a href="https://dashboard.stripe.com/coupons">coupon management</a> page of the
-- **GET** `/v1/invoiceitems` - <p>Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently
-- **POST** `/v1/invoiceitems` - <p>Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item
-- **DELETE** `/v1/invoiceitems/{invoiceitem}` - <p>Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they’re not
-- **GET** `/v1/plans` - <p>Returns a list of your plans.</p>
-- **POST** `/v1/plans` - <p>You can now model subscriptions more flexibly using the <a href="#prices">Prices API</a>. It replaces the Plans API
-- **DELETE** `/v1/plans/{plan}` - <p>Deleting plans means new subscribers can’t be added. Existing subscribers aren’t affected.</p>
-- **GET** `/v1/subscriptions/search` - <p>Search for subscriptions you’ve previously created using Stripe’s <a
-- **POST** `/v1/subscriptions` - <p>Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled
-- **DELETE** `/v1/subscriptions/{subscription_exposed_id}` - <p>Cancels a customer’s subscription immediately. The customer will not be charged again for the
+- **GET** `/v1/products/search` - Search for products you’ve previously created using Stripe’s Search
+- **POST** `/v1/products` - Creates a new product object.
+- **DELETE** `/v1/products/{id}` - Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting
+- **GET** `/v1/coupons` - Returns a list of your coupons.
+- **POST** `/v1/coupons` - You can create coupons easily via the coupon management page of
+- **DELETE** `/v1/coupons/{coupon}` - You can delete coupons via the coupon management page of the
+- **GET** `/v1/invoiceitems` - Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently
+- **POST** `/v1/invoiceitems` - Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item
+- **DELETE** `/v1/invoiceitems/{invoiceitem}` - Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they’re not
+- **GET** `/v1/plans` - Returns a list of your plans.
+- **POST** `/v1/plans` - You can now model subscriptions more flexibly using the Prices API. It replaces the Plans API
+- **DELETE** `/v1/plans/{plan}` - Deleting plans means new subscribers can’t be added. Existing subscribers aren’t affected.
+- **GET** `/v1/subscriptions/search` - Search for subscriptions you’ve previously created using Stripe’s Pri (POST /v1/plans)
+- **GET** `/v1/webhook_endpoints` - List all webhook endpoints
+- **POST** `/v1/webhook_endpoints` - Create a webhook endpoint
 
 ## Actions
 
-- search: <p>Search for products you’ve previously created using Stripe’s <a href="/docs/s (GET /v1/products/search)
-- create: <p>Creates a new product object.</p> (POST /v1/products)
-- delete: <p>Delete a product. Deleting a product is only possible if it has no prices ass (DELETE /v1/products/{id})
-- list: <p>Returns a list of your coupons.</p> (GET /v1/coupons)
-- create_coupons: <p>You can create coupons easily via the <a href="https://dashboard.stripe.com/c (POST /v1/coupons)
-- delete_coupons: <p>You can delete coupons via the <a href="https://dashboard.stripe.com/coupons" (DELETE /v1/coupons/{coupon})
-- list_invoiceitems: <p>Returns a list of your invoice items. Invoice items are returned sorted by cr (GET /v1/invoiceitems)
-- create_invoiceitems: <p>Creates an item to be added to a draft invoice (up to 250 items per invoice). (POST /v1/invoiceitems)
-- delete_invoiceitems: <p>Deletes an invoice item, removing it from an invoice. Deleting invoice items (DELETE /v1/invoiceitems/{invoiceitem})
-- list_plans: <p>Returns a list of your plans.</p> (GET /v1/plans)
-- create_plans: <p>You can now model subscriptions more flexibly using the <a href="#prices">Pri (POST /v1/plans)
-- delete_plans: <p>Deleting plans means new subscribers can’t be added. Existing subscribers are (DELETE /v1/plans/{plan})
-- search_subscriptions: <p>Search for subscriptions you’ve previously created using Stripe’s <a (GET /v1/subscriptions/search)
-- create_subscriptions: <p>Creates a new subscription on an existing customer. Each customer can have up (POST /v1/subscriptions)
-- delete_subscriptions: <p>Cancels a customer’s subscription immediately. The customer will not be charg (DELETE /v1/subscriptions/{subscription_exposed_id})
+- search: Search for products you’ve previously created using Stripe’s Search (GET /v1/products/search)
+- create: Creates a new product object. (POST /v1/products)
+- delete: Delete a product. Deleting a product is only possible if it has no prices associ (DELETE /v1/products/{id})
+- list: Returns a list of your coupons. (GET /v1/coupons)
+- create_coupons: You can create coupons easily via the coupon management page of (POST /v1/coupons)
+- delete_coupons: You can delete coupons via the coupon management page of the (DELETE /v1/coupons/{coupon})
+- list_invoiceitems: Returns a list of your invoice items. Invoice items are returned sorted by creat (GET /v1/invoiceitems)
+- create_invoiceitems: Creates an item to be added to a draft invoice (up to 250 items per invoice). If (POST /v1/invoiceitems)
+- delete_invoiceitems: Deletes an invoice item, removing it from an invoice. Deleting invoice items is (DELETE /v1/invoiceitems/{invoiceitem})
+- list_plans: Returns a list of your plans. (GET /v1/plans)
+- create_plans: You can now model subscriptions more flexibly using the Prices API. It replaces (POST /v1/plans)
+- delete_plans: Deleting plans means new subscribers can’t be added. Existing subscribers aren’t (DELETE /v1/plans/{plan})
+- search_subscriptions: Search for subscriptions you’ve previously created using Stripe’s Pri (POST /v1/ (GET /v1/subscriptions/search)
+- list_webhook_endpoints: List all webhook endpoints (GET /v1/webhook_endpoints)
+- create_webhook_endpoints: Create a webhook endpoint (POST /v1/webhook_endpoints)
 
 ## Fields
 
@@ -209,3 +214,26 @@ amount=10000&currency=usd&method=standard
 ```
 url=https://myapp.com/stripe-webhooks&enabled_events[]=payment_intent.succeeded&enabled_events[]=customer.created&enabled_events[]=invoice.paid
 ```
+
+## Response
+
+**get_webhook_endpoints response:**
+- `data`: array
+- `has_more`: boolean — True if this list has another page of items after this one that can be fetched.
+- `object`: string — String representing the object's type. Objects of the same type share the same value. Always has the
+- `url`: string — The URL where this list can be accessed.
+
+## Error Responses
+
+Stripe returns errors as JSON with `type`, `code`, and `message` fields inside an `error` object.
+
+| Status | Error Type | Meaning |
+|--------|-----------|---------|
+| 400 | `invalid_request_error` | Missing required parameter, invalid value, or malformed request |
+| 401 | `authentication_error` | Invalid API key or expired token |
+| 402 | `card_error` | Card declined, insufficient funds, or card-specific failure (code: `card_declined`, `insufficient_funds`, `expired_card`) |
+| 403 | `invalid_request_error` | Restricted API key lacks permission for this endpoint |
+| 404 | `invalid_request_error` | Resource not found (invalid ID format or deleted object) |
+| 409 | `idempotency_error` | Idempotency key reused with different parameters |
+| 429 | `rate_limit_error` | Too many requests — retry with exponential backoff |
+| 500 | `api_error` | Stripe server error — retry is safe |

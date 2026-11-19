@@ -1,8 +1,6 @@
 ---
 name: greenhouse-ats
-description: Manage candidates, jobs, and applications in Greenhouse ATS. Use when
-  the user mentions greenhouse, greenhouse candidate, greenhouse job, greenhouse application,
-  greenhouse hiring.
+description: "Manage candidates, jobs, and applications in Greenhouse ATS. Use when the user mentions greenhouse, greenhouse candidate, greenhouse job, greenhouse application, greenhouse hiring."
 version: 1.0.0
 skill_type: external
 base_url_env: GREENHOUSE_BASE_URL
@@ -19,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires GREENHOUSE_BASE_URL and GREENHOUSE_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Greenhouse-Ats
 
 Manage candidates, jobs, and applications in Greenhouse ATS. Use when the user mentions greenhouse, greenhouse candidate, greenhouse job, greenhouse application, greenhouse hiring.
+
 
 ## API Endpoints
 
@@ -76,3 +79,14 @@ Manage candidates, jobs, and applications in Greenhouse ATS. Use when the user m
 ```json
 {"job_id": 123, "candidate_id": 456, "source_id": 789}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

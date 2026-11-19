@@ -1,10 +1,6 @@
 ---
 name: github-repos
-description: "Complete GitHub API integration \u2014 repositories, issues, pull requests,\
-  \ branches, commits, actions/workflows, releases, organizations, users, gists, and\
-  \ search. Use when the user mentions github, repo, repository, issue, pull request,\
-  \ PR, commit, code, branch, release, workflow, actions, gist, organization, org,\
-  \ merge, fork, collaborator, milestone, label."
+description: "Complete GitHub API integration \u2014 repositories, issues, pull requests, branches, commits, actions/workflows, releases, organizations, users, gists, and search. Use when the user mentions github, repo, repository, issue, pull request, PR, commit, code, branch, release, workflow, actions, gist, organization, org, merge, fork, collaborator, milestone, label."
 version: 1.0.0
 skill_type: external
 base_url_env: GITHUB_API_BASE_URL
@@ -24,11 +20,16 @@ metadata:
   author: lastapi
   version: 2.0.0
 compatibility: Requires GITHUB_API_BASE_URL and GITHUB_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Github-Repos
 
 Complete GitHub API integration — repositories, issues, pull requests, branches, commits, actions/workflows, releases, organizations, users, gists, and search. Use when the user mentions github, repo, repository, issue, pull request, PR, commit, code, branch, release, workflow, actions, gist, organization, org, merge, fork, collaborator, milestone, label.
+
 
 ## API Endpoints
 
@@ -237,3 +238,18 @@ Query parameter: `q=tetris+language:python+stars:>100&sort=stars&order=desc`
 
 **Search Issues (Query Params):**
 Query parameter: `q=bug+label:bug+state:open+repo:owner/repo&sort=created&order=desc`
+
+## Error Responses
+
+GitHub returns errors as JSON with a `message` field and optional `errors` array with `code`, `resource`, and `field` details.
+
+| Status | Meaning |
+|--------|---------|
+| 401 | Bad credentials — invalid or expired token |
+| 403 | Forbidden — rate limit exceeded (check `X-RateLimit-Remaining` header), or insufficient token scope |
+| 404 | Resource not found — or private repo the token cannot access |
+| 409 | Conflict — e.g., merge conflict, repository is empty, Git LFS conflict |
+| 422 | Validation failed — missing required field, invalid value, or resource already exists (code: `missing`, `invalid`, `already_exists`, `missing_field`, `custom`) |
+| 429 | Rate limited — secondary rate limit exceeded, retry after `Retry-After` seconds |
+| 500 | Internal server error |
+| 503 | Service unavailable — GitHub is down or overloaded |

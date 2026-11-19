@@ -1,8 +1,6 @@
 ---
 name: pipedrive-crm
-description: Manage deals, contacts, organizations, and pipelines in Pipedrive. Use
-  when the user mentions pipedrive, deal, contact, person, organization, pipeline,
-  CRM, lead.
+description: "Manage deals, contacts, organizations, and pipelines in Pipedrive. Use when the user mentions pipedrive, deal, contact, person, organization, pipeline, CRM, lead."
 version: 1.0.0
 skill_type: external
 base_url_env: PIPEDRIVE_BASE_URL
@@ -22,11 +20,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires PIPEDRIVE_BASE_URL and PIPEDRIVE_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Pipedrive-Crm
 
 Manage deals, contacts, organizations, and pipelines in Pipedrive. Use when the user mentions pipedrive, deal, contact, person, organization, pipeline, CRM, lead.
+
 
 ## API Endpoints
 
@@ -97,3 +100,14 @@ Manage deals, contacts, organizations, and pipelines in Pipedrive. Use when the 
 ```json
 {"name": "Acme Corp"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

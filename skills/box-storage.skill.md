@@ -1,7 +1,6 @@
 ---
 name: box-storage
-description: Manage Box files, folders, and collaborations. Use when the user mentions
-  box, file, folder, upload, storage, collaboration.
+description: "Manage Box files, folders, and collaborations. Use when the user mentions box, file, folder, upload, storage, collaboration."
 version: 1.0.0
 skill_type: external
 base_url_env: BOX_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires BOX_BASE_URL and BOX_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Box-Storage
 
 Manage Box files, folders, and collaborations. Use when the user mentions box, file, folder, upload, storage, collaboration.
+
 
 ## API Endpoints
 
@@ -80,3 +84,14 @@ Manage Box files, folders, and collaborations. Use when the user mentions box, f
 ```json
 {"accessible_by": {"type": "user", "login": "colleague@example.com"}, "item": {"type": "folder", "id": "98765"}, "role": "editor"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

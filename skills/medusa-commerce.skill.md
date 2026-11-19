@@ -1,7 +1,6 @@
 ---
 name: medusa-commerce
-description: Manage products and orders via Medusa e-commerce. Use when the user mentions
-  medusa, product, order, customer, cart, ecommerce, headless commerce.
+description: "Manage products and orders via Medusa e-commerce. Use when the user mentions medusa, product, order, customer, cart, ecommerce, headless commerce."
 version: 1.0.0
 skill_type: external
 base_url_env: MEDUSA_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires MEDUSA_BASE_URL and MEDUSA_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Medusa-Commerce
 
 Manage products and orders via Medusa e-commerce. Use when the user mentions medusa, product, order, customer, cart, ecommerce, headless commerce.
+
 
 ## API Endpoints
 
@@ -65,3 +69,14 @@ Manage products and orders via Medusa e-commerce. Use when the user mentions med
 ```json
 {"title": "Premium T-Shirt v2", "status": "draft"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

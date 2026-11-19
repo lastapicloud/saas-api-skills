@@ -20,7 +20,6 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://openapi.logto.io/
-compatibility: Requires LOGTO_BASE_URL and LOGTO_API_KEY environment variables.
 ---
 
 # Logto-Auth

@@ -1,7 +1,6 @@
 ---
 name: clickup-tasks
-description: Create, search, and manage ClickUp tasks, lists, and spaces. Use when
-  the user mentions clickup, click up.
+description: "Create, search, and manage ClickUp tasks, lists, and spaces. Use when the user mentions clickup, click up."
 version: 1.0.0
 skill_type: external
 base_url_env: CLICKUP_BASE_URL
@@ -10,16 +9,22 @@ auth_type: bearer
 triggers:
   - clickup
   - click up
+  - tasks
 license: Apache-2.0
 metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires CLICKUP_BASE_URL and CLICKUP_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Clickup-Tasks
 
 Create, search, and manage ClickUp tasks, lists, and spaces. Use when the user mentions clickup, click up.
+
 
 ## API Endpoints
 
@@ -66,3 +71,14 @@ Create, search, and manage ClickUp tasks, lists, and spaces. Use when the user m
 ```json
 {"name": "Fix login bug (urgent)", "priority": 1, "status": "In Progress"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

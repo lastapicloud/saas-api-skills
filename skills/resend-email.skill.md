@@ -1,7 +1,6 @@
 ---
 name: resend-email
-description: Send transactional emails and manage domains via the Resend API. Use
-  when the user mentions resend, email, send email, transactional.
+description: "Send transactional emails and manage domains via the Resend API. Use when the user mentions resend, email, send email, transactional."
 version: 1.0.0
 skill_type: external
 base_url_env: RESEND_BASE_URL
@@ -17,11 +16,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires RESEND_BASE_URL and RESEND_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Resend-Email
 
 Send transactional emails and manage domains via the Resend API. Use when the user mentions resend, email, send email, transactional.
+
 
 ## API Endpoints
 
@@ -73,10 +77,21 @@ Send transactional emails and manage domains via the Resend API. Use when the us
 
 **Send Email:**
 ```json
-{"from": "noreply@example.com", "to": ["user@example.com"], "subject": "Hello", "html": "<p>Hello from PythonREST!</p>"}
+{"from": "noreply@example.com", "to": ["user@example.com"], "subject": "Hello", "html": "Hello from PythonREST!"}
 ```
 
 **Create Domain:**
 ```json
 {"name": "example.com"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

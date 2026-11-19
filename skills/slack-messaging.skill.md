@@ -1,9 +1,6 @@
 ---
 name: slack-messaging
-description: "Complete Slack workspace management \u2014 messages, conversations,\
-  \ users, files, reactions, search, bookmarks, reminders, and app permissions. Use\
-  \ when the user mentions slack, message, channel, DM, notify, chat, send message,\
-  \ thread, conversation, reaction, file, reminder, bookmark."
+description: "Complete Slack workspace management \u2014 messages, conversations, users, files, reactions, search, bookmarks, reminders, and app permissions. Use when the user mentions slack, message, channel, DM, notify, chat, send message, thread, conversation, reaction, file, reminder, bookmark."
 version: 1.0.0
 skill_type: external
 base_url_env: SLACK_BASE_URL
@@ -23,11 +20,16 @@ metadata:
   author: lastapi
   version: 2.0.0
 compatibility: Requires SLACK_BASE_URL and SLACK_BOT_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Slack-Messaging
 
 Complete Slack workspace management — messages, conversations, users, files, reactions, search, bookmarks, reminders, and app permissions. Use when the user mentions slack, message, channel, DM, notify, chat, send message, thread, conversation, reaction, file, reminder, bookmark.
+
 
 ## API Endpoints
 
@@ -272,3 +274,43 @@ Query parameter: `types=public_channel,private_channel&exclude_archived=true&lim
 
 **Get Channel History (Query Params):**
 Query parameter: `channel=C01ABCDEF&limit=25&oldest=1700000000.000000`
+
+## Response
+
+Slack returns `{"ok": true, ...}` on success, `{"ok": false, "error": "code"}` on failure.
+
+**send_message response:**
+- `ok`: boolean — true on success
+- `channel`: string — Channel ID (e.g., "C024BE91L")
+- `ts`: string — Message timestamp, use as message ID (e.g., "1503435956.000247")
+- `message.text`: string — Final rendered message text
+
+**list_channels response:**
+- `ok`: boolean
+- `channels[]`: array of channel objects
+- `channels[].id`: string — Channel ID (C-prefixed)
+- `channels[].name`: string — Channel name
+- `channels[].is_private`: boolean
+- `channels[].num_members`: integer
+- `response_metadata.next_cursor`: string — Pagination cursor
+
+## Error Responses
+
+Slack returns HTTP 200 with `{"ok": false, "error": "code"}` for most errors. HTTP 429 for rate limits.
+
+| Error Code | Meaning |
+|------------|---------|
+| `channel_not_found` | Channel ID doesn't exist or bot lacks access |
+| `not_in_channel` | Bot must join the channel first (call join_channel) |
+| `is_archived` | Cannot post to archived channel |
+| `no_text` | Message has no text, blocks, or attachments |
+| `msg_too_long` | Message text exceeds 40,000 character limit |
+| `too_many_attachments` | More than 100 attachments |
+| `invalid_blocks` | Block Kit JSON is malformed |
+| `not_authed` | Invalid or missing bot token |
+| `missing_scope` | Token lacks required scope (needs chat:write) |
+| `rate_limited` | Rate limit: 1 msg/sec/channel, ~100/min workspace-wide |
+| `name_taken` | Channel name already exists (for create_channel) |
+| `invalid_name_specials` | Channel name has invalid characters |
+| `user_not_found` | User ID doesn't exist (for invite/kick) |
+| `cant_kick_self` | Cannot remove yourself from channel |

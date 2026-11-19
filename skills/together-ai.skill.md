@@ -1,7 +1,6 @@
 ---
 name: together-ai
-description: Run inference via Together AI. Use when the user mentions together ai,
-  together, llm, chat, inference, embedding.
+description: "Run inference via Together AI. Use when the user mentions together ai, together, llm, chat, inference, embedding."
 version: 1.0.0
 skill_type: external
 base_url_env: TOGETHER_AI_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires TOGETHER_AI_BASE_URL and TOGETHER_AI_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Together-Ai
 
 Run inference via Together AI. Use when the user mentions together ai, together, llm, chat, inference, embedding.
+
 
 ## API Endpoints
 
@@ -62,3 +66,14 @@ Run inference via Together AI. Use when the user mentions together ai, together,
 **Create Embeddings:**
 ```json
 {"model": "togethercomputer/m2-bert-80M-8k-retrieval", "input": "The quick brown fox jumps over the lazy dog"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: meistertask-tasks
-description: Manage projects and tasks via MeisterTask. Use when the user mentions
-  meistertask, task, project, kanban, board.
+description: "Manage projects and tasks via MeisterTask. Use when the user mentions meistertask, task, project, kanban, board."
 version: 1.0.0
 skill_type: external
 base_url_env: MEISTERTASK_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires MEISTERTASK_BASE_URL and MEISTERTASK_API_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Meistertask-Tasks
 
 Manage projects and tasks via MeisterTask. Use when the user mentions meistertask, task, project, kanban, board.
+
 
 ## API Endpoints
 
@@ -64,3 +68,14 @@ Manage projects and tasks via MeisterTask. Use when the user mentions meistertas
 ```json
 {"name": "Update homepage hero section", "section_id": 456, "notes": "Replace current banner with new design"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

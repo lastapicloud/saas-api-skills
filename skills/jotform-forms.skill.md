@@ -1,7 +1,6 @@
 ---
 name: jotform-forms
-description: Manage forms and submissions via JotForm. Use when the user mentions
-  jotform, form, submission, survey, field.
+description: "Manage forms and submissions via JotForm. Use when the user mentions jotform, form, submission, survey, field."
 version: 1.0.0
 skill_type: external
 base_url_env: JOTFORM_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires JOTFORM_BASE_URL and JOTFORM_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Jotform-Forms
 
 Manage forms and submissions via JotForm. Use when the user mentions jotform, form, submission, survey, field.
+
 
 ## API Endpoints
 
@@ -62,3 +66,14 @@ Manage forms and submissions via JotForm. Use when the user mentions jotform, fo
 ```json
 {"questions": [{"type": "control_textbox", "text": "Full Name"}, {"type": "control_email", "text": "Email Address"}]}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

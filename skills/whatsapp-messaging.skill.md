@@ -1,7 +1,6 @@
 ---
 name: whatsapp-messaging
-description: Send messages via WhatsApp Business Cloud API. Use when the user mentions
-  whatsapp, message, template, phone.
+description: "Send messages via WhatsApp Business Cloud API. Use when the user mentions whatsapp, message, template, phone."
 version: 1.0.0
 skill_type: external
 base_url_env: WHATSAPP_BASE_URL
@@ -17,11 +16,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires WHATSAPP_BASE_URL and WHATSAPP_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Whatsapp-Messaging
 
 Send messages via WhatsApp Business Cloud API. Use when the user mentions whatsapp, message, template, phone.
+
 
 ## API Endpoints
 
@@ -78,3 +82,14 @@ Send messages via WhatsApp Business Cloud API. Use when the user mentions whatsa
 ```json
 {"messaging_product": "whatsapp", "to": "15551234567", "type": "template", "template": {"name": "order_confirmation", "language": {"code": "en_US"}}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

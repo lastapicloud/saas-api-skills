@@ -1,8 +1,6 @@
 ---
 name: checkmarx-sca
-description: Manage security scans, projects, and view scan results via the Checkmarx
-  One API. Use when the user mentions checkmarx, SAST, DAST, checkmarx scan, checkmarx
-  project, application security testing, CxOne.
+description: "Manage security scans, projects, and view scan results via the Checkmarx One API. Use when the user mentions checkmarx, SAST, DAST, checkmarx scan, checkmarx project, application security testing, CxOne."
 version: 1.0.0
 skill_type: external
 base_url_env: CHECKMARX_BASE_URL
@@ -21,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires CHECKMARX_BASE_URL and CHECKMARX_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Checkmarx-Sca
 
 Manage security scans, projects, and view scan results via the Checkmarx One API. Use when the user mentions checkmarx, SAST, DAST, checkmarx scan, checkmarx project, application security testing, CxOne.
+
 
 ## API Endpoints
 
@@ -73,3 +76,14 @@ Manage security scans, projects, and view scan results via the Checkmarx One API
 ```json
 {"project": {"id": "project-uuid"}, "type": "git", "handler": {"repoUrl": "https://github.com/org/repo", "branch": "main"}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,9 +1,6 @@
 ---
 name: twilio-messaging
-description: "Complete Twilio communications platform \u2014 SMS, MMS, voice calls,\
-  \ WhatsApp, conversations, phone numbers, verify, usage records, and account management.\
-  \ Use when the user mentions twilio, SMS, text, call, phone, WhatsApp, voice, message,\
-  \ verify, OTP, number."
+description: "Complete Twilio communications platform \u2014 SMS, MMS, voice calls, WhatsApp, conversations, phone numbers, verify, usage records, and account management. Use when the user mentions twilio, SMS, text, call, phone, WhatsApp, voice, message, verify, OTP, number."
 version: 1.0.0
 skill_type: external
 base_url_env: TWILIO_BASE_URL
@@ -24,11 +21,16 @@ metadata:
   author: lastapi
   version: 2.0.0
 compatibility: Requires TWILIO_BASE_URL and TWILIO_AUTH_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Twilio-Messaging
 
 Complete Twilio communications platform — SMS, MMS, voice calls, WhatsApp, conversations, phone numbers, verify, usage records, and account management. Use when the user mentions twilio, SMS, text, call, phone, WhatsApp, voice, message, verify, OTP, number.
+
 
 ## API Endpoints
 
@@ -247,3 +249,19 @@ FriendlyName=Client+ABC+Subaccount
 ```
 FriendlyName=Updated+Label&VoiceUrl=https://myapp.com/new-voice-handler&SmsUrl=https://myapp.com/new-sms-handler
 ```
+
+## Error Responses
+
+Twilio returns errors as JSON with `code` (Twilio-specific integer), `message`, `status` (HTTP status), and `more_info` (URL to documentation).
+
+| Status | Code | Meaning |
+|--------|------|---------|
+| 400 | 21211 | Invalid `To` phone number — not a valid E.164 number |
+| 400 | 21212 | Invalid `From` phone number — not a Twilio number or not enabled for SMS |
+| 400 | 21602 | Message `Body` is required when no `MediaUrl` is provided |
+| 400 | 21610 | Recipient unsubscribed — they replied STOP |
+| 400 | 21408 | Permission to send SMS not enabled for the account region |
+| 401 | 20003 | Permission denied — invalid Account SID or Auth Token |
+| 404 | 20404 | Resource not found — invalid SID format or deleted resource |
+| 429 | 20429 | Too many requests — exceeded concurrency limit (check `Retry-After`) |
+| 500 | 20500 | Twilio internal server error — retry is safe |

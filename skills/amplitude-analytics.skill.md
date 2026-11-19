@@ -1,7 +1,6 @@
 ---
 name: amplitude-analytics
-description: Manage Amplitude events, user properties, and cohorts. Use when the user
-  mentions amplitude, analytics, event, cohort, user property.
+description: "Manage Amplitude events, user properties, and cohorts. Use when the user mentions amplitude, analytics, event, cohort, user property."
 version: 1.0.0
 skill_type: external
 base_url_env: AMPLITUDE_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires AMPLITUDE_BASE_URL and AMPLITUDE_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Amplitude-Analytics
 
 Manage Amplitude events, user properties, and cohorts. Use when the user mentions amplitude, analytics, event, cohort, user property.
+
 
 ## API Endpoints
 
@@ -68,3 +72,14 @@ Manage Amplitude events, user properties, and cohorts. Use when the user mention
 **Set User Properties:**
 ```json
 {"identification": [{"user_id": "user_123", "user_properties": {"plan": "premium", "signup_date": "2025-01-15"}}]}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

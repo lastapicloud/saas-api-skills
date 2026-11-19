@@ -1,7 +1,6 @@
 ---
 name: height-tasks
-description: Manage tasks and lists via Height. Use when the user mentions height,
-  task, list, project, workspace.
+description: "Manage tasks and lists via Height. Use when the user mentions height, task, list, project, workspace."
 version: 1.0.0
 skill_type: external
 base_url_env: HEIGHT_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires HEIGHT_BASE_URL and HEIGHT_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Height-Tasks
 
 Manage tasks and lists via Height. Use when the user mentions height, task, list, project, workspace.
+
 
 ## API Endpoints
 
@@ -64,3 +68,14 @@ Manage tasks and lists via Height. Use when the user mentions height, task, list
 ```json
 {"name": "Sprint 14", "description": "Tasks for the current sprint"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

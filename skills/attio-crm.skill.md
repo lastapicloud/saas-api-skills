@@ -1,7 +1,9 @@
 ---
 name: attio-crm
-description: Manage contacts, companies, and deals via Attio CRM. Use when the user
+description: 'Manage contacts, companies, and deals via Attio CRM. Use when the user
   mentions attio, crm, contact, company, deal, pipeline, lead.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: ATTIO_BASE_URL
@@ -20,11 +22,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires ATTIO_BASE_URL and ATTIO_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Attio-Crm
 
 Manage contacts, companies, and deals via Attio CRM. Use when the user mentions attio, crm, contact, company, deal, pipeline, lead.
+
 
 ## API Endpoints
 
@@ -51,21 +58,21 @@ Manage contacts, companies, and deals via Attio CRM. Use when the user mentions 
 - get_by_id: Get person by ID (GET /v2/objects/people/records/{record_id})
 - update: Update a person (PATCH /v2/objects/people/records/{record_id})
 - delete: Delete a person (DELETE /v2/objects/people/records/{record_id})
-- query_records: List companies (POST /v2/objects/companies/records/query)
-- create_records: Create a company (POST /v2/objects/companies/records)
+- list_companies: List companies (POST /v2/objects/companies/records/query)
+- create_company: Create a company (POST /v2/objects/companies/records)
 - list: List all lists (GET /v2/lists)
 - list_tasks: List tasks (GET /v2/tasks)
-- create_tasks: Create a task (POST /v2/tasks)
-- update_tasks: Update a task (PATCH /v2/tasks/{task_id})
-- delete_tasks: Delete a task (DELETE /v2/tasks/{task_id})
-- list_schemas: List SCIM schemas (GET /scim/v2/Schemas)
-- create_users: Create SCIM user (POST /scim/v2/Users)
-- update_users: Update SCIM user (PUT /scim/v2/Users/{user_id})
+- create_task: Create a task (POST /v2/tasks)
+- update_task: Update a task (PATCH /v2/tasks/{task_id})
+- delete_task: Delete a task (DELETE /v2/tasks/{task_id})
+- list_scim_schemas: List SCIM schemas (GET /scim/v2/Schemas)
+- create_scim_user: Create SCIM user (POST /scim/v2/Users)
+- update_scim_user: Update SCIM user (PUT /scim/v2/Users/{user_id})
 
 ## Fields
 
-- `values`: object [REQUIRED for create] (attribute values)
-- `record_id`: string [REQUIRED for get/update/delete]
+- `values`: object [REQUIRED for create] (attribute values) — Values configuration
+- `record_id`: string [REQUIRED for get/update/delete] — Record unique identifier
 
 ## Example Request Bodies
 
@@ -77,3 +84,24 @@ Manage contacts, companies, and deals via Attio CRM. Use when the user mentions 
 **Update Person:**
 ```json
 {"values": {"email_addresses": [{"email_address": "jane.doe@newdomain.com"}]}}
+
+## Response
+
+**Record object:**
+- `id`: string — Unique record identifier
+- `name`: string — Record name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

@@ -1,8 +1,6 @@
 ---
 name: mixpanel-analytics
-description: Track events, query analytics data, and manage user profiles in Mixpanel.
-  Use when the user mentions mixpanel, analytics, event, funnel, retention, user profile,
-  track.
+description: "Track events, query analytics data, and manage user profiles in Mixpanel. Use when the user mentions mixpanel, analytics, event, funnel, retention, user profile, track."
 version: 1.0.0
 skill_type: external
 base_url_env: MIXPANEL_BASE_URL
@@ -20,13 +18,20 @@ license: Apache-2.0
 metadata:
   author: lastapi
   version: 1.0.0
-compatibility: Requires MIXPANEL_BASE_URL and MIXPANEL_SERVICE_ACCOUNT_SECRET environment
+compatibility: 'Requires MIXPANEL_BASE_URL and MIXPANEL_SERVICE_ACCOUNT_SECRET environment
   variables.
+
+  '
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Mixpanel-Analytics
 
 Track events, query analytics data, and manage user profiles in Mixpanel. Use when the user mentions mixpanel, analytics, event, funnel, retention, user profile, track.
+
 
 ## API Endpoints
 
@@ -75,3 +80,14 @@ Track events, query analytics data, and manage user profiles in Mixpanel. Use wh
 ```json
 {"$token": "your_project_token", "$distinct_id": "user_123", "$set": {"$name": "Jane Doe", "plan": "premium"}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

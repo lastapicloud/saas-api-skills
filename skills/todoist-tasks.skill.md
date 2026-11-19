@@ -1,7 +1,9 @@
 ---
 name: todoist-tasks
-description: Manage Todoist tasks, projects, and labels. Use when the user mentions
+description: 'Manage Todoist tasks, projects, and labels. Use when the user mentions
   todoist, task, project, label.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: TODOIST_BASE_URL
@@ -17,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires TODOIST_BASE_URL and TODOIST_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Todoist-Tasks
 
 Manage Todoist tasks, projects, and labels. Use when the user mentions todoist, task, project, label.
+
 
 ## API Endpoints
 
@@ -43,21 +50,21 @@ Manage Todoist tasks, projects, and labels. Use when the user mentions todoist, 
 - create: Create a task (POST /rest/v2/tasks)
 - add_tasks: Update a task (POST /rest/v2/tasks/{taskId})
 - delete: Delete a task (DELETE /rest/v2/tasks/{taskId})
-- create_close: Close a task (POST /rest/v2/tasks/{taskId}/close)
+- close_task: Close a task (POST /rest/v2/tasks/{taskId}/close)
 - list_projects: List projects (GET /rest/v2/projects)
-- create_projects: Create a project (POST /rest/v2/projects)
+- create_project: Create a project (POST /rest/v2/projects)
 - list_labels: List labels (GET /rest/v2/labels)
 - list_sections: List sections (GET /rest/v2/sections)
 
 ## Fields
 
-- `content`: string [REQUIRED for create]
-- `project_id`: string [OPTIONAL]
-- `section_id`: string [OPTIONAL]
-- `description`: string [OPTIONAL]
-- `priority`: integer [OPTIONAL] (1-4, 4 is highest)
-- `due_string`: string [OPTIONAL] (e.g., "tomorrow", "every monday")
-- `labels`: array of strings [OPTIONAL]
+- `content`: string [REQUIRED for create] — Content body
+- `project_id`: string [OPTIONAL] — Project identifier
+- `section_id`: string [OPTIONAL] — Section unique identifier
+- `description`: string [OPTIONAL] — Human-readable description
+- `priority`: integer [OPTIONAL] (1-4, 4 is highest) — Priority level
+- `due_string`: string [OPTIONAL] (e.g., "tomorrow", "every monday") — Due String
+- `labels`: array of strings [OPTIONAL] — Labels or categories
 
 ## Example Request Bodies
 
@@ -70,3 +77,24 @@ Manage Todoist tasks, projects, and labels. Use when the user mentions todoist, 
 ```json
 {"name": "Q2 Sprint"}
 ```
+
+## Response
+
+**Task object:**
+- `id`: string — Unique task identifier
+- `name`: string — Task name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

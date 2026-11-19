@@ -1,7 +1,6 @@
 ---
 name: microsoft-teams
-description: Send messages, manage teams, channels, and chats in Microsoft Teams.
-  Use when the user mentions teams, microsoft teams, team, channel, chat, meeting.
+description: "Send messages, manage teams, channels, and chats in Microsoft Teams. Use when the user mentions teams, microsoft teams, team, channel, chat, meeting."
 version: 1.0.0
 skill_type: external
 base_url_env: MICROSOFT_TEAMS_BASE_URL
@@ -19,12 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires MICROSOFT_TEAMS_BASE_URL and MICROSOFT_TEAMS_ACCESS_TOKEN
-  environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Microsoft-Teams
 
 Send messages, manage teams, channels, and chats in Microsoft Teams. Use when the user mentions teams, microsoft teams, team, channel, chat, meeting.
+
 
 ## API Endpoints
 
@@ -82,3 +85,14 @@ Send messages, manage teams, channels, and chats in Microsoft Teams. Use when th
 ```json
 {"displayName": "Test Channel", "description": "A test channel"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

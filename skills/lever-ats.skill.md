@@ -1,8 +1,6 @@
 ---
 name: lever-ats
-description: Manage opportunities, candidates, and postings in Lever ATS. Use when
-  the user mentions lever, lever candidate, lever opportunity, lever posting, lever
-  hiring.
+description: "Manage opportunities, candidates, and postings in Lever ATS. Use when the user mentions lever, lever candidate, lever opportunity, lever posting, lever hiring."
 version: 1.0.0
 skill_type: external
 base_url_env: LEVER_BASE_URL
@@ -19,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires LEVER_BASE_URL and LEVER_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Lever-Ats
 
 Manage opportunities, candidates, and postings in Lever ATS. Use when the user mentions lever, lever candidate, lever opportunity, lever posting, lever hiring.
+
 
 ## API Endpoints
 
@@ -85,3 +88,14 @@ Manage opportunities, candidates, and postings in Lever ATS. Use when the user m
 ```json
 {"stage": "stage_abc123", "tags": ["senior", "engineering"]}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

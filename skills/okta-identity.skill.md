@@ -1,7 +1,6 @@
 ---
 name: okta-identity
-description: Manage Okta users, groups, and applications. Use when the user mentions
-  okta, user, identity, SSO, group, application.
+description: "Manage Okta users, groups, and applications. Use when the user mentions okta, user, identity, SSO, group, application."
 version: 1.0.0
 skill_type: external
 base_url_env: OKTA_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires OKTA_BASE_URL and OKTA_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Okta-Identity
 
 Manage Okta users, groups, and applications. Use when the user mentions okta, user, identity, SSO, group, application.
+
 
 ## API Endpoints
 
@@ -72,3 +76,14 @@ Manage Okta users, groups, and applications. Use when the user mentions okta, us
 ```json
 {"profile": {"name": "DevOps Team", "description": "Members of the DevOps team"}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

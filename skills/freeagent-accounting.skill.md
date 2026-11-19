@@ -1,7 +1,6 @@
 ---
 name: freeagent-accounting
-description: Manage invoices, contacts, and expenses via FreeAgent. Use when the user
-  mentions freeagent, accounting, invoice, expense, contact, bank.
+description: "Manage invoices, contacts, and expenses via FreeAgent. Use when the user mentions freeagent, accounting, invoice, expense, contact, bank."
 version: 1.0.0
 skill_type: external
 base_url_env: FREEAGENT_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires FREEAGENT_BASE_URL and FREEAGENT_ACCESS_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Freeagent-Accounting
 
 Manage invoices, contacts, and expenses via FreeAgent. Use when the user mentions freeagent, accounting, invoice, expense, contact, bank.
+
 
 ## API Endpoints
 
@@ -64,3 +68,14 @@ Manage invoices, contacts, and expenses via FreeAgent. Use when the user mention
 **Create Expense:**
 ```json
 {"contact": "https://api.freeagent.com/v2/contacts/123", "dated_on": "2025-06-10", "gross_value": "150.00"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

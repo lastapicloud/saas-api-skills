@@ -1,7 +1,6 @@
 ---
 name: helpscout-support
-description: Manage conversations and customers via Help Scout. Use when the user
-  mentions help scout, helpscout, conversation, mailbox, customer, support.
+description: "Manage conversations and customers via Help Scout. Use when the user mentions help scout, helpscout, conversation, mailbox, customer, support."
 version: 1.0.0
 skill_type: external
 base_url_env: HELPSCOUT_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires HELPSCOUT_BASE_URL and HELPSCOUT_ACCESS_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Helpscout-Support
 
 Manage conversations and customers via Help Scout. Use when the user mentions help scout, helpscout, conversation, mailbox, customer, support.
+
 
 ## API Endpoints
 
@@ -67,3 +71,14 @@ Manage conversations and customers via Help Scout. Use when the user mentions he
 ```json
 {"firstName": "Jane", "lastName": "Doe", "emails": [{"type": "work", "value": "jane@example.com"}]}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

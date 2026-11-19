@@ -1,7 +1,6 @@
 ---
 name: typesense-search
-description: Manage Typesense collections and search documents. Use when the user
-  mentions typesense, search, collection, document, index.
+description: "Manage Typesense collections and search documents. Use when the user mentions typesense, search, collection, document, index."
 version: 1.0.0
 skill_type: external
 base_url_env: TYPESENSE_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires TYPESENSE_BASE_URL and TYPESENSE_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Typesense-Search
 
 Manage Typesense collections and search documents. Use when the user mentions typesense, search, collection, document, index.
+
 
 ## API Endpoints
 
@@ -70,3 +74,14 @@ Manage Typesense collections and search documents. Use when the user mentions ty
 ```json
 {"q": "wireless keyboard", "query_by": "title", "filter_by": "price:<100", "sort_by": "price:asc"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

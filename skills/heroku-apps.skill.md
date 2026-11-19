@@ -1,7 +1,6 @@
 ---
 name: heroku-apps
-description: Manage apps, dynos, and addons via Heroku. Use when the user mentions
-  heroku, app, dyno, addon, deploy, platform.
+description: "Manage apps, dynos, and addons via Heroku. Use when the user mentions heroku, app, dyno, addon, deploy, platform."
 version: 1.0.0
 skill_type: external
 base_url_env: HEROKU_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires HEROKU_BASE_URL and HEROKU_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Heroku-Apps
 
 Manage apps, dynos, and addons via Heroku. Use when the user mentions heroku, app, dyno, addon, deploy, platform.
+
 
 ## API Endpoints
 
@@ -63,7 +67,7 @@ Manage apps, dynos, and addons via Heroku. Use when the user mentions heroku, ap
 
 ## Fields
 
-- `name`: string [OPTIONAL for create]
+- `name`: string [OPTIONAL for create [REQUIRED]]
 - `region`: string [OPTIONAL]
 - `stack`: string [OPTIONAL]
 
@@ -78,3 +82,14 @@ Manage apps, dynos, and addons via Heroku. Use when the user mentions heroku, ap
 ```json
 {"type": "web"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

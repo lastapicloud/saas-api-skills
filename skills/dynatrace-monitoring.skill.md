@@ -1,7 +1,6 @@
 ---
 name: dynatrace-monitoring
-description: Monitor applications and infrastructure via Dynatrace. Use when the user
-  mentions dynatrace, monitoring, apm, observability, metric, problem, host.
+description: "Monitor applications and infrastructure via Dynatrace. Use when the user mentions dynatrace, monitoring, apm, observability, metric, problem, host."
 version: 1.0.0
 skill_type: external
 base_url_env: DYNATRACE_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires DYNATRACE_BASE_URL and DYNATRACE_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Dynatrace-Monitoring
 
 Monitor applications and infrastructure via Dynatrace. Use when the user mentions dynatrace, monitoring, apm, observability, metric, problem, host.
+
 
 ## API Endpoints
 
@@ -65,3 +69,14 @@ Monitor applications and infrastructure via Dynatrace. Use when the user mention
 **Close Problem:**
 ```json
 {"message": "Issue resolved after scaling up resources"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

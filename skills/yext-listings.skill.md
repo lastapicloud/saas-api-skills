@@ -1,7 +1,6 @@
 ---
 name: yext-listings
-description: Manage business listings and reviews via Yext. Use when the user mentions
-  yext, listing, review, location, knowledge graph, local seo.
+description: "Manage business listings and reviews via Yext. Use when the user mentions yext, listing, review, location, knowledge graph, local seo."
 version: 1.0.0
 skill_type: external
 base_url_env: YEXT_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires YEXT_BASE_URL and YEXT_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Yext-Listings
 
 Manage business listings and reviews via Yext. Use when the user mentions yext, listing, review, location, knowledge graph, local seo.
+
 
 ## API Endpoints
 
@@ -61,3 +65,14 @@ Manage business listings and reviews via Yext. Use when the user mentions yext, 
 **Update Location:**
 ```json
 {"locationName": "Downtown Coffee & Tea", "address": {"line1": "123 Main St", "city": "Seattle", "region": "WA", "postalCode": "98101"}}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

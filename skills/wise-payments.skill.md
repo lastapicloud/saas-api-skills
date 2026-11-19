@@ -1,7 +1,6 @@
 ---
 name: wise-payments
-description: Manage transfers and accounts via Wise. Use when the user mentions wise,
-  transferwise, transfer, payment, currency, exchange.
+description: "Manage transfers and accounts via Wise. Use when the user mentions wise, transferwise, transfer, payment, currency, exchange."
 version: 1.0.0
 skill_type: external
 base_url_env: WISE_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires WISE_BASE_URL and WISE_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Wise-Payments
 
 Manage transfers and accounts via Wise. Use when the user mentions wise, transferwise, transfer, payment, currency, exchange.
+
 
 ## API Endpoints
 
@@ -39,6 +43,9 @@ Manage transfers and accounts via Wise. Use when the user mentions wise, transfe
 - **GET** `/v2/locations` - Unpaginated geojson response
 - **GET** `/v2/locations/markers` - Unpaginated geojson response with simplestyled markers
 - **GET** `/v2/incidents/{id}`
+- **GET** `/access-policies` - Retrieves a paginated list of access policies for an identity (an IAM Identity Center user, an IAM Identity Center
+- **POST** `/access-policies` - Creates an access policy that grants the specified identity (IAM Identity Center user, IAM Identity Center group, or
+- **PUT** `/access-policies/{accessPolicyId}` - Updates an existing access policy that specifies an identity's access to an IoT SiteWise Monitor portal or project
 
 ## Actions
 
@@ -54,6 +61,9 @@ Manage transfers and accounts via Wise. Use when the user mentions wise, transfe
 - list_locations: Unpaginated geojson response (GET /v2/locations)
 - list_markers: Unpaginated geojson response with simplestyled markers (GET /v2/locations/markers)
 - get_by_id_incidents: GET /v2/incidents/{id} (GET /v2/incidents/{id})
+- list_access_policies: Retrieves a paginated list of access policies for an identity (an IAM Identity C (GET /access-policies)
+- create_access_policy: Creates an access policy that grants the specified identity (IAM Identity Center (POST /access-policies)
+- update_access_policy: Updates an existing access policy that specifies an identity's access to an IoT (PUT /access-policies/{accessPolicyId})
 
 ## Fields
 
@@ -73,3 +83,20 @@ Manage transfers and accounts via Wise. Use when the user mentions wise, transfe
 **Create Transfer:**
 ```json
 {"targetAccount": 12345678, "quoteUuid": "a1b2c3d4-5678-90ab-cdef-1234567890ab"}
+
+## Response
+
+**list_access_policies response:**
+- `accessPolicySummaries`: string
+- `nextToken`: string
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

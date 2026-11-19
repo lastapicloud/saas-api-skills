@@ -1,8 +1,6 @@
 ---
 name: intercom-engagement
-description: Manage contacts, conversations, and articles in Intercom. Use when the
-  user mentions intercom, contact, conversation, article, help center, customer, support,
-  chat.
+description: "Manage contacts, conversations, and articles in Intercom. Use when the user mentions intercom, contact, conversation, article, help center, customer, support, chat."
 version: 1.0.0
 skill_type: external
 base_url_env: INTERCOM_BASE_URL
@@ -22,11 +20,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires INTERCOM_BASE_URL and INTERCOM_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Intercom-Engagement
 
 Manage contacts, conversations, and articles in Intercom. Use when the user mentions intercom, contact, conversation, article, help center, customer, support, chat.
+
 
 ## API Endpoints
 
@@ -91,5 +94,16 @@ Manage contacts, conversations, and articles in Intercom. Use when the user ment
 
 **Create Article:**
 ```json
-{"title": "Getting Started", "author_id": 12345, "body": "<p>Welcome to our help center.</p>", "state": "published"}
+{"title": "Getting Started", "author_id": 12345, "body": "Welcome to our help center.", "state": "published"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: courier-notifications
-description: Send notifications via Courier across multiple channels. Use when the
-  user mentions courier, notification, send, message, template.
+description: "Send notifications via Courier across multiple channels. Use when the user mentions courier, notification, send, message, template."
 version: 1.0.0
 skill_type: external
 base_url_env: COURIER_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires COURIER_BASE_URL and COURIER_AUTH_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Courier-Notifications
 
 Send notifications via Courier across multiple channels. Use when the user mentions courier, notification, send, message, template.
+
 
 ## API Endpoints
 
@@ -68,3 +72,14 @@ Send notifications via Courier across multiple channels. Use when the user menti
 **Create/Update Profile:**
 ```json
 {"email": "user@example.com", "name": "John Doe"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

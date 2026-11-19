@@ -1,7 +1,6 @@
 ---
 name: sage-accounting
-description: Manage invoices and contacts via Sage. Use when the user mentions sage,
-  accounting, invoice, contact, ledger, bank.
+description: "Manage invoices and contacts via Sage. Use when the user mentions sage, accounting, invoice, contact, ledger, bank."
 version: 1.0.0
 skill_type: external
 base_url_env: SAGE_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires SAGE_BASE_URL and SAGE_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Sage-Accounting
 
 Manage invoices and contacts via Sage. Use when the user mentions sage, accounting, invoice, contact, ledger, bank.
+
 
 ## API Endpoints
 
@@ -65,3 +69,14 @@ Manage invoices and contacts via Sage. Use when the user mentions sage, accounti
 ```json
 {"contact_id": "abc123", "date": "2026-03-24", "invoice_lines": [{"description": "Consulting", "quantity": 1, "unit_price": 5000}]}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,9 @@
 ---
 name: basecamp-projects
-description: Manage projects, to-dos, and messages via Basecamp. Use when the user
+description: 'Manage projects, to-dos, and messages via Basecamp. Use when the user
   mentions basecamp, project, todo, message, campfire, hill chart.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: BASECAMP_BASE_URL
@@ -19,11 +21,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires BASECAMP_BASE_URL and BASECAMP_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Basecamp-Projects
 
 Manage projects, to-dos, and messages via Basecamp. Use when the user mentions basecamp, project, todo, message, campfire, hill chart.
+
 
 ## API Endpoints
 
@@ -47,25 +54,25 @@ Manage projects, to-dos, and messages via Basecamp. Use when the user mentions b
 
 - list: List projects (GET /projects.json)
 - create: Create a project (POST /projects.json)
-- get_by_id: Get project details (GET /projects/{projectId}.json)
-- update: Update a project (PATCH /projects/{projectId}.json)
-- delete: Delete a project (DELETE /projects/{projectId}.json)
-- list_todolists: List to-do lists (GET /buckets/{projectId}/todolists.json)
-- create_todolists: Create a to-do list (POST /buckets/{projectId}/todolists.json)
-- update_todolists: Update a to-do list (PATCH /buckets/{projectId}/todolists/{todolistId}.json)
+- get_project_details: Get project details (GET /projects/{projectId}.json)
+- patch_projects: Update a project (PATCH /projects/{projectId}.json)
+- delete_projects: Delete a project (DELETE /projects/{projectId}.json)
+- list_todo_lists: List to-do lists (GET /buckets/{projectId}/todolists.json)
+- create_todo_list: Create a to-do list (POST /buckets/{projectId}/todolists.json)
+- patch_todolists: Update a to-do list (PATCH /buckets/{projectId}/todolists/{todolistId}.json)
 - delete_todolists: Delete a to-do list (DELETE /buckets/{projectId}/todolists/{todolistId}.json)
 - list_todos: List to-dos (GET /buckets/{projectId}/todolists/{todolistId}/todos.json)
-- create_todos: Create a to-do (POST /buckets/{projectId}/todolists/{todolistId}/todos.json)
-- update_todos: Update a to-do (PATCH /buckets/{projectId}/todos/{todoId}.json)
+- create_todo: Create a to-do (POST /buckets/{projectId}/todolists/{todolistId}/todos.json)
+- patch_todos: Update a to-do (PATCH /buckets/{projectId}/todos/{todoId}.json)
 - delete_todos: Delete a to-do (DELETE /buckets/{projectId}/todos/{todoId}.json)
 - list_messages: List messages (GET /buckets/{projectId}/message_boards/{boardId}/messages.json)
-- create_messages: Create a message (POST /buckets/{projectId}/message_boards/{boardId}/messages.json)
+- create_message: Create a message (POST /buckets/{projectId}/message_boards/{boardId}/messages.json)
 
 ## Fields
 
-- `name`: string [REQUIRED for create]
-- `description`: string [OPTIONAL]
-- `content`: string [REQUIRED for create_todo]
+- `name`: string [REQUIRED for create] — Display name
+- `description`: string [OPTIONAL] — Human-readable description
+- `content`: string [REQUIRED for create_todo] — Content body
 
 ## Example Request Bodies
 
@@ -77,3 +84,24 @@ Manage projects, to-dos, and messages via Basecamp. Use when the user mentions b
 **Create To-Do:**
 ```json
 {"content": "Review homepage mockup", "description": "Check the new design against brand guidelines"}
+
+## Response
+
+**Project object:**
+- `id`: string — Unique project identifier
+- `name`: string — Project name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

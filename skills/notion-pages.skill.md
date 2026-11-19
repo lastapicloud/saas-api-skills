@@ -3,7 +3,7 @@ name: notion-pages
 description: "Complete Notion workspace management \u2014 pages, databases, blocks,\
   \ users, search, and comments with full query filtering, sorting, and rich content\
   \ support. Use when the user mentions notion, page, database, wiki, doc, note, workspace,\
-  \ block, comment."
+  \ block, comment.\n (API 1.0.0) (API 2.0.0)"
 version: 1.0.0
 skill_type: external
 base_url_env: NOTION_BASE_URL
@@ -23,92 +23,59 @@ metadata:
   author: lastapi
   version: 2.0.0
 compatibility: Requires NOTION_BASE_URL and NOTION_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Notion-Pages
 
 Complete Notion workspace management — pages, databases, blocks, users, search, and comments with full query filtering, sorting, and rich content support. Use when the user mentions notion, page, database, wiki, doc, note, workspace, block, comment.
+ (API 1.0.0) (API 2.0.0)
 
 ## API Endpoints
 
-- **POST** `/pages` - Create a page (in a database or under another page)
-- **GET** `/pages/{page_id}` - Retrieve a page and its properties
-- **PATCH** `/pages/{page_id}` - Update page properties or archive a page
-- **GET** `/blocks/{page_id}/children` - List all child blocks (content) of a page
-- **POST** `/databases` - Create a database (as a child of a page)
-- **GET** `/databases/{database_id}` - Retrieve a database schema and properties
-- **PATCH** `/databases/{database_id}` - Update database title or properties
-- **POST** `/databases/{database_id}/query` - Query a database with filters and sorts
-- **GET** `/blocks/{block_id}` - Retrieve a single block
-- **PATCH** `/blocks/{block_id}` - Update a block's content
-- **DELETE** `/blocks/{block_id}` - Delete (archive) a block
-- **GET** `/blocks/{block_id}/children` - List child blocks of a block
-- **PATCH** `/blocks/{block_id}/children` - Append new child blocks to a page or block
-- **GET** `/users` - List all users in the workspace
-- **GET** `/users/{user_id}` - Retrieve a single user
+- **POST** `/v1/data_sources` - Create a data source
+- **PATCH** `/v1/data_sources/{data_source_id}` - Update a data source
+- **GET** `/v1/data_sources/{data_source_id}` - Retrieve a data source
+- **POST** `/v1/pages` - Create a page
+- **PATCH** `/v1/pages/{page_id}` - Update page properties
+- **GET** `/v1/pages/{page_id}` - Retrieve a page
+- **PATCH** `/v1/blocks/{block_id}` - Update a block
+- **GET** `/v1/blocks/{block_id}` - Retrieve a block
+- **DELETE** `/v1/blocks/{block_id}` - Delete a block
+- **GET** `/v1/comments` - Retrieve comments
+- **POST** `/v1/comments` - Create comment
+- **POST** `/v1/search` - Search by title
+- **GET** `/v1/databases/{database_id}` - Retrieve a database
+- **GET** `/v1/users` - List all users
+- **GET** `/v1/users/me` - Retrieve your token's bot user
 
 ## Actions
 
-- create: Create a page (in a database or under another page) (POST /pages)
-- get_by_id: Retrieve a page and its properties (GET /pages/{page_id})
-- update: Update page properties or archive a page (PATCH /pages/{page_id})
-- list: List all child blocks (content) of a page (GET /blocks/{page_id}/children)
-- create_databases: Create a database (as a child of a page) (POST /databases)
-- get_by_id_databases: Retrieve a database schema and properties (GET /databases/{database_id})
-- update_databases: Update database title or properties (PATCH /databases/{database_id})
-- query: Query a database with filters and sorts (POST /databases/{database_id}/query)
-- get_by_id_blocks: Retrieve a single block (GET /blocks/{block_id})
-- update_blocks: Update a block's content (PATCH /blocks/{block_id})
-- delete: Delete (archive) a block (DELETE /blocks/{block_id})
-- list_children: List child blocks of a block (GET /blocks/{block_id}/children)
-- patch_children: Append new child blocks to a page or block (PATCH /blocks/{block_id}/children)
-- list_users: List all users in the workspace (GET /users)
-- get_by_id_users: Retrieve a single user (GET /users/{user_id})
+- create: Create a data source (POST /v1/data_sources)
+- update: Update a data source (PATCH /v1/data_sources/{data_source_id})
+- get_by_id: Retrieve a data source (GET /v1/data_sources/{data_source_id})
+- create_page: Create a page (POST /v1/pages)
+- update_page_properties: Update page properties (PATCH /v1/pages/{page_id})
+- get_retrieve_page: Retrieve a page (GET /v1/pages/{page_id})
+- update_block: Update a block (PATCH /v1/blocks/{block_id})
+- get_retrieve_block: Retrieve a block (GET /v1/blocks/{block_id})
+- delete: Delete a block (DELETE /v1/blocks/{block_id})
+- list: Retrieve comments (GET /v1/comments)
+- create_comment: Create comment (POST /v1/comments)
+- search: Search by title (POST /v1/search)
+- get_retrieve_database: Retrieve a database (GET /v1/databases/{database_id})
+- list_users: List all users (GET /v1/users)
+- get_retrieve_your_tokens_bot: Retrieve your token's bot user (GET /v1/users/me)
 
 ## Fields
 
-### Page (create / update)
-- `parent`: object [REQUIRED for create] - Parent reference: `{"database_id": "uuid"}` or `{"page_id": "uuid"}`
-- `properties`: object [REQUIRED for create] - Page properties matching the parent database schema (see property types below)
-- `children`: array [OPTIONAL] - Array of block objects to add as page content on creation
-- `icon`: object [OPTIONAL] - Page icon: `{"type": "emoji", "emoji": "icon"}` or `{"type": "external", "external": {"url": "..."}}`
-- `cover`: object [OPTIONAL] - Cover image: `{"type": "external", "external": {"url": "..."}}`
-- `archived`: boolean [OPTIONAL] - Set to `true` to archive (trash) the page
-
-### Database Query (POST /databases/{id}/query)
-- `filter`: object [OPTIONAL] - Filter conditions (see filter syntax below)
-- `sorts`: array [OPTIONAL] - Sort conditions: `[{"property": "Name", "direction": "ascending"}]`
-- `start_cursor`: string [OPTIONAL] - Cursor for pagination (from previous response `next_cursor`)
-- `page_size`: integer [OPTIONAL] - Number of results per page (1-100, default 100)
-- `filter_properties`: array [OPTIONAL] - List of property names to include in response (reduces payload)
-
-### Database (create / update)
-- `parent`: object [REQUIRED for create] - Must be `{"type": "page_id", "page_id": "uuid"}`
-- `title`: array [REQUIRED for create] - Database title as rich text array
-- `properties`: object [REQUIRED for create] - Property schema definitions (column definitions)
-- `is_inline`: boolean [OPTIONAL] - Whether the database appears inline in the parent page
-
-### Block (append children / update)
-- `children`: array [REQUIRED for append] - Array of block objects to append
-- `type`: string [REQUIRED for update] - Block type (paragraph, heading_1, etc.)
-- `{type}`: object [REQUIRED for update] - Block type content object matching the type field
-
-### Search
-- `query`: string [OPTIONAL] - Search query text (searches titles only)
-- `filter`: object [OPTIONAL] - Filter by object type: `{"property": "object", "value": "page"}` or `{"property": "object", "value": "database"}`
-- `sort`: object [OPTIONAL] - Sort results: `{"direction": "ascending", "timestamp": "last_edited_time"}`
-- `start_cursor`: string [OPTIONAL] - Pagination cursor
-- `page_size`: integer [OPTIONAL] - Results per page (max 100)
-
-### Comment (create)
-- `parent`: object [REQUIRED] - Page to comment on: `{"page_id": "uuid"}`
-- `rich_text`: array [REQUIRED] - Comment content as rich text array
-- `discussion_id`: string [OPTIONAL] - Reply to an existing discussion thread instead of creating a new one
-
-### Comment (list)
-- `block_id`: string [REQUIRED, query param] - The page ID to list comments for
-- `start_cursor`: string [OPTIONAL, query param] - Pagination cursor
-- `page_size`: integer [OPTIONAL, query param] - Results per page (max 100)
+### Data Sources (Create a data source)
+- `parent`: object [REQUIRED] ({page_id [REQUIRED]}) — Parent configuration
+- `properties`: object [REQUIRED] — Property schema of data source
+- `title`: array [OPTIONAL] — Title or heading
 
 ## Example Request Bodies
 
@@ -319,3 +286,25 @@ Complete Notion workspace management — pages, databases, blocks, users, search
   }
 }
 ```
+
+## Response
+
+**retrieve_comments response:**
+- `comment`: object — Comment configuration
+- `has_more`: boolean — Whether has more is enabled
+- `next_cursor`: string — Next pagination cursor
+- `object`: string — Object
+- `results`: array — List of results
+- `type`: string — Resource type
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

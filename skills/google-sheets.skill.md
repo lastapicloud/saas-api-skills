@@ -1,7 +1,8 @@
 ---
 name: google-sheets
-description: Read, write, and manage Google Sheets spreadsheets. Use when the user
-  mentions sheets, spreadsheet, google sheets, cells, rows, columns.
+description: "Read, write, and manage Google Sheets spreadsheets. Use when the user\
+  \ mentions sheets, spreadsheet, google sheets, cells, rows, columns.\n (API v1)\
+  \ (API v1beta1)"
 version: 1.0.0
 skill_type: external
 base_url_env: GOOGLE_SHEETS_BASE_URL
@@ -19,55 +20,48 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires GOOGLE_SHEETS_BASE_URL and GOOGLE_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Google-Sheets
 
 Read, write, and manage Google Sheets spreadsheets. Use when the user mentions sheets, spreadsheet, google sheets, cells, rows, columns.
+ (API v1) (API v1beta1)
 
 ## API Endpoints
 
-- **GET** `/spreadsheets/{spreadsheetId}` - Get spreadsheet metadata
-- **GET** `/spreadsheets/{spreadsheetId}/sheets` - List sheets in a spreadsheet
-- **GET** `/spreadsheets/{spreadsheetId}/values/{range}` - Read a range of cells
-- **PUT** `/spreadsheets/{spreadsheetId}/values/{range}` - Write values to a range
-- **POST** `/spreadsheets/{spreadsheetId}/values/{range}:append` - Append rows to a sheet
-- **POST** `/spreadsheets` - Create a new spreadsheet
-- **POST** `/spreadsheets/{spreadsheetId}/values/{range}:clear` - Clear a range of cells
-- **POST** `/v4/spreadsheets/{spreadsheetId}:batchUpdate`
-- **POST** `/v4/spreadsheets`
-- **GET** `/v4/spreadsheets/{spreadsheetId}`
-- **POST** `/v4/spreadsheets/{spreadsheetId}:getByDataFilter`
-- **GET** `/v4/spreadsheets/{spreadsheetId}/developerMetadata/{metadataId}`
-- **POST** `/v4/spreadsheets/{spreadsheetId}/developerMetadata:search`
-- **POST** `/v4/spreadsheets/{spreadsheetId}/sheets/{sheetId}:copyTo`
-- **POST** `/v4/spreadsheets/{spreadsheetId}/values/{range}:append`
+- **POST** `/v4/spreadsheets` - Creates a spreadsheet, returning the newly created spreadsheet.
+- **GET** `/v4/spreadsheets/{spreadsheetId}` - Returns the spreadsheet at the given ID. The caller must specify the spreadsheet ID. By default, data within grids is
+- **PUT** `/v4/spreadsheets/{spreadsheetId}/values/{range}` - Sets values in a range of a spreadsheet. The caller must specify the spreadsheet ID, range, and a valueInputOption.
+- **POST** `/v4/spreadsheets/{spreadsheetId}/developerMetadata:search` - Returns all developer metadata matching the specified DataFilter. If the provided DataFilter represents a
+- **POST** `/v4/spreadsheets/{spreadsheetId}:batchUpdate` - Applies one or more updates to the spreadsheet. Each request is validated before being applied. If any request is not
+- **POST** `/v4/spreadsheets/{spreadsheetId}:getByDataFilter` - Returns the spreadsheet at the given ID. The caller must specify the spreadsheet ID. This method differs from
 
 ## Actions
 
-- get_by_id: Get spreadsheet metadata (GET /spreadsheets/{spreadsheetId})
-- list: List sheets in a spreadsheet (GET /spreadsheets/{spreadsheetId}/sheets)
-- get_by_id_values: Read a range of cells (GET /spreadsheets/{spreadsheetId}/values/{range})
-- update: Write values to a range (PUT /spreadsheets/{spreadsheetId}/values/{range})
-- create: Append rows to a sheet (POST /spreadsheets/{spreadsheetId}/values/{range}:append)
-- create_spreadsheets: Create a new spreadsheet (POST /spreadsheets)
-- create_values: Clear a range of cells (POST /spreadsheets/{spreadsheetId}/values/{range}:clear)
-- create_spreadsheets_2: POST /v4/spreadsheets/{spreadsheetId}:batchUpdate (POST /v4/spreadsheets/{spreadsheetId}:batchUpdate)
-- create_spreadsheets_3: POST /v4/spreadsheets (POST /v4/spreadsheets)
-- get_by_id_spreadsheets: GET /v4/spreadsheets/{spreadsheetId} (GET /v4/spreadsheets/{spreadsheetId})
-- create_spreadsheets_4: POST /v4/spreadsheets/{spreadsheetId}:getByDataFilter (POST /v4/spreadsheets/{spreadsheetId}:getByDataFilter)
-- get_by_id_developermetadata: GET /v4/spreadsheets/{spreadsheetId}/developerMetadata/{metadataId} (GET /v4/spreadsheets/{spreadsheetId}/developerMetadata/{metadataId})
-- search: POST /v4/spreadsheets/{spreadsheetId}/developerMetadata:search (POST /v4/spreadsheets/{spreadsheetId}/developerMetadata:search)
-- create_sheets: POST /v4/spreadsheets/{spreadsheetId}/sheets/{sheetId}:copyTo (POST /v4/spreadsheets/{spreadsheetId}/sheets/{sheetId}:copyTo)
-- create_values_2: POST /v4/spreadsheets/{spreadsheetId}/values/{range}:append (POST /v4/spreadsheets/{spreadsheetId}/values/{range}:append)
+- sheets_spreadsheets_create: Creates a spreadsheet, returning the newly created spreadsheet. (POST /v4/spreadsheets)
+- sheets_spreadsheets_get: Returns the spreadsheet at the given ID. The caller must specify the spreadsheet (GET /v4/spreadsheets/{spreadsheetId})
+- sheets_spreadsheets_values_update: Sets values in a range of a spreadsheet. The caller must specify the spreadsheet (PUT /v4/spreadsheets/{spreadsheetId}/values/{range})
+- search: Returns all developer metadata matching the specified DataFilter. If the provide (POST /v4/spreadsheets/{spreadsheetId}/developerMetadata:search)
+- sheets_spreadsheets_batch_update: Applies one or more updates to the spreadsheet. Each request is validated before (POST /v4/spreadsheets/{spreadsheetId}:batchUpdate)
+- sheets_spreadsheets_get_by_data_filter: Returns the spreadsheet at the given ID. The caller must specify the spreadsheet (POST /v4/spreadsheets/{spreadsheetId}:getByDataFilter)
 
 ## Fields
 
-- `spreadsheetId`: string [REQUIRED for all except create_spreadsheet] (the spreadsheet ID)
-- `range`: string [REQUIRED for read_range, write_range, append_rows, clear_range] (A1 notation, e.g. "Sheet1!A1:D5")
-- `title`: string [REQUIRED for create_spreadsheet] (spreadsheet title)
-- `values`: array of arrays [REQUIRED for write_range, append_rows] (row data)
-- `valueInputOption`: string [OPTIONAL] (RAW or USER_ENTERED, default USER_ENTERED)
+### Customers (Orders a new customer's account. Before ordering a new custo)
+- `alternateEmail`: string [OPTIONAL] — Like the "Customer email" in the reseller tools, this email is the secondary contact used if something happens to the cu
+- `customerDomain`: string [OPTIONAL] — The customer's primary domain name string. `customerDomain` is required when creating a new customer. Do not include the
+- `customerDomainVerified`: boolean [OPTIONAL] — Whether the customer's primary domain has been verified.
+- `customerId`: string [OPTIONAL] — This property will always be returned in a response as the unique identifier generated by Google. In a request, this pro
+- `customerType`: string [OPTIONAL] (enum: customerTypeUnspecified, domain, team) — Identifies the type of the customer. Acceptable values include: * `domain`: Implies a domain-verified customer (default)
+- `kind`: string [OPTIONAL] — Identifies the resource as a customer. Value: `reseller#customer`
+- `phoneNumber`: string [OPTIONAL] — Customer contact phone number. Must start with "+" followed by the country code. The rest of the number can be contiguou
+- `postalAddress`: object [OPTIONAL] ({addressLine1 , addressLine2 , addressLine3 , contactName , countryCode }) — JSON template for address of a customer.
+- `primaryAdmin`: object [OPTIONAL] ({primaryEmail }) — JSON template for primary admin in case of TEAM customers
+- `resourceUiUrl`: string [OPTIONAL] — URL to customer's Admin console dashboard. The read-only URL is generated by the API service. This is used if your clien
 
 ## Example Request Bodies
 
@@ -83,3 +77,25 @@ Read, write, and manage Google Sheets spreadsheets. Use when the user mentions s
 
 **Read Range (Query Params):**
 Query parameter: `valueRenderOption=FORMATTED_VALUE`
+
+## Response
+
+**Annotationspecset object:**
+- `id`: string — Unique annotationspecset identifier
+- `name`: string — Annotationspecset name or title
+- `status`: string — Current status
+- `type`: string — Annotationspecset type or category
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

@@ -1,7 +1,6 @@
 ---
 name: klarna-payments
-description: Process payments and manage orders via Klarna. Use when the user mentions
-  klarna, payment, order, checkout, buy now pay later, bnpl.
+description: "Process payments and manage orders via Klarna. Use when the user mentions klarna, payment, order, checkout, buy now pay later, bnpl."
 version: 1.0.0
 skill_type: external
 base_url_env: KLARNA_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires KLARNA_BASE_URL and KLARNA_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Klarna-Payments
 
 Process payments and manage orders via Klarna. Use when the user mentions klarna, payment, order, checkout, buy now pay later, bnpl.
+
 
 ## API Endpoints
 
@@ -70,3 +74,14 @@ Process payments and manage orders via Klarna. Use when the user mentions klarna
 ```json
 {"captured_amount": 5000}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: personio-hr-payroll
-description: Manage payroll via Personio HR. Use when the user mentions personio hr,
-  personio payroll, payroll, salary, compensation.
+description: "Manage payroll via Personio HR. Use when the user mentions personio hr, personio payroll, payroll, salary, compensation."
 version: 1.0.0
 skill_type: external
 base_url_env: PERSONIO_HR_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires PERSONIO_HR_BASE_URL and PERSONIO_HR_API_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Personio-Hr-Payroll
 
 Manage payroll via Personio HR. Use when the user mentions personio hr, personio payroll, payroll, salary, compensation.
+
 
 ## API Endpoints
 
@@ -61,3 +65,14 @@ Manage payroll via Personio HR. Use when the user mentions personio hr, personio
 ```json
 {"employee_id": 12345, "date": "2024-03-15", "start_time": "08:30", "end_time": "17:00"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: mux-video
-description: Manage video assets and live streams via Mux. Use when the user mentions
-  mux, video, stream, live stream, asset, playback.
+description: "Manage video assets and live streams via Mux. Use when the user mentions mux, video, stream, live stream, asset, playback."
 version: 1.0.0
 skill_type: external
 base_url_env: MUX_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires MUX_BASE_URL and MUX_TOKEN_SECRET environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Mux-Video
 
 Manage video assets and live streams via Mux. Use when the user mentions mux, video, stream, live stream, asset, playback.
+
 
 ## API Endpoints
 
@@ -69,3 +73,14 @@ Manage video assets and live streams via Mux. Use when the user mentions mux, vi
 ```json
 {"playback_policy": ["public"], "reduced_latency": true}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

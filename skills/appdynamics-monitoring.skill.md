@@ -1,7 +1,6 @@
 ---
 name: appdynamics-monitoring
-description: Monitor applications and metrics via AppDynamics. Use when the user mentions
-  appdynamics, monitoring, apm, application performance, metric, alert.
+description: "Monitor applications and metrics via AppDynamics. Use when the user mentions appdynamics, monitoring, apm, application performance, metric, alert."
 version: 1.0.0
 skill_type: external
 base_url_env: APPDYNAMICS_BASE_URL
@@ -18,13 +17,20 @@ license: Apache-2.0
 metadata:
   author: lastapi
   version: 1.0.0
-compatibility: Requires APPDYNAMICS_BASE_URL and APPDYNAMICS_ACCESS_TOKEN environment
+compatibility: 'Requires APPDYNAMICS_BASE_URL and APPDYNAMICS_ACCESS_TOKEN environment
   variables.
+
+  '
+annotations:
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Appdynamics-Monitoring
 
 Monitor applications and metrics via AppDynamics. Use when the user mentions appdynamics, monitoring, apm, application performance, metric, alert.
+
 
 ## API Endpoints
 
@@ -36,9 +42,6 @@ Monitor applications and metrics via AppDynamics. Use when the user mentions app
 - **GET** `/controller/rest/applications/{applicationId}/problems/healthrule-violations` - List health rule violations
 - **GET** `/controller/rest/applications/{applicationId}/business-transactions` - List business transactions
 - **GET** `/controller/alerting/rest/v1/policies` - List alert policies
-- **POST** `/controller/alerting/rest/v1/policies` - Create alert policy
-- **PUT** `/controller/alerting/rest/v1/policies/{policyId}` - Update alert policy
-- **DELETE** `/controller/alerting/rest/v1/policies/{policyId}` - Delete alert policy
 
 ## Actions
 
@@ -50,9 +53,6 @@ Monitor applications and metrics via AppDynamics. Use when the user mentions app
 - list_healthrule_violations: List health rule violations (GET /controller/rest/applications/{applicationId}/problems/healthrule-violations)
 - list_business_transactions: List business transactions (GET /controller/rest/applications/{applicationId}/business-transactions)
 - list_policies: List alert policies (GET /controller/alerting/rest/v1/policies)
-- create_policy: Create alert policy (POST /controller/alerting/rest/v1/policies)
-- update_policy: Update alert policy (PUT /controller/alerting/rest/v1/policies/{policyId})
-- delete_policy: Delete alert policy (DELETE /controller/alerting/rest/v1/policies/{policyId})
 
 ## Fields
 
@@ -71,3 +71,14 @@ Monitor applications and metrics via AppDynamics. Use when the user mentions app
 ```json
 {"applicationId": 42, "event-types": "ERROR,APPLICATION_ERROR", "severities": "ERROR,WARN"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: webex-messaging
-description: Send messages and manage Webex rooms and meetings. Use when the user
-  mentions webex, cisco, message, room, meeting, space.
+description: "Send messages and manage Webex rooms and meetings. Use when the user mentions webex, cisco, message, room, meeting, space."
 version: 1.0.0
 skill_type: external
 base_url_env: WEBEX_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires WEBEX_BASE_URL and WEBEX_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Webex-Messaging
 
 Send messages and manage Webex rooms and meetings. Use when the user mentions webex, cisco, message, room, meeting, space.
+
 
 ## API Endpoints
 
@@ -73,3 +77,14 @@ Send messages and manage Webex rooms and meetings. Use when the user mentions we
 ```json
 {"title": "Sprint Planning", "start": "2026-03-25T10:00:00Z", "end": "2026-03-25T11:00:00Z"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

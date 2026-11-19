@@ -1,7 +1,9 @@
 ---
 name: monday-items
-description: Create, search, and manage Monday.com items and boards via GraphQL. Use
-  when the user mentions monday, board, monday item.
+description: 'Create, search, and manage Monday.com items and boards via GraphQL.
+  Use when the user mentions monday, board, monday item.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: MONDAY_BASE_URL
@@ -16,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires MONDAY_BASE_URL and MONDAY_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Monday-Items
 
 Create, search, and manage Monday.com items and boards via GraphQL. Use when the user mentions monday, board, monday item.
+
 
 ## API Endpoints
 
@@ -43,34 +50,34 @@ Create, search, and manage Monday.com items and boards via GraphQL. Use when the
 ## Actions
 
 - create: List boards (GraphQL: boards query) (POST /graphql)
-- create_graphql: Get board by ID (GraphQL: board query) (POST /graphql)
-- create_graphql_2: Get items (GraphQL: items query with pagination) (POST /graphql)
-- create_graphql_3: Get item by ID (GraphQL: items query) (POST /graphql)
-- create_graphql_4: Create item (GraphQL: create_item mutation) (POST /graphql)
-- create_graphql_5: Create subitem (GraphQL: create_subitem mutation) (POST /graphql)
-- create_graphql_6: Update item (GraphQL: change_column_values mutation) (POST /graphql)
-- create_graphql_7: Update multiple items (GraphQL: change_multiple_column_values mutation) (POST /graphql)
-- create_graphql_8: Delete item (GraphQL: delete_item mutation) (POST /graphql)
-- create_graphql_9: Duplicate item (GraphQL: duplicate_item mutation) (POST /graphql)
-- create_graphql_10: Archive item (GraphQL: archive_item mutation) (POST /graphql)
-- create_graphql_11: Search items (GraphQL: items_page_by_column_values query) (POST /graphql)
-- create_graphql_12: List groups (GraphQL: boards > groups query) (POST /graphql)
-- create_graphql_13: Get column values (GraphQL: column_values query) (POST /graphql)
-- create_graphql_14: Update column values (GraphQL: change_column_value mutation) (POST /graphql)
+- get_board_id_graphql: Get board by ID (GraphQL: board query) (POST /graphql)
+- get_items_graphql_items: Get items (GraphQL: items query with pagination) (POST /graphql)
+- get_item_id_graphql: Get item by ID (GraphQL: items query) (POST /graphql)
+- create_item_graphql_createitem: Create item (GraphQL: create_item mutation) (POST /graphql)
+- create_subitem_graphql_createsubitem: Create subitem (GraphQL: create_subitem mutation) (POST /graphql)
+- update_item_graphql_changecolumnvalues: Update item (GraphQL: change_column_values mutation) (POST /graphql)
+- update_multiple_items_graphql: Update multiple items (GraphQL: change_multiple_column_values mutation) (POST /graphql)
+- delete_item_graphql_deleteitem: Delete item (GraphQL: delete_item mutation) (POST /graphql)
+- create_graphql: Duplicate item (GraphQL: duplicate_item mutation) (POST /graphql)
+- archive_item_graphql_archiveitem: Archive item (GraphQL: archive_item mutation) (POST /graphql)
+- post_graphql: Search items (GraphQL: items_page_by_column_values query) (POST /graphql)
+- list_groups_graphql_boards: List groups (GraphQL: boards > groups query) (POST /graphql)
+- get_column_values_graphql: Get column values (GraphQL: column_values query) (POST /graphql)
+- update_column_values_graphql: Update column values (GraphQL: change_column_value mutation) (POST /graphql)
 
 ## Fields
 
-- `board_id`: integer [REQUIRED for create, update, list items]
-- `item_name`: string [REQUIRED for create]
-- `column_values`: JSON string [OPTIONAL] (board column values as stringified JSON)
-- `item_id`: integer [REQUIRED for get_by_id, update, delete]
-- `group_id`: string [OPTIONAL for create] (group within a board)
-- `limit`: integer [OPTIONAL] (number of results to return, max 500)
-- `column_id`: string [REQUIRED for search] (column ID to search by)
-- `column_value`: string [REQUIRED for search] (value to search for)
-- `subitem_id`: integer [REQUIRED for subitem operations]
-- `new_column_values`: JSON string [REQUIRED for update] (column values to set)
-- `duplicate_to_board_id`: integer [OPTIONAL] (board to duplicate to)
+- `board_id`: integer [REQUIRED for create, update, list items] — Board unique identifier
+- `item_name`: string [REQUIRED for create] — Item display name
+- `column_values`: JSON string [OPTIONAL] (board column values as stringified JSON) — Column Values
+- `item_id`: integer [REQUIRED for get_by_id, update, delete] — Item unique identifier
+- `group_id`: string [OPTIONAL for create] (group within a board) — Group unique identifier
+- `limit`: integer [OPTIONAL] (number of results to return, max 500) — Maximum number of results
+- `column_id`: string [REQUIRED for search] (column ID to search by) — Column unique identifier
+- `column_value`: string [REQUIRED for search] (value to search for) — Column Value
+- `subitem_id`: integer [REQUIRED for subitem operations] — Subitem unique identifier
+- `new_column_values`: JSON string [REQUIRED for update] (column values to set) — New Column Values
+- `duplicate_to_board_id`: integer [OPTIONAL] (board to duplicate to) — Duplicate To Board unique identifier
 
 ## Example Request Bodies
 
@@ -113,6 +120,44 @@ Create, search, and manage Monday.com items and boards via GraphQL. Use when the
 ```json
 {"query": "{ items_page_by_column_values(board_id: 123456, limit: 10, columns: [{column_id: \"status\", column_values: [\"Done\"]}]) { items { id name column_values { id text } } } }"}
 ```
+
+## Response
+
+**Graphql object:**
+- `id`: string — Unique graphql identifier
+- `name`: string — Graphql name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+
+**Required fields reference:**
+```json
+{
+  "subitem_id": 1,
+  "new_column_values": "example_new_column_values"
+}
+```
+
+
+**Required fields reference:**
+```json
+{
+  "subitem_id": 1,
+  "new_column_values": "example_new_column_values"
+}
+```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |
 
 ## Notes
 

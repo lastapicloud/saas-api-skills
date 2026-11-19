@@ -1,7 +1,6 @@
 ---
 name: google-cloud-sql
-description: Manage Cloud SQL instances and databases via Google Cloud. Use when the
-  user mentions google cloud sql, cloud sql, sql instance, database.
+description: "Manage Cloud SQL instances and databases via Google Cloud. Use when the user mentions google cloud sql, cloud sql, sql instance, database."
 version: 1.0.0
 skill_type: external
 base_url_env: GOOGLE_CLOUD_SQL_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires GOOGLE_CLOUD_SQL_BASE_URL and GOOGLE_API_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Google-Cloud-Sql
 
 Manage Cloud SQL instances and databases via Google Cloud. Use when the user mentions google cloud sql, cloud sql, sql instance, database.
+
 
 ## API Endpoints
 
@@ -60,3 +64,14 @@ Manage Cloud SQL instances and databases via Google Cloud. Use when the user men
 **Create Database:**
 ```json
 {"name": "app_database", "charset": "utf8mb4"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

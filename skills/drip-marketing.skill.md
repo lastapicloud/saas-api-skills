@@ -1,7 +1,6 @@
 ---
 name: drip-marketing
-description: Manage subscribers and campaigns via Drip. Use when the user mentions
-  drip, email marketing, subscriber, campaign, automation, ecommerce marketing.
+description: "Manage subscribers and campaigns via Drip. Use when the user mentions drip, email marketing, subscriber, campaign, automation, ecommerce marketing."
 version: 1.0.0
 skill_type: external
 base_url_env: DRIP_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires DRIP_BASE_URL and DRIP_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Drip-Marketing
 
 Manage subscribers and campaigns via Drip. Use when the user mentions drip, email marketing, subscriber, campaign, automation, ecommerce marketing.
+
 
 ## API Endpoints
 
@@ -64,3 +68,14 @@ Manage subscribers and campaigns via Drip. Use when the user mentions drip, emai
 ```json
 {"events": [{"email": "newuser@example.com", "action": "Completed onboarding", "properties": {"steps_completed": 5}}]}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

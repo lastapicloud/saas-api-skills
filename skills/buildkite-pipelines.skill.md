@@ -1,7 +1,6 @@
 ---
 name: buildkite-pipelines
-description: Manage Buildkite pipelines, builds, and agents. Use when the user mentions
-  buildkite, pipeline, build, agent, CI/CD.
+description: "Manage Buildkite pipelines, builds, and agents. Use when the user mentions buildkite, pipeline, build, agent, CI/CD."
 version: 1.0.0
 skill_type: external
 base_url_env: BUILDKITE_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires BUILDKITE_BASE_URL and BUILDKITE_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Buildkite-Pipelines
 
 Manage Buildkite pipelines, builds, and agents. Use when the user mentions buildkite, pipeline, build, agent, CI/CD.
+
 
 ## API Endpoints
 
@@ -69,3 +73,14 @@ Manage Buildkite pipelines, builds, and agents. Use when the user mentions build
 **Create Build:**
 ```json
 {"commit": "HEAD", "branch": "main", "message": "Deploy to production"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

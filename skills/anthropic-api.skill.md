@@ -1,7 +1,9 @@
 ---
 name: anthropic-api
-description: Generate text and manage conversations via Anthropic API. Use when the
+description: 'Generate text and manage conversations via Anthropic API. Use when the
   user mentions anthropic, claude, ai, llm, text generation, chat.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: ANTHROPIC_API_BASE_URL
@@ -19,11 +21,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires ANTHROPIC_API_BASE_URL and ANTHROPIC_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Anthropic-Api
 
 Generate text and manage conversations via Anthropic API. Use when the user mentions anthropic, claude, ai, llm, text generation, chat.
+
 
 ## API Endpoints
 
@@ -39,19 +46,19 @@ Generate text and manage conversations via Anthropic API. Use when the user ment
 ## Actions
 
 - create: Create a message (POST /v1/messages)
-- create_batches: Create a message batch (POST /v1/messages/batches)
+- create_message_batch: Create a message batch (POST /v1/messages/batches)
 - get_by_id: Get batch status (GET /v1/messages/batches/{batch_id})
 - list: List message batches (GET /v1/messages/batches)
-- create_cancel: Cancel a batch (POST /v1/messages/batches/{batch_id}/cancel)
+- cancel_batch: Cancel a batch (POST /v1/messages/batches/{batch_id}/cancel)
 - create_count_tokens: Count tokens (POST /v1/messages/count_tokens)
-- list_models: List available models (GET /v1/models)
-- get_by_id_models: Get model details (GET /v1/models/{model_id})
+- list_available_models: List available models (GET /v1/models)
+- get_model_details: Get model details (GET /v1/models/{model_id})
 
 ## Fields
 
-- `model`: string [REQUIRED for create]
-- `messages`: array [REQUIRED for create]
-- `max_tokens`: integer [REQUIRED for create]
+- `model`: string [REQUIRED for create] — Model
+- `messages`: array [REQUIRED for create] — List of messages
+- `max_tokens`: integer [REQUIRED for create] — Max Tokens value
 
 ## Example Request Bodies
 
@@ -64,3 +71,24 @@ Generate text and manage conversations via Anthropic API. Use when the user ment
 ```json
 {"model": "claude-haiku-4-5", "messages": [{"role": "user", "content": "Hello, how are you?"}]}
 ```
+
+## Response
+
+**Batche object:**
+- `id`: string — Unique batche identifier
+- `name`: string — Batche name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

@@ -1,7 +1,6 @@
 ---
 name: hive-tasks
-description: Manage projects and actions via Hive. Use when the user mentions hive,
-  task, project, action, workspace.
+description: "Manage projects and actions via Hive. Use when the user mentions hive, task, project, action, workspace."
 version: 1.0.0
 skill_type: external
 base_url_env: HIVE_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires HIVE_BASE_URL and HIVE_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Hive-Tasks
 
 Manage projects and actions via Hive. Use when the user mentions hive, task, project, action, workspace.
+
 
 ## API Endpoints
 
@@ -34,12 +38,12 @@ Manage projects and actions via Hive. Use when the user mentions hive, task, pro
 - **DELETE** `/api/v1/actions/{actionId}` - Delete action
 - **GET** `/api/v1/actions` - List actions
 - **GET** `/api/v1/users` - List users
-- **POST** `/getClip` - <p>Downloads an MP4 file (clip) containing the archived, on-demand media from the specified video stream over the
-- **POST** `/getDASHStreamingSessionURL` - <p>Retrieves an MPEG Dynamic Adaptive Streaming over HTTP (DASH) URL for the stream. You can then open the URL in a
-- **POST** `/getHLSStreamingSessionURL` - <p>Retrieves an HTTP Live Streaming (HLS) URL for the stream. You can then open the URL in a browser or media player to
+- **POST** `/getClip` - Downloads an MP4 file (clip) containing the archived, on-demand media from the specified video stream over the
+- **POST** `/getDASHStreamingSessionURL` - Retrieves an MPEG Dynamic Adaptive Streaming over HTTP (DASH) URL for the stream. You can then open the URL in a
+- **POST** `/getHLSStreamingSessionURL` - Retrieves an HTTP Live Streaming (HLS) URL for the stream. You can then open the URL in a browser or media player to
 - **POST** `/getImages` - Retrieves a list of Images corresponding to each timestamp for a given time range, sampling interval, and image format
-- **POST** `/getMediaForFragmentList` - <p>Gets media for a list of fragments (specified by fragment number) from the archived data in an Amazon Kinesis video
-- **POST** `/listFragments` - <p>Returns a list of <a>Fragment</a> objects from the specified stream and timestamp range within the archived
+- **POST** `/getMediaForFragmentList` - Gets media for a list of fragments (specified by fragment number) from the archived data in an Amazon Kinesis video
+- **POST** `/listFragments` - Returns a list of Fragment objects from the specified stream and timestamp range within the archived
 - **GET** `/{year}/{month}.json` - Archive API
 
 ## Actions
@@ -52,12 +56,12 @@ Manage projects and actions via Hive. Use when the user mentions hive, task, pro
 - delete: Delete action (DELETE /api/v1/actions/{actionId})
 - list_actions: List actions (GET /api/v1/actions)
 - list_users: List users (GET /api/v1/users)
-- create_getclip: <p>Downloads an MP4 file (clip) containing the archived, on-demand media from th (POST /getClip)
-- create_getdashstreamingsessionurl: <p>Retrieves an MPEG Dynamic Adaptive Streaming over HTTP (DASH) URL for the str (POST /getDASHStreamingSessionURL)
-- create_gethlsstreamingsessionurl: <p>Retrieves an HTTP Live Streaming (HLS) URL for the stream. You can then open (POST /getHLSStreamingSessionURL)
+- create_getclip: Downloads an MP4 file (clip) containing the archived, on-demand media from the s (POST /getClip)
+- create_getdashstreamingsessionurl: Retrieves an MPEG Dynamic Adaptive Streaming over HTTP (DASH) URL for the stream (POST /getDASHStreamingSessionURL)
+- create_gethlsstreamingsessionurl: Retrieves an HTTP Live Streaming (HLS) URL for the stream. You can then open the (POST /getHLSStreamingSessionURL)
 - create_getimages: Retrieves a list of Images corresponding to each timestamp for a given time rang (POST /getImages)
-- create_getmediaforfragmentlist: <p>Gets media for a list of fragments (specified by fragment number) from the ar (POST /getMediaForFragmentList)
-- create_listfragments: <p>Returns a list of <a>Fragment</a> objects from the specified stream and times (POST /listFragments)
+- create_getmediaforfragmentlist: Gets media for a list of fragments (specified by fragment number) from the archi (POST /getMediaForFragmentList)
+- create_listfragments: Returns a list of Fragment objects from the specified stream and timestamp range (POST /listFragments)
 - list_resource: Archive API (GET /{year}/{month}.json)
 
 ## Fields
@@ -77,3 +81,14 @@ Manage projects and actions via Hive. Use when the user mentions hive, task, pro
 ```json
 {"title": "Design homepage mockup - Final", "status": "completed"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

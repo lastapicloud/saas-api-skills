@@ -1,7 +1,9 @@
 ---
 name: asana-tasks
-description: Create, search, and manage Asana tasks, projects, and workspaces. Use
+description: 'Create, search, and manage Asana tasks, projects, and workspaces. Use
   when the user mentions asana, asana task, asana project, workspace.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: ASANA_BASE_URL
@@ -17,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires ASANA_BASE_URL and ASANA_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Asana-Tasks
 
 Create, search, and manage Asana tasks, projects, and workspaces. Use when the user mentions asana, asana task, asana project, workspace.
+
 
 ## API Endpoints
 
@@ -48,26 +55,26 @@ Create, search, and manage Asana tasks, projects, and workspaces. Use when the u
 - create: Create a new task (POST /tasks)
 - update: Update a task (PUT /tasks/{task_gid})
 - delete: Delete a task (DELETE /tasks/{task_gid})
-- list_projects: List projects in a workspace (GET /projects)
+- list_projects_workspace: List projects in a workspace (GET /projects)
 - list_workspaces: List all workspaces (GET /workspaces)
-- list_allocations: Get multiple allocations (GET /allocations)
-- create_allocations: Create an allocation (POST /allocations)
-- update_allocations: Update an allocation (PUT /allocations/{allocation_gid})
-- delete_allocations: Delete an allocation (DELETE /allocations/{allocation_gid})
-- list_budgets: Get all budgets (GET /budgets)
-- create_budgets: Create a budget (POST /budgets)
-- update_budgets: Update a budget (PUT /budgets/{budget_gid})
-- delete_budgets: Delete a budget (DELETE /budgets/{budget_gid})
+- get_multiple_allocations: Get multiple allocations (GET /allocations)
+- create_allocation: Create an allocation (POST /allocations)
+- update_allocation: Update an allocation (PUT /allocations/{allocation_gid})
+- delete_allocation: Delete an allocation (DELETE /allocations/{allocation_gid})
+- get_budgets: Get all budgets (GET /budgets)
+- create_budget: Create a budget (POST /budgets)
+- update_budget: Update a budget (PUT /budgets/{budget_gid})
+- delete_budget: Delete a budget (DELETE /budgets/{budget_gid})
 
 ## Fields
 
-- `workspace`: string (workspace GID) [REQUIRED for create]
-- `projects`: array of strings (project GIDs) [OPTIONAL]
-- `name`: string [REQUIRED for create]
-- `notes`: string [OPTIONAL] (task description/body)
-- `assignee`: string (user GID or email) [OPTIONAL]
-- `due_on`: string (YYYY-MM-DD) [OPTIONAL]
-- `completed`: boolean [OPTIONAL]
+- `workspace`: string (workspace GID) [REQUIRED for create] — Workspace
+- `projects`: array of strings (project GIDs) [OPTIONAL] — List of projects
+- `name`: string [REQUIRED for create] — Display name
+- `notes`: string [OPTIONAL] (task description/body) — Notes
+- `assignee`: string (user GID or email) [OPTIONAL] — Assigned user or agent
+- `due_on`: string (YYYY-MM-DD) [OPTIONAL] — Due On
+- `completed`: boolean [OPTIONAL] — Whether completed is enabled
 
 ## Example Request Bodies
 
@@ -83,3 +90,24 @@ Create, search, and manage Asana tasks, projects, and workspaces. Use when the u
 
 **List Tasks (Query Params):**
 Query parameter: `project=67890&opt_fields=name,completed,due_on,assignee`
+
+## Response
+
+**Task object:**
+- `id`: string — Unique task identifier
+- `name`: string — Task name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

@@ -1,7 +1,6 @@
 ---
 name: xero-accounting
-description: Manage Xero invoices, contacts, and accounts. Use when the user mentions
-  xero, invoice, contact, accounting, payment, bank.
+description: "Manage Xero invoices, contacts, and accounts. Use when the user mentions xero, invoice, contact, accounting, payment, bank."
 version: 1.0.0
 skill_type: external
 base_url_env: XERO_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires XERO_BASE_URL and XERO_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Xero-Accounting
 
 Manage Xero invoices, contacts, and accounts. Use when the user mentions xero, invoice, contact, accounting, payment, bank.
+
 
 ## API Endpoints
 
@@ -79,3 +83,14 @@ Manage Xero invoices, contacts, and accounts. Use when the user mentions xero, i
 **Create Contact:**
 ```json
 {"Name": "New Client LLC", "EmailAddress": "billing@newclient.com"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

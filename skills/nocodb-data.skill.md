@@ -1,7 +1,9 @@
 ---
 name: nocodb-data
-description: Manage NocoDB bases, tables, and records. Use when the user mentions
+description: 'Manage NocoDB bases, tables, and records. Use when the user mentions
   nocodb, database, table, record, spreadsheet.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: NOCODB_BASE_URL
@@ -18,11 +20,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires NOCODB_BASE_URL and NOCODB_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Nocodb-Data
 
 Manage NocoDB bases, tables, and records. Use when the user mentions nocodb, database, table, record, spreadsheet.
+
 
 ## API Endpoints
 
@@ -40,7 +47,7 @@ Manage NocoDB bases, tables, and records. Use when the user mentions nocodb, dat
 
 - list: List bases (GET /api/v2/meta/bases/)
 - list_tables: List tables (GET /api/v2/meta/bases/{baseId}/tables)
-- list_rows: List shared view rows (GET /api/v2/public/shared-view/{sharedViewId}/rows)
+- list_shared_view_rows: List shared view rows (GET /api/v2/public/shared-view/{sharedViewId}/rows)
 - list_records: List records (GET /api/v2/tables/{tableId}/records)
 - get_by_id: Get a record (GET /api/v2/tables/{tableId}/records/{recordId})
 - create: Create records (POST /api/v2/tables/{tableId}/records)
@@ -51,10 +58,10 @@ Manage NocoDB bases, tables, and records. Use when the user mentions nocodb, dat
 ## Fields
 
 - Field values are dynamic based on table schema
-- `where`: string [OPTIONAL for list] (filter condition)
-- `sort`: string [OPTIONAL] (sort expression)
-- `limit`: integer [OPTIONAL]
-- `offset`: integer [OPTIONAL]
+- `where`: string [OPTIONAL for list] (filter condition) [REQUIRED for create] — Where
+- `sort`: string [OPTIONAL] (sort expression) — Sort order
+- `limit`: integer [OPTIONAL] — Maximum number of results
+- `offset`: integer [OPTIONAL] — Pagination offset
 
 ## Example Request Bodies
 
@@ -67,3 +74,24 @@ Manage NocoDB bases, tables, and records. Use when the user mentions nocodb, dat
 ```json
 [{"Id": 1, "Status": "Inactive", "Notes": "Account deactivated per request"}]
 ```
+
+## Response
+
+**Record object:**
+- `id`: string — Unique record identifier
+- `name`: string — Record name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

@@ -1,7 +1,6 @@
 ---
 name: acuity-scheduling
-description: Manage Acuity Scheduling appointments and calendars. Use when the user
-  mentions acuity, appointment, scheduling, booking, calendar.
+description: "Manage Acuity Scheduling appointments and calendars. Use when the user mentions acuity, appointment, scheduling, booking, calendar."
 version: 1.0.0
 skill_type: external
 base_url_env: ACUITY_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires ACUITY_BASE_URL and ACUITY_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Acuity-Scheduling
 
 Manage Acuity Scheduling appointments and calendars. Use when the user mentions acuity, appointment, scheduling, booking, calendar.
+
 
 ## API Endpoints
 
@@ -71,3 +75,14 @@ Manage Acuity Scheduling appointments and calendars. Use when the user mentions 
 ```json
 {"firstName": "Janet", "phone": "+1-555-123-4567"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

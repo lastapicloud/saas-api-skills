@@ -1,7 +1,6 @@
 ---
 name: digitalocean-droplets
-description: Manage DigitalOcean droplets, domains, and databases. Use when the user
-  mentions digitalocean, droplet, domain, database, kubernetes.
+description: "Manage DigitalOcean droplets, domains, and databases. Use when the user mentions digitalocean, droplet, domain, database, kubernetes."
 version: 1.0.0
 skill_type: external
 base_url_env: DIGITALOCEAN_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires DIGITALOCEAN_BASE_URL and DIGITALOCEAN_API_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Digitalocean-Droplets
 
 Manage DigitalOcean droplets, domains, and databases. Use when the user mentions digitalocean, droplet, domain, database, kubernetes.
+
 
 ## API Endpoints
 
@@ -79,3 +83,14 @@ Manage DigitalOcean droplets, domains, and databases. Use when the user mentions
 **Create Database Cluster:**
 ```json
 {"name": "db-cluster-01", "engine": "pg", "region": "nyc3", "size": "db-s-1vcpu-1gb", "num_nodes": 1}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

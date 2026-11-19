@@ -4,7 +4,7 @@ description: "Complete Shopify REST Admin API \u2014 products, variants, images,
   \ orders, fulfillments, refunds, transactions, customers, inventory, collections,\
   \ draft orders, webhooks, shop info, and locations. Use when the user mentions shopify,\
   \ product, order, customer, inventory, shop, e-commerce, ecommerce, fulfillment,\
-  \ collection, variant, draft order, webhook, metafield."
+  \ collection, variant, draft order, webhook, metafield.\n"
 version: 1.0.0
 skill_type: external
 base_url_env: SHOPIFY_BASE_URL
@@ -24,11 +24,16 @@ metadata:
   author: lastapi
   version: 2.0.0
 compatibility: Requires SHOPIFY_BASE_URL and SHOPIFY_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Shopify-Admin
 
 Complete Shopify REST Admin API — products, variants, images, metafields, orders, fulfillments, refunds, transactions, customers, inventory, collections, draft orders, webhooks, shop info, and locations. Use when the user mentions shopify, product, order, customer, inventory, shop, e-commerce, ecommerce, fulfillment, collection, variant, draft order, webhook, metafield.
+
 
 ## API Endpoints
 
@@ -51,19 +56,19 @@ Complete Shopify REST Admin API — products, variants, images, metafields, orde
 ## Actions
 
 - list: List all products (GET /products.json)
-- list_products: Get a single product (GET /products/{product_id}.json)
+- get_single_product: Get a single product (GET /products/{product_id}.json)
 - create: Create a product (POST /products.json)
 - update_products: Update a product (PUT /products/{product_id}.json)
 - delete_products: Delete a product (DELETE /products/{product_id}.json)
-- list_count_json: Get product count (GET /products/count.json)
-- list_variants_json: List variants for a product (GET /products/{product_id}/variants.json)
-- list_variants: Get a single variant (GET /variants/{variant_id}.json)
-- create_variants_json: Create a variant (POST /products/{product_id}/variants.json)
+- get_product_count: Get product count (GET /products/count.json)
+- list_variants_product: List variants for a product (GET /products/{product_id}/variants.json)
+- get_single_variant: Get a single variant (GET /variants/{variant_id}.json)
+- create_variant: Create a variant (POST /products/{product_id}/variants.json)
 - update_variants: Update a variant (PUT /variants/{variant_id}.json)
 - delete_variants: Delete a variant (DELETE /products/{product_id}/variants/{variant_id}.json)
-- list_images_json: List product images (GET /products/{product_id}/images.json)
-- list_images: Get a single image (GET /products/{product_id}/images/{image_id}.json)
-- create_images_json: Create a product image (POST /products/{product_id}/images.json)
+- list_product_images: List product images (GET /products/{product_id}/images.json)
+- get_single_image: Get a single image (GET /products/{product_id}/images/{image_id}.json)
+- create_product_image: Create a product image (POST /products/{product_id}/images.json)
 - put_images: Update a product image (PUT /products/{product_id}/images/{image_id}.json)
 
 ## Fields
@@ -73,13 +78,13 @@ Complete Shopify REST Admin API — products, variants, images, metafields, orde
 - `body_html`: string [OPTIONAL] - Product description in HTML
 - `vendor`: string [OPTIONAL] - Product vendor name
 - `product_type`: string [OPTIONAL] - Product type/category
-- `status`: string [OPTIONAL] - `active`, `archived`, or `draft` (default: `active`)
+- `status`: string [OPTIONAL] - `active`, `archived`, or `draft` (default: `active`) — Current status
 - `tags`: string [OPTIONAL] - Comma-separated tags (e.g., `"summer, sale, new"`)
 - `template_suffix`: string [OPTIONAL] - Theme template suffix
-- `published_scope`: string [OPTIONAL] - `web` (online store only) or `global` (all channels)
+- `published_scope`: string [OPTIONAL] - `web` (online store only) or `global` (all channels) — Published Scope
 - `variants`: array [OPTIONAL] - Array of variant objects (see Variant fields below)
 - `images`: array [OPTIONAL] - Array of image objects with `src` URLs
-- `options`: array [OPTIONAL] - Array of up to 3 option objects: `{"name": "Size", "values": ["S", "M", "L"]}`
+- `options`: array [OPTIONAL] - Array of up to 3 option objects: `{"name": "Size", "values": ["S", "M", "L"]}` — List of options
 - `metafields`: array [OPTIONAL] - Array of metafield objects for creation
 
 ### Product Variant
@@ -91,10 +96,10 @@ Complete Shopify REST Admin API — products, variants, images, metafields, orde
 - `sku`: string [OPTIONAL] - Stock keeping unit
 - `barcode`: string [OPTIONAL] - Barcode (ISBN, UPC, GTIN, etc.)
 - `weight`: number [OPTIONAL] - Weight value
-- `weight_unit`: string [OPTIONAL] - `g`, `kg`, `oz`, or `lb`
+- `weight_unit`: string [OPTIONAL] - `g`, `kg`, `oz`, or `lb` — Weight Unit
 - `inventory_quantity`: integer [OPTIONAL] - Initial stock quantity (only on create)
-- `inventory_management`: string [OPTIONAL] - `shopify` to enable inventory tracking, or `null`
-- `inventory_policy`: string [OPTIONAL] - `deny` (stop selling at 0) or `continue`
+- `inventory_management`: string [OPTIONAL] - `shopify` to enable inventory tracking, or `null` — Inventory Management
+- `inventory_policy`: string [OPTIONAL] - `deny` (stop selling at 0) or `continue` — Inventory Policy
 - `requires_shipping`: boolean [OPTIONAL] - Whether variant requires shipping (default: true)
 - `taxable`: boolean [OPTIONAL] - Whether variant is taxable (default: true)
 
@@ -115,14 +120,14 @@ Complete Shopify REST Admin API — products, variants, images, metafields, orde
 - `email`: string [OPTIONAL] - Customer email
 - `billing_address`: object [OPTIONAL] - Billing address object
 - `shipping_address`: object [OPTIONAL] - Shipping address object
-- `financial_status`: string [OPTIONAL] - `pending`, `authorized`, `partially_paid`, `paid`, `partially_refunded`, `refunded`, `voided`
-- `fulfillment_status`: string [OPTIONAL] - `null` (unfulfilled), `partial`, `fulfilled`
+- `financial_status`: string [OPTIONAL] - `pending`, `authorized`, `partially_paid`, `paid`, `partially_refunded`, `refunded`, `voided` — Financial current status
+- `fulfillment_status`: string [OPTIONAL] - `null` (unfulfilled), `partial`, `fulfilled` — Fulfillment current status
 - `note`: string [OPTIONAL] - Internal order note
 - `tags`: string [OPTIONAL] - Comma-separated tags
 - `shipping_lines`: array [OPTIONAL] - Array of shipping line objects
 - `transactions`: array [OPTIONAL] - Array of transaction objects
 - `send_receipt`: boolean [OPTIONAL] - Send order receipt to customer (default: false)
-- `inventory_behaviour`: string [OPTIONAL] - `bypass`, `decrement_ignoring_policy`, `decrement_obeying_policy`
+- `inventory_behaviour`: string [OPTIONAL] - `bypass`, `decrement_ignoring_policy`, `decrement_obeying_policy` — Inventory Behaviour
 - `discount_codes`: array [OPTIONAL] - Array of discount code objects
 - `tax_lines`: array [OPTIONAL] - Array of tax line objects
 - `currency`: string [OPTIONAL] - Three-letter ISO 4217 currency code
@@ -141,7 +146,7 @@ Complete Shopify REST Admin API — products, variants, images, metafields, orde
 - `tax_exempt`: boolean [OPTIONAL] - Whether customer is tax exempt
 - `addresses`: array [OPTIONAL] - Array of address objects
 - `metafields`: array [OPTIONAL] - Array of metafield objects
-- `state`: string [READ-ONLY] - `disabled`, `invited`, `enabled`, `declined`
+- `state`: string [READ-ONLY] - `disabled`, `invited`, `enabled`, `declined` — State or region
 
 ### Customer Address
 - `address1`: string [OPTIONAL] - Street address line 1
@@ -174,7 +179,7 @@ Complete Shopify REST Admin API — products, variants, images, metafields, orde
 - `body_html`: string [OPTIONAL] - Collection description in HTML
 - `published`: boolean [OPTIONAL] - Whether published (default: true)
 - `image`: object [OPTIONAL] - Collection image object with `src` or `attachment`
-- `sort_order`: string [OPTIONAL] - `alpha-asc`, `alpha-desc`, `best-selling`, `created`, `created-desc`, `manual`, `price-asc`, `price-desc`
+- `sort_order`: string [OPTIONAL] - `alpha-asc`, `alpha-desc`, `best-selling`, `created`, `created-desc`, `manual`, `price-asc`, `price-desc` — Sort Order
 
 ### Smart Collection
 - `title`: string [REQUIRED for create] - Collection title
@@ -182,7 +187,7 @@ Complete Shopify REST Admin API — products, variants, images, metafields, orde
 - `rules[].column`: string [REQUIRED] - Rule column: `tag`, `title`, `type`, `vendor`, `variant_price`, `variant_compare_at_price`, `variant_weight`, `variant_inventory`, `variant_title`
 - `rules[].relation`: string [REQUIRED] - `equals`, `not_equals`, `greater_than`, `less_than`, `starts_with`, `ends_with`, `contains`, `not_contains`
 - `rules[].condition`: string [REQUIRED] - Value to match
-- `disjunctive`: boolean [OPTIONAL] - `true` = OR logic, `false` = AND logic (default: false)
+- `disjunctive`: boolean [OPTIONAL] - `true` = OR logic, `false` = AND logic (default: false) — Whether disjunctive is enabled
 - `published`: boolean [OPTIONAL] - Whether published
 - `body_html`: string [OPTIONAL] - Description in HTML
 - `sort_order`: string [OPTIONAL] - Same options as custom collection
@@ -214,7 +219,7 @@ Complete Shopify REST Admin API — products, variants, images, metafields, orde
 ### Webhook
 - `topic`: string [REQUIRED for create] - Event topic (e.g., `orders/create`, `products/update`, `customers/delete`, `app/uninstalled`)
 - `address`: string [REQUIRED for create] - Callback URL (must be HTTPS)
-- `format`: string [OPTIONAL] - `json` (default) or `xml`
+- `format`: string [OPTIONAL] - `json` (default) or `xml` — Format
 - `fields`: array [OPTIONAL] - Specific fields to include in payload
 - `metafield_namespaces`: array [OPTIONAL] - Metafield namespaces to include
 
@@ -229,7 +234,7 @@ Complete Shopify REST Admin API — products, variants, images, metafields, orde
 - `transactions`: array [OPTIONAL] - Manual refund transactions
 
 ### Transaction
-- `kind`: string [REQUIRED] - `authorization`, `capture`, `sale`, `void`, `refund`
+- `kind`: string [REQUIRED] - `authorization`, `capture`, `sale`, `void`, `refund` — Kind
 - `amount`: string [OPTIONAL] - Transaction amount (e.g., `"29.99"`)
 - `currency`: string [OPTIONAL] - ISO 4217 currency code
 - `parent_id`: integer [OPTIONAL] - Parent transaction ID (for capture/void/refund)
@@ -241,7 +246,7 @@ Complete Shopify REST Admin API — products, variants, images, metafields, orde
 {
   "product": {
     "title": "Classic T-Shirt",
-    "body_html": "<p>Comfortable cotton t-shirt available in multiple sizes.</p>",
+    "body_html": "Comfortable cotton t-shirt available in multiple sizes.",
     "vendor": "MyBrand",
     "product_type": "Apparel",
     "status": "active",
@@ -449,3 +454,42 @@ Query parameters: `status=open&financial_status=paid&fulfillment_status=unfulfil
 
 **Search Customers (Query Params):**
 Query parameters: `query=email:jane@example.com&limit=10`
+
+## Response
+
+**Product object:**
+- `id`: string — Unique product identifier
+- `name`: string — Product name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+
+**Required fields reference:**
+```json
+{
+  "attachment": "example_attachment",
+  "kind": "example_kind"
+}
+```
+
+
+**Required fields reference:**
+```json
+{
+  "attachment": "example_attachment",
+  "kind": "example_kind"
+}
+```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

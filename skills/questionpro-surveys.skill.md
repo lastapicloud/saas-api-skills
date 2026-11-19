@@ -1,7 +1,9 @@
 ---
 name: questionpro-surveys
-description: Manage surveys and responses via QuestionPro. Use when the user mentions
+description: 'Manage surveys and responses via QuestionPro. Use when the user mentions
   questionpro, survey, response, question, poll.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: QUESTIONPRO_BASE_URL
@@ -18,11 +20,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires QUESTIONPRO_BASE_URL and QUESTIONPRO_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Questionpro-Surveys
 
 Manage surveys and responses via QuestionPro. Use when the user mentions questionpro, survey, response, question, poll.
+
 
 ## API Endpoints
 
@@ -42,18 +49,18 @@ Manage surveys and responses via QuestionPro. Use when the user mentions questio
 - delete: Delete survey (DELETE /api/v2/surveys/{surveyID})
 - list_responses: List responses (GET /api/v2/surveys/{surveyID}/responses)
 - list_questions: List questions (GET /api/v2/surveys/{surveyID}/questions)
-- create_questions: Add question (POST /api/v2/surveys/{surveyID}/questions)
+- add_question: Add question (POST /api/v2/surveys/{surveyID}/questions)
 
 ## Fields
 
-- `name`: string [REQUIRED for create survey]
-- `type`: string [OPTIONAL] (survey type)
-- `surveyID`: integer [REQUIRED for get/delete/list responses]
-- `description`: string [OPTIONAL] (survey description)
-- `questionText`: string [REQUIRED for add question] (question text)
-- `questionType`: string [REQUIRED for add question] ("single_choice", "multiple_choice", "text", "rating")
-- `choices`: array [OPTIONAL for add question] (answer choices for choice-based questions)
-- `isRequired`: boolean [OPTIONAL] (whether the question is required)
+- `name`: string [REQUIRED for create survey] — Display name
+- `type`: string [OPTIONAL] (survey type) — Resource type
+- `surveyID`: integer [REQUIRED for get/delete/list responses] — Survey unique identifier
+- `description`: string [OPTIONAL] (survey description) — Human-readable description
+- `questionText`: string [REQUIRED for add question] (question text) — Question text content
+- `questionType`: string [REQUIRED for add question] ("single_choice", "multiple_choice", "text", "rating") — Question resource type
+- `choices`: array [OPTIONAL for add question] (answer choices for choice-based questions) — List of choices
+- `isRequired`: boolean [OPTIONAL] (whether the question is required) — Whether isRequired is enabled
 
 ## Example Request Bodies
 
@@ -74,3 +81,24 @@ Manage surveys and responses via QuestionPro. Use when the user mentions questio
   "isRequired": true
 }
 ```
+
+## Response
+
+**Survey object:**
+- `id`: string — Unique survey identifier
+- `name`: string — Survey name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

@@ -1,7 +1,6 @@
 ---
 name: weaviate-vectors
-description: Manage Weaviate vector collections and objects. Use when the user mentions
-  weaviate, vector, embedding, similarity, collection, object.
+description: "Manage Weaviate vector collections and objects. Use when the user mentions weaviate, vector, embedding, similarity, collection, object."
 version: 1.0.0
 skill_type: external
 base_url_env: WEAVIATE_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires WEAVIATE_BASE_URL and WEAVIATE_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Weaviate-Vectors
 
 Manage Weaviate vector collections and objects. Use when the user mentions weaviate, vector, embedding, similarity, collection, object.
+
 
 ## API Endpoints
 
@@ -68,3 +72,14 @@ Manage Weaviate vector collections and objects. Use when the user mentions weavi
 **Update Object:**
 ```json
 {"properties": {"title": "Updated: Introduction to Vector Databases"}}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

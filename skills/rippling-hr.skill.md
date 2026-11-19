@@ -1,7 +1,6 @@
 ---
 name: rippling-hr
-description: Manage Rippling employees, departments, and groups. Use when the user
-  mentions rippling, employee, HR, department, group.
+description: "Manage Rippling employees, departments, and groups. Use when the user mentions rippling, employee, HR, department, group."
 version: 1.0.0
 skill_type: external
 base_url_env: RIPPLING_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires RIPPLING_BASE_URL and RIPPLING_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Rippling-Hr
 
 Manage Rippling employees, departments, and groups. Use when the user mentions rippling, employee, HR, department, group.
+
 
 ## API Endpoints
 
@@ -54,7 +58,7 @@ Manage Rippling employees, departments, and groups. Use when the user mentions r
 
 ## Fields
 
-- `filter`: object [OPTIONAL for list queries]
+- `filter`: object [OPTIONAL for list queries] [REQUIRED for create]
 - `fields`: string [OPTIONAL] (comma-separated field names to include)
 
 ## Example Request Bodies
@@ -67,3 +71,14 @@ Manage Rippling employees, departments, and groups. Use when the user mentions r
 **List Groups with Filter:**
 ```json
 {"filter": {"type": "team"}, "fields": "name,members"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

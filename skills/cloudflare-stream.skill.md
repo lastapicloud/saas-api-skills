@@ -1,7 +1,9 @@
 ---
 name: cloudflare-stream
-description: Upload, manage, and stream videos via Cloudflare Stream. Use when the
+description: 'Upload, manage, and stream videos via Cloudflare Stream. Use when the
   user mentions cloudflare stream, stream, video, live stream.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: CLOUDFLARE_STREAM_BASE_URL
@@ -16,13 +18,20 @@ license: Apache-2.0
 metadata:
   author: lastapi
   version: 1.0.0
-compatibility: Requires CLOUDFLARE_STREAM_BASE_URL and CLOUDFLARE_API_TOKEN environment
+compatibility: 'Requires CLOUDFLARE_STREAM_BASE_URL and CLOUDFLARE_API_TOKEN environment
   variables.
+
+  '
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Cloudflare-Stream
 
 Upload, manage, and stream videos via Cloudflare Stream. Use when the user mentions cloudflare stream, stream, video, live stream.
+
 
 ## API Endpoints
 
@@ -40,20 +49,20 @@ Upload, manage, and stream videos via Cloudflare Stream. Use when the user menti
 - create: Upload a video (POST /v4/accounts/{account_id}/stream)
 - get_by_id: Get video by ID (GET /v4/accounts/{account_id}/stream/{identifier})
 - delete: Delete a video (DELETE /v4/accounts/{account_id}/stream/{identifier})
-- create_live_inputs: Create a live input (POST /v4/accounts/{account_id}/stream/live_inputs)
+- create_live_input: Create a live input (POST /v4/accounts/{account_id}/stream/live_inputs)
 - list_live_inputs: List live inputs (GET /v4/accounts/{account_id}/stream/live_inputs)
-- list_downloads: Get download URL (GET /v4/accounts/{account_id}/stream/{identifier}/downloads)
+- get_download_url: Get download URL (GET /v4/accounts/{account_id}/stream/{identifier}/downloads)
 
 ## Fields
 
-- `url`: string [OPTIONAL for upload] (URL to fetch video from)
-- `meta`: object [OPTIONAL] (metadata key-value pairs)
-- `account_id`: string [REQUIRED] (Cloudflare account ID)
-- `identifier`: string [REQUIRED for get/delete] (video identifier)
-- `requireSignedURLs`: boolean [OPTIONAL] (restrict playback to signed URLs)
-- `allowedOrigins`: array [OPTIONAL] (list of allowed referrer origins)
-- `mode`: string [REQUIRED for create live input] ("automatic" or "off")
-- `timeoutSeconds`: integer [OPTIONAL for live input] (idle timeout)
+- `url`: string [OPTIONAL for upload] (URL to fetch video from) — URL
+- `meta`: object [OPTIONAL] (metadata key-value pairs) — Meta configuration
+- `account_id`: string [REQUIRED] (Cloudflare account ID) — Account unique identifier
+- `identifier`: string [REQUIRED for get/delete] (video identifier) — Identifier
+- `requireSignedURLs`: boolean [OPTIONAL] (restrict playback to signed URLs) — Whether requireSignedURLs is enabled
+- `allowedOrigins`: array [OPTIONAL] (list of allowed referrer origins) — List of allowedOrigins
+- `mode`: string [REQUIRED for create live input] ("automatic" or "off") — Mode
+- `timeoutSeconds`: integer [OPTIONAL for live input] (idle timeout) — Timeoutseconds value
 
 ## Example Request Bodies
 
@@ -80,3 +89,42 @@ Upload, manage, and stream videos via Cloudflare Stream. Use when the user menti
   }
 }
 ```
+
+## Response
+
+**Stream object:**
+- `id`: string — Unique stream identifier
+- `name`: string — Stream name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+
+**Required fields reference:**
+```json
+{
+  "account_id": "example_account_id",
+  "identifier": "example_identifier"
+}
+```
+
+
+**Required fields reference:**
+```json
+{
+  "account_id": "example_account_id",
+  "identifier": "example_identifier"
+}
+```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

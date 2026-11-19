@@ -1,7 +1,6 @@
 ---
 name: paperform-forms
-description: Manage forms and submissions via Paperform. Use when the user mentions
-  paperform, form, submission, survey.
+description: "Manage forms and submissions via Paperform. Use when the user mentions paperform, form, submission, survey."
 version: 1.0.0
 skill_type: external
 base_url_env: PAPERFORM_BASE_URL
@@ -17,11 +16,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires PAPERFORM_BASE_URL and PAPERFORM_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Paperform-Forms
 
 Manage forms and submissions via Paperform. Use when the user mentions paperform, form, submission, survey.
+
 
 ## API Endpoints
 
@@ -56,3 +60,14 @@ Manage forms and submissions via Paperform. Use when the user mentions paperform
 ```json
 {"formSlug": "customer-feedback"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

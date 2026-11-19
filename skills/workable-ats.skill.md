@@ -1,7 +1,6 @@
 ---
 name: workable-ats
-description: Manage candidates, jobs, and stages in Workable ATS. Use when the user
-  mentions workable, workable candidate, workable job, workable hiring.
+description: "Manage candidates, jobs, and stages in Workable ATS. Use when the user mentions workable, workable candidate, workable job, workable hiring."
 version: 1.0.0
 skill_type: external
 base_url_env: WORKABLE_BASE_URL
@@ -17,11 +16,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires WORKABLE_BASE_URL and WORKABLE_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Workable-Ats
 
 Manage candidates, jobs, and stages in Workable ATS. Use when the user mentions workable, workable candidate, workable job, workable hiring.
+
 
 ## API Endpoints
 
@@ -73,3 +77,14 @@ Manage candidates, jobs, and stages in Workable ATS. Use when the user mentions 
 ```json
 {"stage": "interview"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

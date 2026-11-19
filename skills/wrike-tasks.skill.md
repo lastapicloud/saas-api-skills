@@ -1,7 +1,6 @@
 ---
 name: wrike-tasks
-description: Manage Wrike tasks, folders, and projects. Use when the user mentions
-  wrike, task, folder, project, workspace.
+description: "Manage Wrike tasks, folders, and projects. Use when the user mentions wrike, task, folder, project, workspace."
 version: 1.0.0
 skill_type: external
 base_url_env: WRIKE_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires WRIKE_BASE_URL and WRIKE_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Wrike-Tasks
 
 Manage Wrike tasks, folders, and projects. Use when the user mentions wrike, task, folder, project, workspace.
+
 
 ## API Endpoints
 
@@ -70,3 +74,14 @@ Manage Wrike tasks, folders, and projects. Use when the user mentions wrike, tas
 ```json
 {"title": "Q2 Marketing"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

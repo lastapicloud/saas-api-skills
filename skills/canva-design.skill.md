@@ -1,7 +1,6 @@
 ---
 name: canva-design
-description: Manage designs and assets via Canva. Use when the user mentions canva,
-  design, template, graphic, image, brand.
+description: "Manage designs and assets via Canva. Use when the user mentions canva, design, template, graphic, image, brand."
 version: 1.0.0
 skill_type: external
 base_url_env: CANVA_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires CANVA_BASE_URL and CANVA_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Canva-Design
 
 Manage designs and assets via Canva. Use when the user mentions canva, design, template, graphic, image, brand.
+
 
 ## API Endpoints
 
@@ -38,14 +42,10 @@ Manage designs and assets via Canva. Use when the user mentions canva, design, t
 - **POST** `/v1/folders/move` - Moves an item to another folder. You must specify the folder ID of the destination folder, as well as the ID of the
 - **GET** `/v1/folders/{folderId}` - Gets the name and other details of a folder using a folder's `folderID`.
 - **PATCH** `/v1/folders/{folderId}` - Updates a folder's details using its `folderID`.
-Currently, you can only update a folder's name.
 - **DELETE** `/v1/folders/{folderId}` - Deletes a folder with the specified `folderID`.
-Deleting a folder moves the user's content in the folder to
 - **GET** `/v1/assets/{assetId}` - You can retrieve the metadata of an asset by specifying its `assetId`.
 - **PATCH** `/v1/assets/{assetId}` - You can update the name and tags of an asset by specifying its `assetId`. Updating the tags
-replaces all existing tags
 - **DELETE** `/v1/assets/{assetId}` - You can delete an asset by specifying its `assetId`. This operation mirrors the behavior
-in the Canva UI. Deleting an
 
 ## Actions
 
@@ -59,10 +59,8 @@ in the Canva UI. Deleting an
 - list_folders: List folders (GET /v1/folders)
 - create_move: Moves an item to another folder. You must specify the folder ID of the destinati (POST /v1/folders/move)
 - get_by_id_folders: Gets the name and other details of a folder using a folder's `folderID`. (GET /v1/folders/{folderId})
-- update: Updates a folder's details using its `folderID`.
-Currently, you can only update (PATCH /v1/folders/{folderId})
-- delete: Deletes a folder with the specified `folderID`.
-Deleting a folder moves the user (DELETE /v1/folders/{folderId})
+- update: Updates a folder's details using its `folderID`. (PATCH /v1/folders/{folderId})
+- delete: Deletes a folder with the specified `folderID`. (DELETE /v1/folders/{folderId})
 - get_by_id_assets: You can retrieve the metadata of an asset by specifying its `assetId`. (GET /v1/assets/{assetId})
 - update_assets: You can update the name and tags of an asset by specifying its `assetId`. Updati (PATCH /v1/assets/{assetId})
 - delete_assets: You can delete an asset by specifying its `assetId`. This operation mirrors the (DELETE /v1/assets/{assetId})
@@ -83,3 +81,14 @@ Deleting a folder moves the user (DELETE /v1/folders/{folderId})
 ```json
 {"name": "company-logo.png", "folder_id": "folder_xyz789"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

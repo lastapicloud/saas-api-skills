@@ -1,7 +1,6 @@
 ---
 name: vercel-deployments
-description: Manage deployments, projects, and domains in Vercel. Use when the user
-  mentions vercel, deployment, deploy, domain, project, serverless.
+description: "Manage deployments, projects, and domains in Vercel. Use when the user mentions vercel, deployment, deploy, domain, project, serverless."
 version: 1.0.0
 skill_type: external
 base_url_env: VERCEL_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires VERCEL_BASE_URL and VERCEL_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Vercel-Deployments
 
 Manage deployments, projects, and domains in Vercel. Use when the user mentions vercel, deployment, deploy, domain, project, serverless.
+
 
 ## API Endpoints
 
@@ -87,3 +91,14 @@ Manage deployments, projects, and domains in Vercel. Use when the user mentions 
 
 **List Deployments (Query Params):**
 Query parameter: `limit=20&target=production&teamId=team_abc123`
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

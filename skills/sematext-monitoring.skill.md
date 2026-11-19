@@ -1,7 +1,6 @@
 ---
 name: sematext-monitoring
-description: Manage monitors and alerts via Sematext. Use when the user mentions sematext,
-  monitoring, logs, metrics, alert, observability.
+description: "Manage monitors and alerts via Sematext. Use when the user mentions sematext, monitoring, logs, metrics, alert, observability."
 version: 1.0.0
 skill_type: external
 base_url_env: SEMATEXT_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires SEMATEXT_BASE_URL and SEMATEXT_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Sematext-Monitoring
 
 Manage monitors and alerts via Sematext. Use when the user mentions sematext, monitoring, logs, metrics, alert, observability.
+
 
 ## API Endpoints
 
@@ -61,3 +65,14 @@ Manage monitors and alerts via Sematext. Use when the user mentions sematext, mo
 ```json
 {"name": "High Error Rate", "query": "severity:error", "threshold": 100}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

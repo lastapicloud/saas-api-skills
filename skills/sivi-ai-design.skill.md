@@ -19,7 +19,6 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://developer.sivi.ai/
-compatibility: Requires SIVI_BASE_URL and SIVI_API_KEY environment variables.
 ---
 
 # Sivi-AI-Design

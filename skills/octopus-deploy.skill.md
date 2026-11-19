@@ -1,7 +1,6 @@
 ---
 name: octopus-deploy
-description: Manage projects, releases, and deployments via Octopus Deploy. Use when
-  the user mentions octopus deploy, octopus, deployment, release, project, environment.
+description: "Manage projects, releases, and deployments via Octopus Deploy. Use when the user mentions octopus deploy, octopus, deployment, release, project, environment."
 version: 1.0.0
 skill_type: external
 base_url_env: OCTOPUS_DEPLOY_BASE_URL
@@ -18,13 +17,20 @@ license: Apache-2.0
 metadata:
   author: lastapi
   version: 1.0.0
-compatibility: Requires OCTOPUS_DEPLOY_BASE_URL and OCTOPUS_DEPLOY_API_KEY environment
+compatibility: 'Requires OCTOPUS_DEPLOY_BASE_URL and OCTOPUS_DEPLOY_API_KEY environment
   variables.
+
+  '
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Octopus-Deploy
 
 Manage projects, releases, and deployments via Octopus Deploy. Use when the user mentions octopus deploy, octopus, deployment, release, project, environment.
+
 
 ## API Endpoints
 
@@ -66,3 +72,14 @@ Manage projects, releases, and deployments via Octopus Deploy. Use when the user
 ```json
 {"EnvironmentId": "Environments-456", "ReleaseId": "Releases-789"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

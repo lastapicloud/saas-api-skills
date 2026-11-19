@@ -1,7 +1,6 @@
 ---
 name: knock-notifications
-description: Send notifications and manage workflows via Knock. Use when the user
-  mentions knock, notification, workflow, channel, subscriber.
+description: "Send notifications and manage workflows via Knock. Use when the user mentions knock, notification, workflow, channel, subscriber."
 version: 1.0.0
 skill_type: external
 base_url_env: KNOCK_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires KNOCK_BASE_URL and KNOCK_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Knock-Notifications
 
 Send notifications and manage workflows via Knock. Use when the user mentions knock, notification, workflow, channel, subscriber.
+
 
 ## API Endpoints
 
@@ -63,3 +67,14 @@ Send notifications and manage workflows via Knock. Use when the user mentions kn
 ```json
 {"name": "Jane Doe", "email": "jane@example.com", "timezone": "America/New_York"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

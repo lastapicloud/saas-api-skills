@@ -1,7 +1,6 @@
 ---
 name: gitguardian-security
-description: Detect and manage secret leaks via GitGuardian. Use when the user mentions
-  gitguardian, secret, leak, security, scanning.
+description: "Detect and manage secret leaks via GitGuardian. Use when the user mentions gitguardian, secret, leak, security, scanning."
 version: 1.0.0
 skill_type: external
 base_url_env: GITGUARDIAN_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires GITGUARDIAN_BASE_URL and GITGUARDIAN_API_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Gitguardian-Security
 
 Detect and manage secret leaks via GitGuardian. Use when the user mentions gitguardian, secret, leak, security, scanning.
+
 
 ## API Endpoints
 
@@ -61,3 +65,14 @@ Detect and manage secret leaks via GitGuardian. Use when the user mentions gitgu
 **Update Incident:**
 ```json
 {"status": "resolved"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

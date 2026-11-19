@@ -1,7 +1,6 @@
 ---
 name: instagram-social
-description: Manage Instagram Business media and insights. Use when the user mentions
-  instagram, media, post, story, social, reel.
+description: "Manage Instagram Business media and insights. Use when the user mentions instagram, media, post, story, social, reel."
 version: 1.0.0
 skill_type: external
 base_url_env: INSTAGRAM_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires INSTAGRAM_BASE_URL and INSTAGRAM_ACCESS_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Instagram-Social
 
 Manage Instagram Business media and insights. Use when the user mentions instagram, media, post, story, social, reel.
+
 
 ## API Endpoints
 
@@ -82,3 +86,14 @@ Manage Instagram Business media and insights. Use when the user mentions instagr
 ```json
 {"creation_id": "17889234567890"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

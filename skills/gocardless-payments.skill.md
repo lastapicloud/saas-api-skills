@@ -1,7 +1,6 @@
 ---
 name: gocardless-payments
-description: Manage direct debit payments via GoCardless. Use when the user mentions
-  gocardless, direct debit, payment, mandate, customer, subscription.
+description: "Manage direct debit payments via GoCardless. Use when the user mentions gocardless, direct debit, payment, mandate, customer, subscription."
 version: 1.0.0
 skill_type: external
 base_url_env: GOCARDLESS_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires GOCARDLESS_BASE_URL and GOCARDLESS_ACCESS_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Gocardless-Payments
 
 Manage direct debit payments via GoCardless. Use when the user mentions gocardless, direct debit, payment, mandate, customer, subscription.
+
 
 ## API Endpoints
 
@@ -65,3 +69,14 @@ Manage direct debit payments via GoCardless. Use when the user mentions gocardle
 **Create Payment:**
 ```json
 {"amount": 5000, "currency": "GBP", "mandate": "MD000123"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

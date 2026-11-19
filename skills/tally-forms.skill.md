@@ -1,7 +1,6 @@
 ---
 name: tally-forms
-description: Manage forms and submissions via Tally. Use when the user mentions tally,
-  form, submission, response.
+description: "Manage forms and submissions via Tally. Use when the user mentions tally, form, submission, response."
 version: 1.0.0
 skill_type: external
 base_url_env: TALLY_BASE_URL
@@ -17,11 +16,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires TALLY_BASE_URL and TALLY_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Tally-Forms
 
 Manage forms and submissions via Tally. Use when the user mentions tally, form, submission, response.
+
 
 ## API Endpoints
 
@@ -67,3 +71,14 @@ Manage forms and submissions via Tally. Use when the user mentions tally, form, 
   "limit": 50
 }
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

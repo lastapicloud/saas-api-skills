@@ -1,7 +1,6 @@
 ---
 name: imgix-media
-description: Manage image sources and rendering via imgix. Use when the user mentions
-  imgix, image, rendering, cdn, transform, media.
+description: "Manage image sources and rendering via imgix. Use when the user mentions imgix, image, rendering, cdn, transform, media."
 version: 1.0.0
 skill_type: external
 base_url_env: IMGIX_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires IMGIX_BASE_URL and IMGIX_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Imgix-Media
 
 Manage image sources and rendering via imgix. Use when the user mentions imgix, image, rendering, cdn, transform, media.
+
 
 ## API Endpoints
 
@@ -62,3 +66,14 @@ Manage image sources and rendering via imgix. Use when the user mentions imgix, 
 ```json
 {"origin_path": "/products/shoe-red.jpg"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

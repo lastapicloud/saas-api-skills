@@ -18,7 +18,6 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://docs.ollama.com/api/
-compatibility: Requires OLLAMA_BASE_URL and OLLAMA_API_KEY environment variables.
 ---
 
 # Ollama-AI
