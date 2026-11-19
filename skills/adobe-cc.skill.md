@@ -1,7 +1,6 @@
 ---
 name: adobe-cc
-description: Manage Adobe Creative Cloud assets and libraries. Use when the user mentions
-  adobe, creative cloud, photoshop, illustrator, asset, library.
+description: "Manage Adobe Creative Cloud assets and libraries. Use when the user mentions adobe, creative cloud, photoshop, illustrator, asset, library."
 version: 1.0.0
 skill_type: external
 base_url_env: ADOBE_CC_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires ADOBE_CC_BASE_URL and ADOBE_CC_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Adobe-Cc
 
 Manage Adobe Creative Cloud assets and libraries. Use when the user mentions adobe, creative cloud, photoshop, illustrator, asset, library.
+
 
 ## API Endpoints
 
@@ -78,3 +82,14 @@ Manage Adobe Creative Cloud assets and libraries. Use when the user mentions ado
 ```json
 {"name": "Brand Assets Q2 2026"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: figma-design
-description: Access Figma files, components, and comments. Use when the user mentions
-  figma, design, file, component, prototype.
+description: "Access Figma files, components, and comments. Use when the user mentions figma, design, file, component, prototype."
 version: 1.0.0
 skill_type: external
 base_url_env: FIGMA_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires FIGMA_BASE_URL and FIGMA_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Figma-Design
 
 Access Figma files, components, and comments. Use when the user mentions figma, design, file, component, prototype.
+
 
 ## API Endpoints
 
@@ -79,3 +83,14 @@ Access Figma files, components, and comments. Use when the user mentions figma, 
 ```json
 {"ids": "1:2,3:4", "format": "png", "scale": 2}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

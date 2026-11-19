@@ -1,7 +1,6 @@
 ---
 name: braze-engagement
-description: Manage Braze campaigns, users, and messaging. Use when the user mentions
-  braze, campaign, user, engagement, push notification, messaging.
+description: "Manage Braze campaigns, users, and messaging. Use when the user mentions braze, campaign, user, engagement, push notification, messaging."
 version: 1.0.0
 skill_type: external
 base_url_env: BRAZE_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires BRAZE_BASE_URL and BRAZE_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Braze-Engagement
 
 Manage Braze campaigns, users, and messaging. Use when the user mentions braze, campaign, user, engagement, push notification, messaging.
+
 
 ## API Endpoints
 
@@ -80,3 +84,14 @@ Manage Braze campaigns, users, and messaging. Use when the user mentions braze, 
 ```json
 {"campaign_id": "camp_abc123", "recipients": [{"external_user_id": "user-001"}, {"external_user_id": "user-002"}]}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

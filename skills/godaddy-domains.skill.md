@@ -1,7 +1,6 @@
 ---
 name: godaddy-domains
-description: Manage domains and DNS via GoDaddy. Use when the user mentions godaddy,
-  domain, dns, registrar, whois.
+description: "Manage domains and DNS via GoDaddy. Use when the user mentions godaddy, domain, dns, registrar, whois."
 version: 1.0.0
 skill_type: external
 base_url_env: GODADDY_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires GODADDY_BASE_URL and GODADDY_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Godaddy-Domains
 
 Manage domains and DNS via GoDaddy. Use when the user mentions godaddy, domain, dns, registrar, whois.
+
 
 ## API Endpoints
 
@@ -79,3 +83,14 @@ Manage domains and DNS via GoDaddy. Use when the user mentions godaddy, domain, 
 ```json
 [{"type": "A", "name": "@", "data": "93.184.216.34", "ttl": 3600}]
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

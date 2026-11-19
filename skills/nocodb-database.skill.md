@@ -1,7 +1,6 @@
 ---
 name: nocodb-database
-description: Manage bases, tables, and records via NocoDB. Use when the user mentions
-  nocodb, database, table, record, no-code, airtable alternative.
+description: "Manage bases, tables, and records via NocoDB. Use when the user mentions nocodb, database, table, record, no-code, airtable alternative."
 version: 1.0.0
 skill_type: external
 base_url_env: NOCODB_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires NOCODB_BASE_URL and NOCODB_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Nocodb-Database
 
 Manage bases, tables, and records via NocoDB. Use when the user mentions nocodb, database, table, record, no-code, airtable alternative.
+
 
 ## API Endpoints
 
@@ -76,3 +80,14 @@ Manage bases, tables, and records via NocoDB. Use when the user mentions nocodb,
   ]
 }
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

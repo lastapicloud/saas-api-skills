@@ -1,7 +1,6 @@
 ---
 name: razorpay-payments
-description: Manage Razorpay payments, orders, and customers. Use when the user mentions
-  razorpay, payment, order, refund, customer.
+description: "Manage Razorpay payments, orders, and customers. Use when the user mentions razorpay, payment, order, refund, customer."
 version: 1.0.0
 skill_type: external
 base_url_env: RAZORPAY_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires RAZORPAY_BASE_URL and RAZORPAY_KEY_SECRET environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Razorpay-Payments
 
 Manage Razorpay payments, orders, and customers. Use when the user mentions razorpay, payment, order, refund, customer.
+
 
 ## API Endpoints
 
@@ -71,3 +75,14 @@ Manage Razorpay payments, orders, and customers. Use when the user mentions razo
 ```json
 {"name": "Rahul Sharma", "email": "rahul@example.com", "contact": "+919876543210"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

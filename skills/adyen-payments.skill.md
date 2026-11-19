@@ -1,7 +1,6 @@
 ---
 name: adyen-payments
-description: Process payments, refunds, and manage transactions via Adyen. Use when
-  the user mentions adyen, payment, checkout, refund, transaction, payout.
+description: "Process payments, refunds, and manage transactions via Adyen. Use when the user mentions adyen, payment, checkout, refund, transaction, payout."
 version: 1.0.0
 skill_type: external
 base_url_env: ADYEN_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires ADYEN_BASE_URL and ADYEN_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Adyen-Payments
 
 Process payments, refunds, and manage transactions via Adyen. Use when the user mentions adyen, payment, checkout, refund, transaction, payout.
+
 
 ## API Endpoints
 
@@ -70,3 +74,14 @@ Process payments, refunds, and manage transactions via Adyen. Use when the user 
 **Refund Payment:**
 ```json
 {"amount": {"value": 500, "currency": "USD"}, "merchantAccount": "YourMerchantAccount"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

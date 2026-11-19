@@ -1,7 +1,9 @@
 ---
 name: datadog-monitoring
-description: Manage monitors, metrics, logs, and dashboards in Datadog. Use when the
-  user mentions datadog, monitor, metric, alert, dashboard, log, incident.
+description: 'Manage monitors, metrics, logs, and dashboards in Datadog. Use when
+  the user mentions datadog, monitor, metric, alert, dashboard, log, incident.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: DATADOG_BASE_URL
@@ -20,11 +22,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires DATADOG_BASE_URL and DATADOG_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Datadog-Monitoring
 
 Manage monitors, metrics, logs, and dashboards in Datadog. Use when the user mentions datadog, monitor, metric, alert, dashboard, log, incident.
+
 
 ## API Endpoints
 
@@ -40,6 +47,9 @@ Manage monitors, metrics, logs, and dashboards in Datadog. Use when the user men
 - **POST** `/oauth2/v1/token`
 - **POST** `/oauth2/v1/revoke`
 - **POST** `/api/v2/api_keys/marketplace`
+- **GET** `/api/v2/actions-datastores` - List datastores
+- **POST** `/api/v2/actions-datastores` - Create datastore
+- **PUT** `/api/v2/anonymize_users` - Anonymize users
 
 ## Actions
 
@@ -55,19 +65,22 @@ Manage monitors, metrics, logs, and dashboards in Datadog. Use when the user men
 - create_token: POST /oauth2/v1/token (POST /oauth2/v1/token)
 - create_revoke: POST /oauth2/v1/revoke (POST /oauth2/v1/revoke)
 - create_marketplace: POST /api/v2/api_keys/marketplace (POST /api/v2/api_keys/marketplace)
+- list_datastores: List datastores (GET /api/v2/actions-datastores)
+- create_datastore: Create datastore (POST /api/v2/actions-datastores)
+- put_anonymize_users: Anonymize users (PUT /api/v2/anonymize_users)
 
 ## Fields
 
-- `monitor_id`: string [REQUIRED for get_monitor] (monitor ID)
-- `type`: string [REQUIRED for create_monitor] (monitor type: metric alert, service check, etc.)
-- `query`: string [REQUIRED for create_monitor, query_metrics] (monitor or metric query)
-- `name`: string [REQUIRED for create_monitor] (monitor name)
-- `message`: string [OPTIONAL for create_monitor] (notification message)
-- `from`: integer [REQUIRED for query_metrics] (start time as UNIX epoch)
-- `to`: integer [REQUIRED for query_metrics] (end time as UNIX epoch)
-- `filter`: object [OPTIONAL for search_logs] (log search filter)
-- `title`: string [REQUIRED for create_dashboard] (dashboard title)
-- `widgets`: array [REQUIRED for create_dashboard] (dashboard widget definitions)
+- `monitor_id`: string [REQUIRED for get_monitor] (monitor ID) — Monitor unique identifier
+- `type`: string [REQUIRED for create_monitor] (monitor type: metric alert, service check, etc.) — Resource type
+- `query`: string [REQUIRED for create_monitor, query_metrics] (monitor or metric query) — Search or filter query
+- `name`: string [REQUIRED for create_monitor] (monitor name) — Display name
+- `message`: string [OPTIONAL for create_monitor] (notification message) — Message text
+- `from`: integer [REQUIRED for query_metrics] (start time as UNIX epoch) — From value
+- `to`: integer [REQUIRED for query_metrics] (end time as UNIX epoch) — To value
+- `filter`: object [OPTIONAL for search_logs] (log search filter) — Filter criteria
+- `title`: string [REQUIRED for create_dashboard] (dashboard title) — Title or heading
+- `widgets`: array [REQUIRED for create_dashboard] (dashboard widget definitions) — List of widgets
 
 ## Example Request Bodies
 
@@ -83,3 +96,34 @@ Manage monitors, metrics, logs, and dashboards in Datadog. Use when the user men
 
 **Query Metrics (Query Params):**
 Query parameter: `from=1679000000&to=1679100000&query=avg:system.cpu.user{*}`
+
+**Required fields reference:**
+```json
+{
+  "monitor_id": "example_monitor_id",
+  "title": "example_title",
+  "widgets": []
+}
+```
+
+## Response
+
+**Monitor object:**
+- `id`: string — Unique monitor identifier
+- `name`: string — Monitor name or title
+- `status`: string — Current status
+- `type`: string — Monitor type or category
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

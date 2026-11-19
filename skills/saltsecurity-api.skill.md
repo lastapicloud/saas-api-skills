@@ -1,7 +1,6 @@
 ---
 name: saltsecurity-api
-description: Manage Salt Security API discovery and threat protection. Use when the
-  user mentions salt security, salt, API security, API discovery, threat.
+description: "Manage Salt Security API discovery and threat protection. Use when the user mentions salt security, salt, API security, API discovery, threat."
 version: 1.0.0
 skill_type: external
 base_url_env: SALTSECURITY_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires SALTSECURITY_BASE_URL and SALTSECURITY_API_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Saltsecurity-Api
 
 Manage Salt Security API discovery and threat protection. Use when the user mentions salt security, salt, API security, API discovery, threat.
+
 
 ## API Endpoints
 
@@ -66,3 +70,14 @@ Manage Salt Security API discovery and threat protection. Use when the user ment
 **List APIs with Filter:**
 ```json
 {"filter": {"status": "active"}}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

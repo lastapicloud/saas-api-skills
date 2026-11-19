@@ -19,7 +19,6 @@ metadata:
   author: lastapi
   version: 1.0.0
   api_version: "1.0"
-compatibility: Requires LUCIDCHART_BASE_URL and LUCIDCHART_API_TOKEN environment variables.
 ---
 
 # Lucidchart-Diagrams

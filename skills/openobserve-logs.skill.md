@@ -17,7 +17,6 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://openobserve.ai/docs/api/
-compatibility: Requires OPENOBSERVE_BASE_URL and OPENOBSERVE_API_KEY environment variables.
 ---
 
 # Openobserve-Logs

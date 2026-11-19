@@ -1,7 +1,6 @@
 ---
 name: outlook-calendar
-description: Manage calendar events via Outlook/Microsoft Graph. Use when the user
-  mentions outlook, calendar, event, meeting, schedule, microsoft calendar.
+description: "Manage calendar events via Outlook/Microsoft Graph. Use when the user mentions outlook, calendar, event, meeting, schedule, microsoft calendar."
 version: 1.0.0
 skill_type: external
 base_url_env: OUTLOOK_CALENDAR_BASE_URL
@@ -19,12 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires OUTLOOK_CALENDAR_BASE_URL and OUTLOOK_CALENDAR_ACCESS_TOKEN
-  environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Outlook-Calendar
 
 Manage calendar events via Outlook/Microsoft Graph. Use when the user mentions outlook, calendar, event, meeting, schedule, microsoft calendar.
+
 
 ## API Endpoints
 
@@ -66,3 +69,14 @@ Manage calendar events via Outlook/Microsoft Graph. Use when the user mentions o
 ```json
 {"attendees": [{"emailAddress": {"address": "colleague@example.com"}}], "timeConstraint": {"timeslots": [{"start": {"dateTime": "2024-03-20T08:00:00", "timeZone": "UTC"}, "end": {"dateTime": "2024-03-20T18:00:00", "timeZone": "UTC"}}]}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

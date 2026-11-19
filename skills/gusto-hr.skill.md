@@ -1,7 +1,6 @@
 ---
 name: gusto-hr
-description: Manage employees, payroll, and benefits via Gusto. Use when the user
-  mentions gusto, payroll, employee, hr, benefits, compensation.
+description: "Manage employees, payroll, and benefits via Gusto. Use when the user mentions gusto, payroll, employee, hr, benefits, compensation."
 version: 1.0.0
 skill_type: external
 base_url_env: GUSTO_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires GUSTO_BASE_URL and GUSTO_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Gusto-Hr
 
 Manage employees, payroll, and benefits via Gusto. Use when the user mentions gusto, payroll, employee, hr, benefits, compensation.
+
 
 ## API Endpoints
 
@@ -64,3 +68,14 @@ Manage employees, payroll, and benefits via Gusto. Use when the user mentions gu
 ```json
 {"first_name": "Jane", "last_name": "Smith-Johnson", "email": "jane.johnson@company.com"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

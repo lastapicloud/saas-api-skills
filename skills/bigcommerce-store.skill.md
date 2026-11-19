@@ -1,7 +1,9 @@
 ---
 name: bigcommerce-store
-description: Manage products, orders, and customers via BigCommerce. Use when the
+description: 'Manage products, orders, and customers via BigCommerce. Use when the
   user mentions bigcommerce, product, order, customer, store, ecommerce, e-commerce.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: BIGCOMMERCE_BASE_URL
@@ -19,13 +21,20 @@ license: Apache-2.0
 metadata:
   author: lastapi
   version: 1.0.0
-compatibility: Requires BIGCOMMERCE_BASE_URL and BIGCOMMERCE_ACCESS_TOKEN environment
+compatibility: 'Requires BIGCOMMERCE_BASE_URL and BIGCOMMERCE_ACCESS_TOKEN environment
   variables.
+
+  '
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Bigcommerce-Store
 
 Manage products, orders, and customers via BigCommerce. Use when the user mentions bigcommerce, product, order, customer, store, ecommerce, e-commerce.
+
 
 ## API Endpoints
 
@@ -51,10 +60,10 @@ Manage products, orders, and customers via BigCommerce. Use when the user mentio
 
 ## Fields
 
-- `name`: string [REQUIRED for create]
-- `type`: string [REQUIRED for create] (physical, digital)
-- `weight`: number [REQUIRED for create]
-- `price`: number [REQUIRED for create]
+- `name`: string [REQUIRED for create] — Display name
+- `type`: string [REQUIRED for create] (physical, digital) — Resource type
+- `weight`: number [REQUIRED for create] — Weight
+- `price`: number [REQUIRED for create] — Price amount
 
 ## Example Request Bodies
 
@@ -66,3 +75,24 @@ Manage products, orders, and customers via BigCommerce. Use when the user mentio
 **Update Product:**
 ```json
 {"name": "Premium T-Shirt", "price": 39.99}
+
+## Response
+
+**Product object:**
+- `id`: string — Unique product identifier
+- `name`: string — Product name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

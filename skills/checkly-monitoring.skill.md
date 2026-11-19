@@ -1,7 +1,6 @@
 ---
 name: checkly-monitoring
-description: Manage Checkly API checks, browser checks, and alerts. Use when the user
-  mentions checkly, check, monitoring, API check, browser check, synthetic.
+description: "Manage Checkly API checks, browser checks, and alerts. Use when the user mentions checkly, check, monitoring, API check, browser check, synthetic."
 version: 1.0.0
 skill_type: external
 base_url_env: CHECKLY_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires CHECKLY_BASE_URL and CHECKLY_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Checkly-Monitoring
 
 Manage Checkly API checks, browser checks, and alerts. Use when the user mentions checkly, check, monitoring, API check, browser check, synthetic.
+
 
 ## API Endpoints
 
@@ -70,3 +74,14 @@ Manage Checkly API checks, browser checks, and alerts. Use when the user mention
 **Update Check:**
 ```json
 {"name": "Updated Homepage Check", "frequency": 600}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: zoom-meetings
-description: Manage Zoom meetings, webinars, and users. Use when the user mentions
-  zoom, meeting, webinar, video call, conference.
+description: "Manage Zoom meetings, webinars, and users. Use when the user mentions zoom, meeting, webinar, video call, conference."
 version: 1.0.0
 skill_type: external
 base_url_env: ZOOM_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires ZOOM_BASE_URL and ZOOM_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Zoom-Meetings
 
 Manage Zoom meetings, webinars, and users. Use when the user mentions zoom, meeting, webinar, video call, conference.
+
 
 ## API Endpoints
 
@@ -81,3 +85,14 @@ Manage Zoom meetings, webinars, and users. Use when the user mentions zoom, meet
 ```json
 {"topic": "Product Launch Webinar", "type": 5, "start_time": "2026-04-01T14:00:00Z", "duration": 90}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

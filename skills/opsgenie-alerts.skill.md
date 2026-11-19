@@ -1,7 +1,6 @@
 ---
 name: opsgenie-alerts
-description: Manage alerts and on-call schedules via Opsgenie. Use when the user mentions
-  opsgenie, alert, on-call, schedule, escalation, incident.
+description: "Manage alerts and on-call schedules via Opsgenie. Use when the user mentions opsgenie, alert, on-call, schedule, escalation, incident."
 version: 1.0.0
 skill_type: external
 base_url_env: OPSGENIE_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires OPSGENIE_BASE_URL and OPSGENIE_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Opsgenie-Alerts
 
 Manage alerts and on-call schedules via Opsgenie. Use when the user mentions opsgenie, alert, on-call, schedule, escalation, incident.
+
 
 ## API Endpoints
 
@@ -64,3 +68,14 @@ Manage alerts and on-call schedules via Opsgenie. Use when the user mentions ops
 ```json
 {"user": "ops-team@example.com", "note": "Investigating the issue now"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

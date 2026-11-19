@@ -1,7 +1,6 @@
 ---
 name: zoho-crm
-description: Manage leads, contacts, deals, and accounts in Zoho CRM. Use when the
-  user mentions zoho, zoho crm, zoho lead, zoho contact, zoho deal, zoho account.
+description: "Manage leads, contacts, deals, and accounts in Zoho CRM. Use when the user mentions zoho, zoho crm, zoho lead, zoho contact, zoho deal, zoho account."
 version: 1.0.0
 skill_type: external
 base_url_env: ZOHO_CRM_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires ZOHO_CRM_BASE_URL and ZOHO_CRM_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Zoho-Crm
 
 Manage leads, contacts, deals, and accounts in Zoho CRM. Use when the user mentions zoho, zoho crm, zoho lead, zoho contact, zoho deal, zoho account.
+
 
 ## API Endpoints
 
@@ -81,3 +85,14 @@ Manage leads, contacts, deals, and accounts in Zoho CRM. Use when the user menti
 ```json
 {"data": [{"Deal_Name": "Enterprise License", "Stage": "Qualification", "Amount": 50000}]}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

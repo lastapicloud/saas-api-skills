@@ -1,7 +1,6 @@
 ---
 name: mailersend-email
-description: Send emails and manage templates via MailerSend. Use when the user mentions
-  mailersend, email, transactional email, template, domain.
+description: "Send emails and manage templates via MailerSend. Use when the user mentions mailersend, email, transactional email, template, domain."
 version: 1.0.0
 skill_type: external
 base_url_env: MAILERSEND_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires MAILERSEND_BASE_URL and MAILERSEND_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Mailersend-Email
 
 Send emails and manage templates via MailerSend. Use when the user mentions mailersend, email, transactional email, template, domain.
+
 
 ## API Endpoints
 
@@ -58,10 +62,21 @@ Send emails and manage templates via MailerSend. Use when the user mentions mail
 
 **Send Email:**
 ```json
-{"from": {"email": "noreply@example.com", "name": "Example App"}, "to": [{"email": "recipient@example.com", "name": "Jane Doe"}], "subject": "Welcome to Example App", "html": "<h1>Welcome!</h1><p>Thanks for signing up.</p>"}
+{"from": {"email": "noreply@example.com", "name": "Example App"}, "to": [{"email": "recipient@example.com", "name": "Jane Doe"}], "subject": "Welcome to Example App", "html": "Welcome!Thanks for signing up."}
 ```
 
 **Add Domain:**
 ```json
 {"name": "mail.example.com"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

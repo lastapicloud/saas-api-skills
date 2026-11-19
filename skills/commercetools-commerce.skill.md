@@ -1,7 +1,6 @@
 ---
 name: commercetools-commerce
-description: Manage products, orders, and customers via commercetools. Use when the
-  user mentions commercetools, product, order, customer, cart, commerce, ecommerce.
+description: "Manage products, orders, and customers via commercetools. Use when the user mentions commercetools, product, order, customer, cart, commerce, ecommerce."
 version: 1.0.0
 skill_type: external
 base_url_env: COMMERCETOOLS_BASE_URL
@@ -19,13 +18,20 @@ license: Apache-2.0
 metadata:
   author: lastapi
   version: 1.0.0
-compatibility: Requires COMMERCETOOLS_BASE_URL and COMMERCETOOLS_ACCESS_TOKEN environment
+compatibility: 'Requires COMMERCETOOLS_BASE_URL and COMMERCETOOLS_ACCESS_TOKEN environment
   variables.
+
+  '
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Commercetools-Commerce
 
 Manage products, orders, and customers via commercetools. Use when the user mentions commercetools, product, order, customer, cart, commerce, ecommerce.
+
 
 ## API Endpoints
 
@@ -66,3 +72,14 @@ Manage products, orders, and customers via commercetools. Use when the user ment
 ```json
 {"email": "john.doe@example.com", "firstName": "John", "lastName": "Doe", "password": "securePass123"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

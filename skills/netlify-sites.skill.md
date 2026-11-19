@@ -1,7 +1,6 @@
 ---
 name: netlify-sites
-description: Manage sites, deploys, and DNS in Netlify. Use when the user mentions
-  netlify, site, deploy, DNS, build, hosting.
+description: "Manage sites, deploys, and DNS in Netlify. Use when the user mentions netlify, site, deploy, DNS, build, hosting."
 version: 1.0.0
 skill_type: external
 base_url_env: NETLIFY_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires NETLIFY_BASE_URL and NETLIFY_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Netlify-Sites
 
 Manage sites, deploys, and DNS in Netlify. Use when the user mentions netlify, site, deploy, DNS, build, hosting.
+
 
 ## API Endpoints
 
@@ -89,3 +93,14 @@ Manage sites, deploys, and DNS in Netlify. Use when the user mentions netlify, s
 ```json
 {"branch": "main", "title": "Production release v1.2.0"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

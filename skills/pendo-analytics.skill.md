@@ -1,7 +1,6 @@
 ---
 name: pendo-analytics
-description: Track usage and manage guides via Pendo. Use when the user mentions pendo,
-  analytics, guide, feature, visitor, usage.
+description: "Track usage and manage guides via Pendo. Use when the user mentions pendo, analytics, guide, feature, visitor, usage."
 version: 1.0.0
 skill_type: external
 base_url_env: PENDO_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires PENDO_BASE_URL and PENDO_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Pendo-Analytics
 
 Track usage and manage guides via Pendo. Use when the user mentions pendo, analytics, guide, feature, visitor, usage.
+
 
 ## API Endpoints
 
@@ -78,3 +82,14 @@ Track usage and manage guides via Pendo. Use when the user mentions pendo, analy
 ```json
 {"visitorId": "visitor-abc123", "values": {"plan": "enterprise", "company": "Acme Corp"}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

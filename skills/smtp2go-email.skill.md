@@ -1,7 +1,6 @@
 ---
 name: smtp2go-email
-description: Send emails via SMTP2GO. Use when the user mentions smtp2go, email, send
-  email, transactional.
+description: "Send emails via SMTP2GO. Use when the user mentions smtp2go, email, send email, transactional."
 version: 1.0.0
 skill_type: external
 base_url_env: SMTP2GO_BASE_URL
@@ -17,11 +16,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires SMTP2GO_BASE_URL and SMTP2GO_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Smtp2Go-Email
 
 Send emails via SMTP2GO. Use when the user mentions smtp2go, email, send email, transactional.
+
 
 ## API Endpoints
 
@@ -59,3 +63,14 @@ Send emails via SMTP2GO. Use when the user mentions smtp2go, email, send email, 
 **Add Sender:**
 ```json
 {"email": "notifications@example.com"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

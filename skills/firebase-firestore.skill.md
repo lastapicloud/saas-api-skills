@@ -1,7 +1,6 @@
 ---
 name: firebase-firestore
-description: Manage documents and collections in Firebase Cloud Firestore. Use when
-  the user mentions firebase, firestore, document, collection, nosql.
+description: "Manage documents and collections in Firebase Cloud Firestore. Use when the user mentions firebase, firestore, document, collection, nosql."
 version: 1.0.0
 skill_type: external
 base_url_env: FIREBASE_FIRESTORE_BASE_URL
@@ -17,13 +16,20 @@ license: Apache-2.0
 metadata:
   author: lastapi
   version: 1.0.0
-compatibility: Requires FIREBASE_FIRESTORE_BASE_URL and FIREBASE_ACCESS_TOKEN environment
+compatibility: 'Requires FIREBASE_FIRESTORE_BASE_URL and FIREBASE_ACCESS_TOKEN environment
   variables.
+
+  '
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Firebase-Firestore
 
 Manage documents and collections in Firebase Cloud Firestore. Use when the user mentions firebase, firestore, document, collection, nosql.
+
 
 ## API Endpoints
 
@@ -88,3 +94,14 @@ Manage documents and collections in Firebase Cloud Firestore. Use when the user 
 ```json
 {"documents": ["projects/my-project/databases/(default)/documents/users/user1", "projects/my-project/databases/(default)/documents/users/user2"]}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

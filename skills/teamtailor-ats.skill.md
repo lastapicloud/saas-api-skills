@@ -1,7 +1,6 @@
 ---
 name: teamtailor-ats
-description: Manage Teamtailor ATS candidates, jobs, and departments. Use when the
-  user mentions teamtailor, candidate, job, ATS, hiring, department.
+description: "Manage Teamtailor ATS candidates, jobs, and departments. Use when the user mentions teamtailor, candidate, job, ATS, hiring, department."
 version: 1.0.0
 skill_type: external
 base_url_env: TEAMTAILOR_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires TEAMTAILOR_BASE_URL and TEAMTAILOR_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Teamtailor-Ats
 
 Manage Teamtailor ATS candidates, jobs, and departments. Use when the user mentions teamtailor, candidate, job, ATS, hiring, department.
+
 
 ## API Endpoints
 
@@ -70,3 +74,14 @@ Manage Teamtailor ATS candidates, jobs, and departments. Use when the user menti
 ```json
 {"first-name": "Alice", "last-name": "Johnson-Smith", "connected": true}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

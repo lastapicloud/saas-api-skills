@@ -1,7 +1,9 @@
 ---
 name: replicate-ai
-description: Run AI models via Replicate. Use when the user mentions replicate, ai,
+description: 'Run AI models via Replicate. Use when the user mentions replicate, ai,
   model, prediction, inference, image generation.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: REPLICATE_BASE_URL
@@ -19,11 +21,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires REPLICATE_BASE_URL and REPLICATE_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Replicate-Ai
 
 Run AI models via Replicate. Use when the user mentions replicate, ai, model, prediction, inference, image generation.
+
 
 ## API Endpoints
 
@@ -40,17 +47,17 @@ Run AI models via Replicate. Use when the user mentions replicate, ai, model, pr
 
 - create: Create prediction (POST /v1/predictions)
 - get_by_id: Get prediction (GET /v1/predictions/{id})
-- create_cancel: Cancel prediction (POST /v1/predictions/{id}/cancel)
+- cancel_prediction: Cancel prediction (POST /v1/predictions/{id}/cancel)
 - list: List predictions (GET /v1/predictions)
 - list_models: List models (GET /v1/models)
-- get_by_id_models: Get model (GET /v1/models/{owner}/{name})
-- list_versions: List model versions (GET /v1/models/{owner}/{name}/versions)
+- get_model: Get model (GET /v1/models/{owner}/{name})
+- list_model_versions: List model versions (GET /v1/models/{owner}/{name}/versions)
 - list_collections: List collections (GET /v1/collections)
 
 ## Fields
 
-- `version`: string [REQUIRED for create]
-- `input`: object [REQUIRED for create]
+- `version`: string [REQUIRED for create] — Version
+- `input`: object [REQUIRED for create] — Input configuration
 
 ## Example Request Bodies
 
@@ -62,3 +69,24 @@ Run AI models via Replicate. Use when the user mentions replicate, ai, model, pr
 **Cancel Prediction:**
 ```json
 {}
+
+## Response
+
+**Prediction object:**
+- `id`: string — Unique prediction identifier
+- `name`: string — Prediction name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

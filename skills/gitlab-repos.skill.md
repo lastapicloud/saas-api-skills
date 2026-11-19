@@ -1,7 +1,6 @@
 ---
 name: gitlab-repos
-description: Manage GitLab projects, issues, merge requests, and pipelines. Use when
-  the user mentions gitlab, project, merge request, MR, pipeline, CI/CD, issue, repository.
+description: "Manage GitLab projects, issues, merge requests, and pipelines. Use when the user mentions gitlab, project, merge request, MR, pipeline, CI/CD, issue, repository."
 version: 1.0.0
 skill_type: external
 base_url_env: GITLAB_BASE_URL
@@ -21,11 +20,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires GITLAB_BASE_URL and GITLAB_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Gitlab-Repos
 
 Manage GitLab projects, issues, merge requests, and pipelines. Use when the user mentions gitlab, project, merge request, MR, pipeline, CI/CD, issue, repository.
+
 
 ## API Endpoints
 
@@ -91,3 +95,14 @@ Manage GitLab projects, issues, merge requests, and pipelines. Use when the user
 ```json
 {"ref": "main"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: uploadcare-media
-description: Upload and manage files via Uploadcare. Use when the user mentions uploadcare,
-  upload, file, image, media, cdn.
+description: "Upload and manage files via Uploadcare. Use when the user mentions uploadcare, upload, file, image, media, cdn."
 version: 1.0.0
 skill_type: external
 base_url_env: UPLOADCARE_BASE_URL
@@ -21,11 +20,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires UPLOADCARE_BASE_URL and UPLOADCARE_SECRET_KEY environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Uploadcare-Media
 
 Upload and manage files via Uploadcare. Use when the user mentions uploadcare, upload, file, image, media, cdn.
+
 
 ## API Endpoints
 
@@ -64,3 +68,14 @@ Upload and manage files via Uploadcare. Use when the user mentions uploadcare, u
 **Convert Document:**
 ```json
 {"uuid": "a1b2c3d4-5678-90ab-cdef-1234567890ab", "target_format": "pdf"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

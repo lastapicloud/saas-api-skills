@@ -1,7 +1,6 @@
 ---
 name: twitter-social
-description: Manage Twitter/X posts, users, and timelines. Use when the user mentions
-  twitter, X, tweet, post, timeline, social.
+description: "Manage Twitter/X posts, users, and timelines. Use when the user mentions twitter, X, tweet, post, timeline, social."
 version: 1.0.0
 skill_type: external
 base_url_env: TWITTER_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires TWITTER_BASE_URL and TWITTER_BEARER_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Twitter-Social
 
 Manage Twitter/X posts, users, and timelines. Use when the user mentions twitter, X, tweet, post, timeline, social.
+
 
 ## API Endpoints
 
@@ -80,3 +84,14 @@ Manage Twitter/X posts, users, and timelines. Use when the user mentions twitter
 **Like a Tweet:**
 ```json
 {"tweet_id": "1234567890123456789"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

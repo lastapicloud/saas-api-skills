@@ -1,7 +1,6 @@
 ---
 name: icims-ats
-description: Manage candidates and jobs via iCIMS. Use when the user mentions icims,
-  ats, candidate, job, applicant, recruiting.
+description: "Manage candidates and jobs via iCIMS. Use when the user mentions icims, ats, candidate, job, applicant, recruiting."
 version: 1.0.0
 skill_type: external
 base_url_env: ICIMS_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires ICIMS_BASE_URL and ICIMS_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Icims-Ats
 
 Manage candidates and jobs via iCIMS. Use when the user mentions icims, ats, candidate, job, applicant, recruiting.
+
 
 ## API Endpoints
 
@@ -68,3 +72,14 @@ Manage candidates and jobs via iCIMS. Use when the user mentions icims, ats, can
 ```json
 {"title": "Software Engineer", "department": "Engineering", "location": "Remote"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: bitbucket-repos
-description: Manage repositories, pull requests, and pipelines via Bitbucket. Use
-  when the user mentions bitbucket, repository, pull request, pipeline, branch, commit.
+description: "Manage repositories, pull requests, and pipelines via Bitbucket. Use when the user mentions bitbucket, repository, pull request, pipeline, branch, commit."
 version: 1.0.0
 skill_type: external
 base_url_env: BITBUCKET_BASE_URL
@@ -21,11 +20,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires BITBUCKET_BASE_URL and BITBUCKET_APP_PASSWORD environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Bitbucket-Repos
 
 Manage repositories, pull requests, and pipelines via Bitbucket. Use when the user mentions bitbucket, repository, pull request, pipeline, branch, commit.
+
 
 ## API Endpoints
 
@@ -80,3 +84,14 @@ Manage repositories, pull requests, and pipelines via Bitbucket. Use when the us
 **Create Pull Request:**
 ```json
 {"title": "Add login feature", "source": {"branch": {"name": "feature/login"}}, "is_private": false}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

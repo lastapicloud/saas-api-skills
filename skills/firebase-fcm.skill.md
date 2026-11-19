@@ -1,7 +1,6 @@
 ---
 name: firebase-fcm
-description: Send push notifications via Firebase Cloud Messaging. Use when the user
-  mentions firebase fcm, fcm, push notification, cloud messaging, mobile notification.
+description: "Send push notifications via Firebase Cloud Messaging. Use when the user mentions firebase fcm, fcm, push notification, cloud messaging, mobile notification."
 version: 1.0.0
 skill_type: external
 base_url_env: FIREBASE_FCM_BASE_URL
@@ -17,13 +16,20 @@ license: Apache-2.0
 metadata:
   author: lastapi
   version: 1.0.0
-compatibility: Requires FIREBASE_FCM_BASE_URL and FIREBASE_FCM_SERVER_KEY environment
+compatibility: 'Requires FIREBASE_FCM_BASE_URL and FIREBASE_FCM_SERVER_KEY environment
   variables.
+
+  '
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Firebase-Fcm
 
 Send push notifications via Firebase Cloud Messaging. Use when the user mentions firebase fcm, fcm, push notification, cloud messaging, mobile notification.
+
 
 ## API Endpoints
 
@@ -78,3 +84,14 @@ Send push notifications via Firebase Cloud Messaging. Use when the user mentions
 **Send Message to Topic:**
 ```json
 {"message": {"topic": "news", "notification": {"title": "Breaking News", "body": "Important announcement"}}}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

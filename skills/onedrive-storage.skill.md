@@ -1,7 +1,6 @@
 ---
 name: onedrive-storage
-description: Manage files and folders via OneDrive. Use when the user mentions onedrive,
-  file, folder, storage, microsoft, sharepoint.
+description: "Manage files and folders via OneDrive. Use when the user mentions onedrive, file, folder, storage, microsoft, sharepoint."
 version: 1.0.0
 skill_type: external
 base_url_env: ONEDRIVE_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires ONEDRIVE_BASE_URL and ONEDRIVE_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Onedrive-Storage
 
 Manage files and folders via OneDrive. Use when the user mentions onedrive, file, folder, storage, microsoft, sharepoint.
+
 
 ## API Endpoints
 
@@ -70,3 +74,14 @@ Manage files and folders via OneDrive. Use when the user mentions onedrive, file
   "description": "Quarterly financial report"
 }
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

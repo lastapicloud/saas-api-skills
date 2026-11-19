@@ -1,7 +1,6 @@
 ---
 name: api-video
-description: Upload, manage, and stream videos via api.video. Use when the user mentions
-  api.video, video, stream, upload, live stream, player.
+description: "Upload, manage, and stream videos via api.video. Use when the user mentions api.video, video, stream, upload, live stream, player."
 version: 1.0.0
 skill_type: external
 base_url_env: API_VIDEO_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires API_VIDEO_BASE_URL and API_VIDEO_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Api-Video
 
 Upload, manage, and stream videos via api.video. Use when the user mentions api.video, video, stream, upload, live stream, player.
+
 
 ## API Endpoints
 
@@ -77,3 +81,14 @@ Upload, manage, and stream videos via api.video. Use when the user mentions api.
 **Update Video:**
 ```json
 {"title": "Updated Product Demo", "description": "Revised walkthrough"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: buffer-social
-description: Schedule and manage Buffer social media posts. Use when the user mentions
-  buffer, social media, schedule, post, publish.
+description: "Schedule and manage Buffer social media posts. Use when the user mentions buffer, social media, schedule, post, publish."
 version: 1.0.0
 skill_type: external
 base_url_env: BUFFER_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires BUFFER_BASE_URL and BUFFER_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Buffer-Social
 
 Schedule and manage Buffer social media posts. Use when the user mentions buffer, social media, schedule, post, publish.
+
 
 ## API Endpoints
 
@@ -78,3 +82,14 @@ Schedule and manage Buffer social media posts. Use when the user mentions buffer
 ```json
 {"text": "Updated: Our product launch is live now!", "scheduled_at": "2026-04-20T16:00:00Z"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

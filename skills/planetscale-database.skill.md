@@ -1,7 +1,6 @@
 ---
 name: planetscale-database
-description: Manage databases and branches via PlanetScale. Use when the user mentions
-  planetscale, database, branch, deploy request, mysql, serverless.
+description: "Manage databases and branches via PlanetScale. Use when the user mentions planetscale, database, branch, deploy request, mysql, serverless."
 version: 1.0.0
 skill_type: external
 base_url_env: PLANETSCALE_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires PLANETSCALE_BASE_URL and PLANETSCALE_API_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Planetscale-Database
 
 Manage databases and branches via PlanetScale. Use when the user mentions planetscale, database, branch, deploy request, mysql, serverless.
+
 
 ## API Endpoints
 
@@ -63,3 +67,14 @@ Manage databases and branches via PlanetScale. Use when the user mentions planet
 ```json
 {"name": "feature/add-users-table", "parent_branch": "main"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

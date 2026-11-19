@@ -9,7 +9,7 @@ A community-oriented index of `*.skill.md` files, each describing how an AI agen
 - External agents — anyone running an MCP-style agent can clone this repo and load the skill files
 - Public showcase of the integrations LastAPI-generated APIs ship with
 
-**This repo is a published mirror, not the runtime source.** The canonical skill files live in `lastapi-framework` (`apigenerator/resources/1 - Project/1 - BaseProject/Project/skills/`); that copy is committed into every generated customer API and read by its `SkillLoader` (`/assistant/*` routes). Nothing fetches this repo at deploy time. The two copies share filenames but have drifted (the framework copy is newer); syncing framework → this repo is manual and currently pending (no automation exists).
+**This repo is a published mirror, not the runtime source.** The canonical skill files live in `lastapi-framework` (`apigenerator/resources/1 - Project/1 - BaseProject/Project/skills/`); that copy is committed into every generated customer API and read by its `SkillLoader` (`/assistant/*` routes). Nothing fetches this repo at deploy time. The two copies share filenames. Syncing is manual (no automation exists): copy the framework's `skills/*.skill.md` over `skills/` in a PR here.
 
 ## Stack
 
@@ -34,7 +34,7 @@ saas-api-skills
 
 Each `*.skill.md` is self-contained and consumable by an LLM with no external lookups. There is no `category` frontmatter field; README groups skills into categories by hand.
 
-Frontmatter keys in use: `name`, `description`, `version`, `skill_type`, `base_url_env`, `auth_env_var`, `auth_type`, `triggers`, `license`, `metadata` (`author`, `version`, optional `documentation`), `compatibility` (`Requires <base_url_env> and <auth_env_var> environment variables.`), plus `auth_user_env` for two-credential auth. Body sections: `API Endpoints`, `Actions`, `Fields`, `Example Request Bodies` (a few files use `Example Requests`).
+Frontmatter keys in use: `name`, `description`, `version`, `skill_type`, `base_url_env`, `auth_env_var`, `auth_type`, `triggers`, `license`, `metadata` (`author`, `version`, optional `documentation`), `compatibility` (`Requires <base_url_env> and <auth_env_var> environment variables.`), plus `auth_user_env` for two-credential auth and `annotations` (`readOnlyHint`, `destructiveHint`, `idempotentHint`). Body sections: `API Endpoints`, `Actions`, `Fields`, `Example Request Bodies` (a few files use `Example Requests`).
 
 ## Capabilities
 
@@ -72,7 +72,7 @@ No HTTP API of its own — consumers fetch raw files from GitHub.
 
 ```
 lastapi-framework template skills/   ← canonical; committed into every generated API
-  ↓ manual sync (pending)
+  ↓ manual sync (PR copying the framework's skills/)
 saas-api-skills (this repo)          ← public mirror
 
 customer Lambdas  ← SkillLoader reads their own bundled skills/; /assistant/skills exposes them

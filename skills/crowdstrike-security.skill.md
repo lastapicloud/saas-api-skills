@@ -1,7 +1,6 @@
 ---
 name: crowdstrike-security
-description: Manage detections, hosts, and incidents via CrowdStrike Falcon. Use when
-  the user mentions crowdstrike, falcon, edr, detection, host, incident, threat.
+description: "Manage detections, hosts, and incidents via CrowdStrike Falcon. Use when the user mentions crowdstrike, falcon, edr, detection, host, incident, threat."
 version: 1.0.0
 skill_type: external
 base_url_env: CROWDSTRIKE_BASE_URL
@@ -21,11 +20,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires CROWDSTRIKE_BASE_URL and CROWDSTRIKE_API_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Crowdstrike-Security
 
 Manage detections, hosts, and incidents via CrowdStrike Falcon. Use when the user mentions crowdstrike, falcon, edr, detection, host, incident, threat.
+
 
 ## API Endpoints
 
@@ -65,3 +69,14 @@ Manage detections, hosts, and incidents via CrowdStrike Falcon. Use when the use
 **Update Detection Status:**
 ```json
 {"ids": ["ldt:abc123:456"], "status": "closed"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

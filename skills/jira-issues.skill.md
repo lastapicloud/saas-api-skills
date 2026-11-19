@@ -1,10 +1,6 @@
 ---
 name: jira-issues
-description: "Complete Jira project management \u2014 issues (CRUD, search, transitions,\
-  \ assign, link, watchers, comments, attachments, worklogs), projects, boards, sprints,\
-  \ users, fields, priorities, statuses, issue types, and filters. Use when the user\
-  \ mentions jira, issue, ticket, bug, story, task, epic, sprint, backlog, board,\
-  \ kanban, scrum, workflow, transition."
+description: "Complete Jira project management \u2014 issues (CRUD, search, transitions, assign, link, watchers, comments, attachments, worklogs), projects, boards, sprints, users, fields, priorities, statuses, issue types, and filters. Use when the user mentions jira, issue, ticket, bug, story, task, epic, sprint, backlog, board, kanban, scrum, workflow, transition."
 version: 1.0.0
 skill_type: external
 base_url_env: ATLASSIAN_BASE_URL
@@ -25,11 +21,16 @@ metadata:
   author: lastapi
   version: 2.0.0
 compatibility: Requires ATLASSIAN_BASE_URL and ATLASSIAN_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Jira-Issues
 
 Complete Jira project management — issues (CRUD, search, transitions, assign, link, watchers, comments, attachments, worklogs), projects, boards, sprints, users, fields, priorities, statuses, issue types, and filters. Use when the user mentions jira, issue, ticket, bug, story, task, epic, sprint, backlog, board, kanban, scrum, workflow, transition.
+
 
 ## API Endpoints
 
@@ -48,29 +49,6 @@ Complete Jira project management — issues (CRUD, search, transitions, assign, 
 - **DELETE** `/rest/api/3/issueLink/{linkId}` - Delete an issue link
 - **GET** `/rest/api/3/issueLinkType` - Get all issue link types
 - **GET** `/rest/api/3/issue/{issueIdOrKey}/watchers` - Get issue watchers
-- **POST** `/rest/api/3/issue/{issueIdOrKey}/comment` - Add a comment
-- **GET** `/rest/api/3/issue/{issueIdOrKey}/worklog` - Get worklogs
-- **POST** `/rest/api/3/issue/{issueIdOrKey}/worklog` - Add worklog
-- **GET** `/rest/api/3/field` - Get all fields
-- **GET** `/rest/api/3/priority` - Get all priorities
-- **GET** `/rest/api/3/priority/{priorityId}` - Get a specific priority
-- **GET** `/rest/api/3/status` - Get all statuses
-- **GET** `/rest/api/3/status/{idOrName}` - Get a specific status
-- **GET** `/rest/api/3/issuetype` - Get all issue types
-- **GET** `/rest/api/3/issuetype/{issueTypeId}` - Get a specific issue type
-- **POST** `/rest/api/3/filter` - Create a saved filter
-- **GET** `/rest/api/3/filter/{filterId}` - Get a saved filter
-- **PUT** `/rest/api/3/filter/{filterId}` - Update a saved filter
-- **DELETE** `/rest/api/3/filter/{filterId}` - Delete a saved filter
-- **GET** `/rest/api/3/filter/search` - Search saved filters
-- **POST** `/rest/api/3/project` - Create a project
-- **GET** `/rest/api/3/project` - Get all projects
-- **GET** `/rest/api/3/project/{projectIdOrKey}` - Get a project
-- **GET** `/rest/api/3/board` - Get all boards
-- **GET** `/rest/api/3/board/{boardId}/sprint` - Get sprints
-- **POST** `/rest/api/3/sprint` - Create a sprint
-- **PUT** `/rest/api/3/sprint/{sprintId}` - Update sprint
-- **POST** `/rest/api/3/sprint/{sprintId}/issue` - Move issues to sprint
 
 ## Actions
 
@@ -89,45 +67,37 @@ Complete Jira project management — issues (CRUD, search, transitions, assign, 
 - delete_issuelink: Delete an issue link (DELETE /rest/api/3/issueLink/{linkId})
 - list_issuelinktype: Get all issue link types (GET /rest/api/3/issueLinkType)
 - list_watchers: Get issue watchers (GET /rest/api/3/issue/{issueIdOrKey}/watchers)
-- create_comment: Add a comment (POST /rest/api/3/issue/{issueIdOrKey}/comment)
-- list_worklog: Get worklogs (GET /rest/api/3/issue/{issueIdOrKey}/worklog)
-- create_worklog: Add worklog (POST /rest/api/3/issue/{issueIdOrKey}/worklog)
-- list_field: Get all fields (GET /rest/api/3/field)
-- list_priority: Get all priorities (GET /rest/api/3/priority)
-- get_by_id_priority: Get a specific priority (GET /rest/api/3/priority/{priorityId})
-- list_status: Get all statuses (GET /rest/api/3/status)
-- get_by_id_status: Get a specific status (GET /rest/api/3/status/{idOrName})
-- list_issuetype: Get all issue types (GET /rest/api/3/issuetype)
-- get_by_id_issuetype: Get a specific issue type (GET /rest/api/3/issuetype/{issueTypeId})
-- create_filter: Create a saved filter (POST /rest/api/3/filter)
-- get_by_id_filter: Get a saved filter (GET /rest/api/3/filter/{filterId})
-- update_filter: Update a saved filter (PUT /rest/api/3/filter/{filterId})
-- delete_filter: Delete a saved filter (DELETE /rest/api/3/filter/{filterId})
-- search_filter: Search saved filters (GET /rest/api/3/filter/search)
-- create_project: Create a project (POST /rest/api/3/project)
-- list_project: Get all projects (GET /rest/api/3/project)
-- get_by_id_project: Get a project (GET /rest/api/3/project/{projectIdOrKey})
-- list_board: Get all boards (GET /rest/api/3/board)
-- list_sprint: Get sprints (GET /rest/api/3/board/{boardId}/sprint)
-- create_sprint: Create a sprint (POST /rest/api/3/sprint)
-- update_sprint: Update sprint (PUT /rest/api/3/sprint/{sprintId})
-- create_sprint_issue: Move issues to sprint (POST /rest/api/3/sprint/{sprintId}/issue)
 
 ## Fields
 
-- `issueIdOrKey`: string [REQUIRED for get/update/delete/transition] (issue ID or key)
-- `projectIdOrKey`: string [REQUIRED for create] (project ID or key)
-- `summary`: string [REQUIRED for create issue] (issue summary)
-- `description`: object [OPTIONAL] (ADF document)
-- `issuetype`: object [REQUIRED for create] (issue type)
-- `priority`: object [OPTIONAL] (priority)
-- `assignee`: object [OPTIONAL] (assignee account)
-- `labels`: array [OPTIONAL] (issue labels)
-- `project`: object [REQUIRED for create] (project reference)
-- `parent`: object [OPTIONAL for subtask] (parent issue)
-- `filterId`: string [REQUIRED for filter operations] (filter ID)
-- `boardId`: integer [REQUIRED for board operations] (board ID)
-- `sprintId`: integer [REQUIRED for sprint operations] (sprint ID)
+**IMPORTANT:** Jira create/update wraps all fields inside `{"fields": {...}}`. The system handles this automatically — just provide the inner fields.
+
+### Issue Fields (create/update)
+- `project`: object [REQUIRED for create] — Must contain `key` (e.g., `{"key": "PROJ"}`) or `id` (e.g., `{"id": "10110"}`)
+- `summary`: string [REQUIRED for create] — Issue title, max 255 chars
+- `issuetype`: object [REQUIRED for create] — Must contain `name` (e.g., `{"name": "Bug"}`) or `id` (e.g., `{"id": "1"}`). Common types: Bug, Story, Task, Epic, Sub-task
+- `description`: object [OPTIONAL] — Atlassian Document Format (ADF). Structure: `{"type": "doc", "version": 1, "content": [{"type": "paragraph", "content": [{"type": "text", "text": "..."}]}]}`
+- `priority`: object [OPTIONAL] — `{"name": "High"}` or `{"id": "2"}`. Values: Highest, High, Medium, Low, Lowest
+- `assignee`: object [OPTIONAL] — `{"accountId": "5b10ac..."}` (Atlassian account ID, NOT username)
+- `reporter`: object [OPTIONAL] — `{"accountId": "5b10ac..."}`
+- `labels`: array [OPTIONAL] — String array, e.g., `["bugfix", "backend"]`
+- `parent`: object [OPTIONAL] — For subtasks: `{"key": "PROJ-101"}` or `{"id": "39000"}`
+- `timetracking`: object [OPTIONAL] — `{"originalEstimate": "1d 2h", "remainingEstimate": "3h"}`
+- `customfield_NNNNN`: varies [OPTIONAL] — Custom fields by ID. Types: text=string, date="YYYY-MM-DD", number=float, select=`{"name": "value"}`
+
+### Issue Identifiers
+- `issueIdOrKey`: string [REQUIRED for get/update/delete/transition] — Issue key (e.g., "PROJ-123") or numeric ID (e.g., "39000")
+
+### Search
+- `jql`: string [REQUIRED for search] — JQL query (e.g., `project = MYPROJ AND status != Done ORDER BY priority DESC`)
+- `startAt`: integer [OPTIONAL] — Pagination offset (default 0)
+- `maxResults`: integer [OPTIONAL] — Max results, 1-100 (default 50)
+- `fields`: array [OPTIONAL] — Fields to return (e.g., `["summary", "status", "assignee"]`)
+
+### Other Resources
+- `filterId`: string [REQUIRED for filter operations] — Numeric filter ID
+- `boardId`: integer [REQUIRED for board operations] — Board ID
+- `sprintId`: integer [REQUIRED for sprint operations] — Sprint ID
 
 ## Example Requests
 
@@ -315,3 +285,40 @@ Then, apply the transition using the returned ID:
   "released": false
 }
 ```
+
+## Response
+
+**create response (201):**
+- `id`: string — Numeric issue ID (e.g., "39000")
+- `key`: string — Issue key (e.g., "PROJ-123")
+- `self`: string — API URL for the created issue
+
+**search response:**
+- `issues[]`: array of issue objects
+- `issues[].key`: string — Issue key
+- `issues[].fields.summary`: string
+- `issues[].fields.status.name`: string — Current status
+- `issues[].fields.assignee.displayName`: string
+- `total`: integer — Total matching issues
+- `startAt`: integer — Pagination offset
+- `maxResults`: integer
+
+## Error Responses
+
+Jira returns `{"errorMessages": [...], "errors": {...}}` on failure.
+
+| Status | Meaning |
+|--------|---------|
+| 201 | Issue created successfully |
+| 400 | Validation error — `errorMessages` array contains details (e.g., "Field 'summary' is required") |
+| 401 | Unauthenticated — invalid or expired API token |
+| 403 | No permission — user lacks create/edit permission for this project |
+| 404 | Issue, project, or resource not found |
+| 409 | Conflict — concurrent modification |
+| 429 | Rate limited — too many requests |
+
+**Common 400 errors:**
+- `"Field 'summary' is required"` — Missing summary on create
+- `"valid issue type is required"` — Invalid issuetype name or id
+- `"project is required"` — Missing project key or id
+- `"Issue Does Not Exist"` — Wrong issueIdOrKey in URL

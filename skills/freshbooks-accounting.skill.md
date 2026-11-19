@@ -1,7 +1,6 @@
 ---
 name: freshbooks-accounting
-description: Manage FreshBooks invoices, clients, and expenses. Use when the user
-  mentions freshbooks, invoice, client, expense, accounting.
+description: "Manage FreshBooks invoices, clients, and expenses. Use when the user mentions freshbooks, invoice, client, expense, accounting."
 version: 1.0.0
 skill_type: external
 base_url_env: FRESHBOOKS_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires FRESHBOOKS_BASE_URL and FRESHBOOKS_ACCESS_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Freshbooks-Accounting
 
 Manage FreshBooks invoices, clients, and expenses. Use when the user mentions freshbooks, invoice, client, expense, accounting.
+
 
 ## API Endpoints
 
@@ -68,3 +72,14 @@ Manage FreshBooks invoices, clients, and expenses. Use when the user mentions fr
 **Create Client:**
 ```json
 {"client": {"fname": "John", "lname": "Doe", "email": "john@example.com"}}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

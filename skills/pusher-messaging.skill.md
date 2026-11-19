@@ -1,7 +1,6 @@
 ---
 name: pusher-messaging
-description: Send real-time messages via Pusher Channels. Use when the user mentions
-  pusher, realtime, channel, event, websocket, messaging.
+description: "Send real-time messages via Pusher Channels. Use when the user mentions pusher, realtime, channel, event, websocket, messaging."
 version: 1.0.0
 skill_type: external
 base_url_env: PUSHER_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires PUSHER_BASE_URL and PUSHER_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Pusher-Messaging
 
 Send real-time messages via Pusher Channels. Use when the user mentions pusher, realtime, channel, event, websocket, messaging.
+
 
 ## API Endpoints
 
@@ -62,3 +66,14 @@ Send real-time messages via Pusher Channels. Use when the user mentions pusher, 
 **Trigger Batch Events:**
 ```json
 {"batch": [{"name": "new-message", "channel": "chat-room-1", "data": "{\"text\": \"Hello\"}"}]}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

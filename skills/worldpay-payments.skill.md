@@ -1,7 +1,6 @@
 ---
 name: worldpay-payments
-description: Process payments and manage transactions via Worldpay. Use when the user
-  mentions worldpay, payment, transaction, card, refund, 3ds.
+description: "Process payments and manage transactions via Worldpay. Use when the user mentions worldpay, payment, transaction, card, refund, 3ds."
 version: 1.0.0
 skill_type: external
 base_url_env: WORLDPAY_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires WORLDPAY_BASE_URL and WORLDPAY_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Worldpay-Payments
 
 Process payments and manage transactions via Worldpay. Use when the user mentions worldpay, payment, transaction, card, refund, 3ds.
+
 
 ## API Endpoints
 
@@ -62,3 +66,14 @@ Process payments and manage transactions via Worldpay. Use when the user mention
 ```json
 {"paymentInstrument": {"type": "card/plain", "cardNumber": "4444333322221111", "expiryDate": {"month": 12, "year": 2028}}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

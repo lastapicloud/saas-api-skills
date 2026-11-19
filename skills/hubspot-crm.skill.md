@@ -3,7 +3,8 @@ name: hubspot-crm
 description: "Complete HubSpot CRM platform \u2014 contacts, companies, deals, tickets,\
   \ pipelines, associations, properties, owners, engagements, line items, and quotes.\
   \ Use when the user mentions hubspot, contact, company, deal, ticket, pipeline,\
-  \ CRM, lead, marketing, association, engagement, owner, quote, line item."
+  \ CRM, lead, marketing, association, engagement, owner, quote, line item.\n (API\
+  \ v3)"
 version: 1.0.0
 skill_type: external
 base_url_env: HUBSPOT_BASE_URL
@@ -23,47 +24,46 @@ metadata:
   author: lastapi
   version: 2.0.0
 compatibility: Requires HUBSPOT_BASE_URL and HUBSPOT_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Hubspot-Crm
 
 Complete HubSpot CRM platform — contacts, companies, deals, tickets, pipelines, associations, properties, owners, engagements, line items, and quotes. Use when the user mentions hubspot, contact, company, deal, ticket, pipeline, CRM, lead, marketing, association, engagement, owner, quote, line item.
+ (API v3)
 
 ## API Endpoints
 
-- **GET** `/crm/v3/objects/contacts` - List contacts
-- **POST** `/crm/v3/objects/contacts` - Create a contact
-- **GET** `/crm/v3/objects/contacts/{contactId}` - Get a contact by ID
-- **PATCH** `/crm/v3/objects/contacts/{contactId}` - Update a contact
-- **DELETE** `/crm/v3/objects/contacts/{contactId}` - Archive (delete) a contact
-- **POST** `/crm/v3/objects/contacts/search` - Search contacts
-- **POST** `/crm/v3/objects/contacts/merge` - Merge two contacts
-- **POST** `/crm/v3/objects/contacts/batch/create` - Batch create contacts (up to 100)
-- **POST** `/crm/v3/objects/contacts/batch/update` - Batch update contacts (up to 100)
-- **POST** `/crm/v3/objects/contacts/batch/read` - Batch read contacts by ID (up to 100)
-- **GET** `/crm/v3/objects/companies` - List companies
-- **POST** `/crm/v3/objects/companies` - Create a company
-- **GET** `/crm/v3/objects/companies/{companyId}` - Get a company by ID
-- **PATCH** `/crm/v3/objects/companies/{companyId}` - Update a company
-- **DELETE** `/crm/v3/objects/companies/{companyId}` - Archive (delete) a company
+- **GET** `/crm/v3/objects/contacts` - List
+- **POST** `/crm/v3/objects/contacts/merge` - Merge two contacts with same type
+- **POST** `/crm/v3/objects/contacts/gdpr-delete` - GDPR DELETE
+- **POST** `/crm/v3/objects/contacts` - Create
+- **POST** `/crm/v3/objects/contacts/search`
+- **PATCH** `/crm/v3/objects/contacts/{contactId}` - Update
+- **GET** `/crm/v3/objects/contacts/{contactId}` - Read
+- **DELETE** `/crm/v3/objects/contacts/{contactId}` - Archive
+- **POST** `/crm/v3/objects/contacts/batch/read` - Read a batch of contacts by internal ID, or unique property values
+- **POST** `/crm/v3/objects/contacts/batch/archive` - Archive a batch of contacts by ID
+- **POST** `/crm/v3/objects/contacts/batch/create` - Create a batch of contacts
+- **POST** `/crm/v3/objects/contacts/batch/update` - Update a batch of contacts
 
 ## Actions
 
-- list: List contacts (GET /crm/v3/objects/contacts)
-- create: Create a contact (POST /crm/v3/objects/contacts)
-- get_by_id: Get a contact by ID (GET /crm/v3/objects/contacts/{contactId})
-- update: Update a contact (PATCH /crm/v3/objects/contacts/{contactId})
-- delete: Archive (delete) a contact (DELETE /crm/v3/objects/contacts/{contactId})
-- search: Search contacts (POST /crm/v3/objects/contacts/search)
-- create_merge: Merge two contacts (POST /crm/v3/objects/contacts/merge)
-- create_batch: Batch create contacts (up to 100) (POST /crm/v3/objects/contacts/batch/create)
-- create_update: Batch update contacts (up to 100) (POST /crm/v3/objects/contacts/batch/update)
-- create_read: Batch read contacts by ID (up to 100) (POST /crm/v3/objects/contacts/batch/read)
-- list_companies: List companies (GET /crm/v3/objects/companies)
-- create_companies: Create a company (POST /crm/v3/objects/companies)
-- get_by_id_companies: Get a company by ID (GET /crm/v3/objects/companies/{companyId})
-- update_companies: Update a company (PATCH /crm/v3/objects/companies/{companyId})
-- delete_companies: Archive (delete) a company (DELETE /crm/v3/objects/companies/{companyId})
+- list: List (GET /crm/v3/objects/contacts)
+- create: Merge two contacts with same type (POST /crm/v3/objects/contacts/merge)
+- create_gdpr_delete: GDPR DELETE (POST /crm/v3/objects/contacts/gdpr-delete)
+- create_contacts: Create (POST /crm/v3/objects/contacts)
+- search: POST /crm/v3/objects/contacts/search (POST /crm/v3/objects/contacts/search)
+- update: Update (PATCH /crm/v3/objects/contacts/{contactId})
+- get_by_id: Read (GET /crm/v3/objects/contacts/{contactId})
+- delete: Archive (DELETE /crm/v3/objects/contacts/{contactId})
+- create_read_batch_contacts_internal: Read a batch of contacts by internal ID, or unique property values (POST /crm/v3/objects/contacts/batch/read)
+- archive_batch_contacts_id: Archive a batch of contacts by ID (POST /crm/v3/objects/contacts/batch/archive)
+- create_batch_contacts: Create a batch of contacts (POST /crm/v3/objects/contacts/batch/create)
+- update_batch_contacts: Update a batch of contacts (POST /crm/v3/objects/contacts/batch/update)
 
 ## Fields
 
@@ -170,7 +170,7 @@ Complete HubSpot CRM platform — contacts, companies, deals, tickets, pipelines
 - `filterGroups[].filters[].value`: string [REQUIRED for most operators] - Filter value
 - `filterGroups[].filters[].values`: array [REQUIRED for IN, NOT_IN] - Array of values
 - `filterGroups[].filters[].highValue`: string [REQUIRED for BETWEEN] - Upper bound
-- `sorts`: array [OPTIONAL] - Array of sort objects [{propertyName, direction: "ASCENDING"/"DESCENDING"}]
+- `sorts`: array [OPTIONAL] - Array of sort objects [{propertyName, direction: "ASCENDING"/"DESCENDING"}] — List of sorts
 - `properties`: array [OPTIONAL] - Properties to return
 - `limit`: integer [OPTIONAL] - Results per page (max 100, default 10)
 - `after`: string [OPTIONAL] - Pagination cursor
@@ -372,7 +372,7 @@ PUT /crm/v4/objects/contacts/551/associations/companies/12345
 ```json
 {
   "properties": {
-    "hs_note_body": "<p>Spoke with Jane about renewal. She confirmed budget approval for Q3. Follow up in 2 weeks.</p>",
+    "hs_note_body": "Spoke with Jane about renewal. She confirmed budget approval for Q3. Follow up in 2 weeks.",
     "hs_timestamp": "1711929600000",
     "hubspot_owner_id": "12345678"
   },
@@ -422,3 +422,37 @@ PUT /crm/v4/objects/contacts/551/associations/companies/12345
   "properties": ["email", "firstname", "lastname", "company", "lifecyclestage"]
 }
 ```
+
+**Required fields reference:**
+```json
+{
+  "hs_task_subject": "example_hs_task_subject",
+  "hs_title": "example_hs_title",
+  "fromObjectType": "example_fromObjectType",
+  "fromObjectId": "example_fromObjectId",
+  "toObjectType": "example_toObjectType",
+  "toObjectId": "example_toObjectId"
+}
+```
+
+## Response
+
+**Contact object:**
+- `id`: string — Unique contact identifier
+- `name`: string — Contact name or title
+- `status`: string — Current status
+- `type`: string — Contact type or category
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

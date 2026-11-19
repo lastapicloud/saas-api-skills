@@ -1,7 +1,6 @@
 ---
 name: jobvite-ats
-description: Manage candidates and jobs via Jobvite. Use when the user mentions jobvite,
-  ats, candidate, job, requisition, recruiting.
+description: "Manage candidates and jobs via Jobvite. Use when the user mentions jobvite, ats, candidate, job, requisition, recruiting."
 version: 1.0.0
 skill_type: external
 base_url_env: JOBVITE_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires JOBVITE_BASE_URL and JOBVITE_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Jobvite-Ats
 
 Manage candidates and jobs via Jobvite. Use when the user mentions jobvite, ats, candidate, job, requisition, recruiting.
+
 
 ## API Endpoints
 
@@ -65,3 +69,14 @@ Manage candidates and jobs via Jobvite. Use when the user mentions jobvite, ats,
 ```json
 {"candidateId": "cand-abc123", "jobId": "job-xyz789", "source": "LinkedIn"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

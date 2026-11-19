@@ -1,7 +1,9 @@
 ---
 name: livechat-support
-description: Manage chats, agents, and customers via LiveChat. Use when the user mentions
-  livechat, chat, agent, visitor, customer, support.
+description: 'Manage chats, agents, and customers via LiveChat. Use when the user
+  mentions livechat, chat, agent, visitor, customer, support.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: LIVECHAT_BASE_URL
@@ -19,11 +21,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires LIVECHAT_BASE_URL and LIVECHAT_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Livechat-Support
 
 Manage chats, agents, and customers via LiveChat. Use when the user mentions livechat, chat, agent, visitor, customer, support.
+
 
 ## API Endpoints
 
@@ -48,13 +55,13 @@ Manage chats, agents, and customers via LiveChat. Use when the user mentions liv
 - list: List chats (GET /v3.5/chats)
 - get_by_id: Get chat (GET /v3.5/chats/{chat_id})
 - create: Start chat (POST /v3.5/chats/start_chat)
-- create_send_event: Send event (POST /v3.5/chats/{chat_id}/send_event)
-- create_close: Close chat (POST /v3.5/chats/{chat_id}/close)
+- send_event: Send event (POST /v3.5/chats/{chat_id}/send_event)
+- close_chat: Close chat (POST /v3.5/chats/{chat_id}/close)
 - list_agents: List agents (GET /v3.5/agents)
-- get_by_id_agents: Get agent (GET /v3.5/agents/{agent_id})
+- get_agent: Get agent (GET /v3.5/agents/{agent_id})
 - create_agent: Create agent (POST /v3.5/agents)
-- update_agent: Update agent (PUT /v3.5/agents/{agent_id})
-- delete_agent: Delete agent (DELETE /v3.5/agents/{agent_id})
+- update: Update agent (PUT /v3.5/agents/{agent_id})
+- delete: Delete agent (DELETE /v3.5/agents/{agent_id})
 - list_groups: List groups (GET /v3.5/groups)
 - create_group: Create group (POST /v3.5/groups)
 - update_group: Update group (PUT /v3.5/groups/{group_id})
@@ -63,14 +70,14 @@ Manage chats, agents, and customers via LiveChat. Use when the user mentions liv
 
 ## Fields
 
-- `chat_id`: string [REQUIRED for get/close/send_event] (chat identifier)
-- `agent_id`: string [REQUIRED for get/update/delete agent] (agent identifier)
-- `group_id`: integer [REQUIRED for get/update/delete group] (group identifier)
-- `type`: string [REQUIRED for send_event] (message, file, etc.)
-- `text`: string [REQUIRED for message events]
-- `name`: string [REQUIRED for create agent] (agent name)
-- `role`: string [OPTIONAL for create/update agent] (viceowner, administrator, normal)
-- `id`: string [REQUIRED for create agent/group] (agent/group ID)
+- `chat_id`: string [REQUIRED for get/close/send_event] (chat identifier) — Chat unique identifier
+- `agent_id`: string [REQUIRED for get/update/delete agent] (agent identifier) — Agent unique identifier
+- `group_id`: integer [REQUIRED for get/update/delete group] (group identifier) — Group unique identifier
+- `type`: string [REQUIRED for send_event] (message, file, etc.) — Resource type
+- `text`: string [REQUIRED for message events] — Text content
+- `name`: string [REQUIRED for create agent] (agent name) — Display name
+- `role`: string [OPTIONAL for create/update agent] (viceowner, administrator, normal) — Role
+- `id`: string [REQUIRED for create agent/group] (agent/group ID) — Unique identifier
 
 ## Example Request Bodies
 
@@ -98,3 +105,44 @@ Manage chats, agents, and customers via LiveChat. Use when the user mentions liv
 ```json
 {"users": [{"email": "agent@example.com", "agent": true}], "thread": {"events": [{"type": "message", "text": "Welcome to support!"}]}}
 ```
+
+## Response
+
+**Agent object:**
+- `id`: string — Unique agent identifier
+- `name`: string — Agent name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+
+**Required fields reference:**
+```json
+{
+  "chat_id": "example_chat_id",
+  "agent_id": "example_agent_id",
+  "group_id": 1
+}
+```
+
+
+**Required fields reference:**
+```json
+{
+  "chat_id": "example_chat_id",
+  "agent_id": "example_agent_id",
+  "group_id": 1
+}
+```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

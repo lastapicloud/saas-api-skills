@@ -3,12 +3,12 @@ name: discord-messaging
 description: "Complete Discord bot integration \u2014 guilds, channels, messages,\
   \ members, roles, webhooks, emojis, invites, threads, and user management. Use when\
   \ the user mentions discord, guild, server, channel, message, DM, bot, role, webhook,\
-  \ emoji, invite, thread, member, ban."
+  \ emoji, invite, thread, member, ban.\n"
 version: 1.0.0
 skill_type: external
 base_url_env: DISCORD_BASE_URL
 auth_env_var: DISCORD_BOT_TOKEN
-auth_type: bearer
+auth_type: bot
 triggers:
   - discord
   - guild
@@ -23,11 +23,16 @@ metadata:
   author: lastapi
   version: 2.0.0
 compatibility: Requires DISCORD_BASE_URL and DISCORD_BOT_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Discord-Messaging
 
 Complete Discord bot integration — guilds, channels, messages, members, roles, webhooks, emojis, invites, threads, and user management. Use when the user mentions discord, guild, server, channel, message, DM, bot, role, webhook, emoji, invite, thread, member, ban.
+
 
 ## API Endpoints
 
@@ -49,21 +54,22 @@ Complete Discord bot integration — guilds, channels, messages, members, roles,
 
 ## Actions
 
+- list_guilds: List the servers (guilds) the bot is in (GET /users/@me/guilds)
 - get_by_id: Get a guild (GET /guilds/{guild_id})
 - update: Modify a guild (PATCH /guilds/{guild_id})
 - list: List guild channels (GET /guilds/{guild_id}/channels)
 - create: Create a guild channel (POST /guilds/{guild_id}/channels)
-- get_by_id_members: Get a guild member (GET /guilds/{guild_id}/members/{user_id})
-- list_members: List guild members (GET /guilds/{guild_id}/members)
+- get_guild_member: Get a guild member (GET /guilds/{guild_id}/members/{user_id})
+- list_guild_members: List guild members (GET /guilds/{guild_id}/members)
 - search: Search guild members (GET /guilds/{guild_id}/members/search)
-- update_members: Add a guild member (PUT /guilds/{guild_id}/members/{user_id})
+- add_guild_member: Add a guild member (PUT /guilds/{guild_id}/members/{user_id})
 - delete: Remove a guild member (DELETE /guilds/{guild_id}/members/{user_id})
-- update_bans: Ban a user (PUT /guilds/{guild_id}/bans/{user_id})
-- delete_bans: Unban a user (DELETE /guilds/{guild_id}/bans/{user_id})
-- list_bans: List guild bans (GET /guilds/{guild_id}/bans)
-- list_roles: Get guild roles (GET /guilds/{guild_id}/roles)
-- create_roles: Create a guild role (POST /guilds/{guild_id}/roles)
-- update_roles: Modify a guild role (PATCH /guilds/{guild_id}/roles/{role_id})
+- ban_user: Ban a user (PUT /guilds/{guild_id}/bans/{user_id})
+- delete_unban_user: Unban a user (DELETE /guilds/{guild_id}/bans/{user_id})
+- list_guild_bans: List guild bans (GET /guilds/{guild_id}/bans)
+- get_guild_roles: Get guild roles (GET /guilds/{guild_id}/roles)
+- create_guild_role: Create a guild role (POST /guilds/{guild_id}/roles)
+- update_modify_guild_role: Modify a guild role (PATCH /guilds/{guild_id}/roles/{role_id})
 
 ## Fields
 
@@ -316,3 +322,24 @@ GET /guilds/{guild_id}/members?limit=100&after=123456789012345678
 ```
 GET /guilds/{guild_id}/members/search?query=john&limit=10
 ```
+
+## Response
+
+**Member object:**
+- `id`: string — Unique member identifier
+- `name`: string — Member name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

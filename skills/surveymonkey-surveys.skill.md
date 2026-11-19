@@ -1,7 +1,6 @@
 ---
 name: surveymonkey-surveys
-description: Manage surveys and responses via SurveyMonkey. Use when the user mentions
-  surveymonkey, survey, response, question, collector.
+description: "Manage surveys and responses via SurveyMonkey. Use when the user mentions surveymonkey, survey, response, question, collector."
 version: 1.0.0
 skill_type: external
 base_url_env: SURVEYMONKEY_BASE_URL
@@ -17,13 +16,20 @@ license: Apache-2.0
 metadata:
   author: lastapi
   version: 1.0.0
-compatibility: Requires SURVEYMONKEY_BASE_URL and SURVEYMONKEY_ACCESS_TOKEN environment
+compatibility: 'Requires SURVEYMONKEY_BASE_URL and SURVEYMONKEY_ACCESS_TOKEN environment
   variables.
+
+  '
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Surveymonkey-Surveys
 
 Manage surveys and responses via SurveyMonkey. Use when the user mentions surveymonkey, survey, response, question, collector.
+
 
 ## API Endpoints
 
@@ -61,3 +67,14 @@ Manage surveys and responses via SurveyMonkey. Use when the user mentions survey
 **Create Collector:**
 ```json
 {"type": "weblink", "name": "Email Campaign Link"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -16,7 +16,6 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://learn.microsoft.com/azure/ai-services/openai/
-compatibility: Requires AZURE_OPENAI_BASE_URL and AZURE_OPENAI_API_KEY environment variables.
 ---
 
 # Azure-OpenAI

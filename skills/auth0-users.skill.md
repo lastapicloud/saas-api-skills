@@ -4,7 +4,7 @@ description: "Complete Auth0 Management API \u2014 users, roles, organizations, 
   \ clients, actions, rules, logs, grants, resource servers, branding, tenants, and\
   \ jobs. Use when the user mentions auth0, user, identity, authentication, role,\
   \ permission, organization, connection, client, action, rule, tenant, branding,\
-  \ grant, log, resource server."
+  \ grant, log, resource server.\n"
 version: 1.0.0
 skill_type: external
 base_url_env: AUTH0_BASE_URL
@@ -24,11 +24,16 @@ metadata:
   author: lastapi
   version: 2.0.0
 compatibility: Requires AUTH0_BASE_URL and AUTH0_MGMT_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Auth0-Management
 
 Complete Auth0 Management API — users, roles, organizations, connections, clients, actions, rules, logs, grants, resource servers, branding, tenants, and jobs. Use when the user mentions auth0, user, identity, authentication, role, permission, organization, connection, client, action, rule, tenant, branding, grant, log, resource server.
+
 
 ## API Endpoints
 
@@ -55,16 +60,16 @@ Complete Auth0 Management API — users, roles, organizations, connections, clie
 - get_by_id: Get a user by ID (GET /users/{user_id})
 - update: Update a user (PATCH /users/{user_id})
 - delete: Delete a user (DELETE /users/{user_id})
-- list_permissions: List permissions assigned to a user (GET /users/{user_id}/permissions)
-- list_roles: List roles assigned to a user (GET /users/{user_id}/roles)
-- create_roles: Assign roles to a user (POST /users/{user_id}/roles)
+- list_permissions_assigned_user: List permissions assigned to a user (GET /users/{user_id}/permissions)
+- list_roles_assigned_user: List roles assigned to a user (GET /users/{user_id}/roles)
+- assign_roles_user: Assign roles to a user (POST /users/{user_id}/roles)
 - delete_roles: Remove roles from a user (DELETE /users/{user_id}/roles)
-- create_identities: Link a user identity (account linking) (POST /users/{user_id}/identities)
-- delete_identities: Unlink a user identity (DELETE /users/{user_id}/identities/{provider}/{linked_user_id})
+- create_link_user_identity_account: Link a user identity (account linking) (POST /users/{user_id}/identities)
+- delete_unlink_user_identity: Unlink a user identity (DELETE /users/{user_id}/identities/{provider}/{linked_user_id})
 - add_multifactor: Delete a user's multifactor provider (POST /users/{user_id}/multifactor/{provider})
-- update_users: Block a user (set blocked: true) (PATCH /users/{user_id})
-- update_users_2: Unblock a user (set blocked: false) (PATCH /users/{user_id})
-- list_roles_2: List all roles (GET /roles)
+- block_user_set_blocked: Block a user (set blocked: true) (PATCH /users/{user_id})
+- update_unblock_user_set_blocked: Unblock a user (set blocked: false) (PATCH /users/{user_id})
+- list_roles: List all roles (GET /roles)
 
 ## Fields
 
@@ -114,8 +119,8 @@ Complete Auth0 Management API — users, roles, organizations, connections, clie
 - `enabled_connections`: array [OPTIONAL for create] - Array of `{ "connection_id": "con_...", "assign_membership_on_login": true }`
 
 ### Organization Invitation
-- `inviter`: object [REQUIRED] - `{ "name": "Admin Name" }`
-- `invitee`: object [REQUIRED] - `{ "email": "invitee@example.com" }`
+- `inviter`: object [REQUIRED] - `{ "name": "Admin Name" }` — Inviter configuration
+- `invitee`: object [REQUIRED] - `{ "email": "invitee@example.com" }` — Invitee configuration
 - `client_id`: string [REQUIRED] - Application client ID for the invitation link
 - `roles`: array [OPTIONAL] - Role IDs to assign on acceptance
 - `send_invitation_email`: boolean [OPTIONAL] - Whether to send the email (default true)
@@ -142,22 +147,22 @@ Complete Auth0 Management API — users, roles, organizations, connections, clie
 - `logo_uri`: string [OPTIONAL] - URL to client logo
 - `description`: string [OPTIONAL] - Client description
 - `oidc_conformant`: boolean [OPTIONAL] - OIDC conformant mode (default true)
-- `token_endpoint_auth_method`: string [OPTIONAL] - "client_secret_post", "client_secret_basic", "none"
+- `token_endpoint_auth_method`: string [OPTIONAL] - "client_secret_post", "client_secret_basic", "none" — Token Endpoint Auth Method
 - `client_id`: string [REQUIRED for get, update, delete] - Client ID
 
 ### Action
 - `name`: string [REQUIRED for create] - Action name
-- `supported_triggers`: array [REQUIRED for create] - Array of trigger objects: `[{ "id": "post-login", "version": "v3" }]`
+- `supported_triggers`: array [REQUIRED for create] - Array of trigger objects: `[{ "id": "post-login", "version": "v3" }]` — List of supported triggers
 - `code`: string [REQUIRED for create] - JavaScript code for the action
-- `dependencies`: array [OPTIONAL] - NPM dependencies: `[{ "name": "axios", "version": "1.7.2" }]`
-- `secrets`: array [OPTIONAL] - Action secrets: `[{ "name": "MY_SECRET", "value": "secret-value" }]`
+- `dependencies`: array [OPTIONAL] - NPM dependencies: `[{ "name": "axios", "version": "1.7.2" }]` — List of dependencies
+- `secrets`: array [OPTIONAL] - Action secrets: `[{ "name": "MY_SECRET", "value": "secret-value" }]` — List of secrets
 - `runtime`: string [OPTIONAL] - Runtime version ("node18" or "node16")
 - `action_id`: string [REQUIRED for get, update, delete, deploy, test] - Action ID
 
 ### Resource Server / API
 - `name`: string [REQUIRED for create] - API name
 - `identifier`: string [REQUIRED for create] - API identifier / audience (e.g., "https://api.example.com")
-- `scopes`: array [OPTIONAL] - Available permissions: `[{ "value": "read:users", "description": "Read users" }]`
+- `scopes`: array [OPTIONAL] - Available permissions: `[{ "value": "read:users", "description": "Read users" }]` — List of scopes
 - `signing_alg`: string [OPTIONAL] - Signing algorithm ("RS256" default, "HS256")
 - `token_lifetime`: integer [OPTIONAL] - Access token lifetime in seconds (default 86400)
 - `token_lifetime_for_web`: integer [OPTIONAL] - Token lifetime for web (default 7200)
@@ -166,10 +171,10 @@ Complete Auth0 Management API — users, roles, organizations, connections, clie
 - `resource_server_id`: string [REQUIRED for get, update, delete] - Resource server ID
 
 ### Branding
-- `colors`: object [OPTIONAL] - `{ "primary": "#0059d6", "page_background": "#000000" }`
+- `colors`: object [OPTIONAL] - `{ "primary": "#0059d6", "page_background": "#000000" }` — Colors configuration
 - `favicon_url`: string [OPTIONAL] - URL to favicon
 - `logo_url`: string [OPTIONAL] - URL to logo
-- `font`: object [OPTIONAL] - `{ "url": "https://fonts.googleapis.com/css?family=Roboto" }`
+- `font`: object [OPTIONAL] - `{ "url": "https://fonts.googleapis.com/css?family=Roboto" }` — Font configuration
 
 ### Rule (deprecated)
 - `name`: string [REQUIRED for create] - Rule name
@@ -370,3 +375,48 @@ POST /users/auth0%7C64abc123def456/identities
   "user_id": "10987654321"
 }
 ```
+
+## Response
+
+**User object:**
+- `id`: string — Unique user identifier
+- `name`: string — User name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+
+**Required fields reference:**
+```json
+{
+  "role_id": "example_role_id",
+  "org_id": "example_org_id",
+  "connection_id": "example_connection_id",
+  "action_id": "example_action_id",
+  "rule_id": "example_rule_id"
+}
+```
+
+
+**Required fields reference:**
+```json
+{
+  "role_id": "example_role_id",
+  "org_id": "example_org_id",
+  "connection_id": "example_connection_id",
+  "action_id": "example_action_id",
+  "rule_id": "example_rule_id"
+}
+```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

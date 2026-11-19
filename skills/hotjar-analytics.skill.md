@@ -1,7 +1,6 @@
 ---
 name: hotjar-analytics
-description: Access heatmaps and surveys via Hotjar. Use when the user mentions hotjar,
-  heatmap, survey, feedback, recording, analytics.
+description: "Access heatmaps and surveys via Hotjar. Use when the user mentions hotjar, heatmap, survey, feedback, recording, analytics."
 version: 1.0.0
 skill_type: external
 base_url_env: HOTJAR_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires HOTJAR_BASE_URL and HOTJAR_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Hotjar-Analytics
 
 Access heatmaps and surveys via Hotjar. Use when the user mentions hotjar, heatmap, survey, feedback, recording, analytics.
+
 
 ## API Endpoints
 
@@ -59,3 +63,14 @@ Access heatmaps and surveys via Hotjar. Use when the user mentions hotjar, heatm
 ```json
 {"siteId": "123456", "limit": 50, "offset": 0}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

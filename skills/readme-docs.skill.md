@@ -1,7 +1,6 @@
 ---
 name: readme-docs
-description: Manage API documentation via ReadMe. Use when the user mentions readme,
-  api documentation, docs, changelog, guide.
+description: "Manage API documentation via ReadMe. Use when the user mentions readme, api documentation, docs, changelog, guide."
 version: 1.0.0
 skill_type: external
 base_url_env: README_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires README_BASE_URL and README_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Readme-Docs
 
 Manage API documentation via ReadMe. Use when the user mentions readme, api documentation, docs, changelog, guide.
+
 
 ## API Endpoints
 
@@ -78,3 +82,14 @@ Manage API documentation via ReadMe. Use when the user mentions readme, api docu
 ```json
 {"title": "Getting Started (Updated)", "body": "# Welcome\nRevised setup instructions."}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

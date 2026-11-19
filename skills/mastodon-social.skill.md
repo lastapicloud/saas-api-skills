@@ -1,7 +1,6 @@
 ---
 name: mastodon-social
-description: Post statuses and manage accounts via Mastodon. Use when the user mentions
-  mastodon, toot, status, fediverse, social media, timeline.
+description: "Post statuses and manage accounts via Mastodon. Use when the user mentions mastodon, toot, status, fediverse, social media, timeline."
 version: 1.0.0
 skill_type: external
 base_url_env: MASTODON_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires MASTODON_BASE_URL and MASTODON_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Mastodon-Social
 
 Post statuses and manage accounts via Mastodon. Use when the user mentions mastodon, toot, status, fediverse, social media, timeline.
+
 
 ## API Endpoints
 
@@ -42,14 +46,12 @@ Post statuses and manage accounts via Mastodon. Use when the user mentions masto
 - **POST** `/api/v1/accounts` - Create account
 - **GET** `/api/v2/search` - Search content
 - **GET** `/api/v1/bookmarks` - Get bookmarks
-- **GET** `/api/v1/favourites` - Get favourites
-- **GET** `/api/v1/notifications` - Get notifications
 
 ## Actions
 
-- get_instance: Get instance info (GET /api/v2/instance)
+- list: Get instance info (GET /api/v2/instance)
 - list_trends: Get trending tags (GET /api/v1/trends)
-- list: Get home timeline (GET /api/v1/timelines/home)
+- list_home: Get home timeline (GET /api/v1/timelines/home)
 - list_public: Get public timeline (GET /api/v1/timelines/public)
 - create: Create status (POST /api/v1/statuses)
 - get_by_id: Get status (GET /api/v1/statuses/{id})
@@ -60,10 +62,8 @@ Post statuses and manage accounts via Mastodon. Use when the user mentions masto
 - search: Search accounts (GET /api/v1/accounts/search)
 - patch_update_credentials: Update account (PATCH /api/v1/accounts/update_credentials)
 - create_accounts: Create account (POST /api/v1/accounts)
-- search_content: Search content (GET /api/v2/search)
+- search_v2: Search content (GET /api/v2/search)
 - list_bookmarks: Get bookmarks (GET /api/v1/bookmarks)
-- list_favourites: Get favourites (GET /api/v1/favourites)
-- list_notifications: Get notifications (GET /api/v1/notifications)
 
 ## Fields
 
@@ -93,3 +93,14 @@ Post statuses and manage accounts via Mastodon. Use when the user mentions masto
 ```json
 {"q": "mastodon", "type": "accounts"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

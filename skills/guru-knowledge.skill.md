@@ -1,7 +1,6 @@
 ---
 name: guru-knowledge
-description: Manage cards and boards via Guru knowledge base. Use when the user mentions
-  guru, knowledge base, card, board, wiki, knowledge.
+description: "Manage cards and boards via Guru knowledge base. Use when the user mentions guru, knowledge base, card, board, wiki, knowledge."
 version: 1.0.0
 skill_type: external
 base_url_env: GURU_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires GURU_BASE_URL and GURU_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Guru-Knowledge
 
 Manage cards and boards via Guru knowledge base. Use when the user mentions guru, knowledge base, card, board, wiki, knowledge.
+
 
 ## API Endpoints
 
@@ -36,13 +40,13 @@ Manage cards and boards via Guru knowledge base. Use when the user mentions guru
 - **GET** `/api/v1/boards` - List boards
 - **POST** `/api/v1/search/cardmgr` - Search cards
 - **GET** `/api/v1/collections` - List collections
-- **POST** `/insights/search` - <p> Returns a list of insights in your Amazon Web Services account. You can specify which insights are returned by
+- **POST** `/insights/search` - Returns a list of insights in your Amazon Web Services account. You can specify which insights are returned by
 - **POST** `/insights` - Returns a list of insights in your Amazon Web Services account. You can specify which insights are returned by their
 - **GET** `/insights/{Id}` - Returns details about an insight that you specify using its ID.
 - **DELETE** `/insights/{Id}` - Deletes the insight along with the associated anomalies, events and recommendations.
 - **POST** `/channels` - Returns a list of notification channels configured for DevOps Guru. Each notification channel is used to notify you
 - **DELETE** `/channels/{Id}` - Removes a notification channel from DevOps Guru. A notification channel is used to notify you when DevOps Guru
-- **PUT** `/channels` - <p> Adds a notification channel to DevOps Guru. A notification channel is used to notify you about important DevOps
+- **PUT** `/channels` - Adds a notification channel to DevOps Guru. A notification channel is used to notify you about important DevOps
 
 ## Actions
 
@@ -54,13 +58,13 @@ Manage cards and boards via Guru knowledge base. Use when the user mentions guru
 - list_boards: List boards (GET /api/v1/boards)
 - create_cardmgr: Search cards (POST /api/v1/search/cardmgr)
 - list_collections: List collections (GET /api/v1/collections)
-- search: <p> Returns a list of insights in your Amazon Web Services account. You can spec (POST /insights/search)
+- search: Returns a list of insights in your Amazon Web Services account. You can specify (POST /insights/search)
 - create_insights: Returns a list of insights in your Amazon Web Services account. You can specify (POST /insights)
 - get_by_id_insights: Returns details about an insight that you specify using its ID. (GET /insights/{Id})
 - delete_insights: Deletes the insight along with the associated anomalies, events and recommendati (DELETE /insights/{Id})
 - create_channels: Returns a list of notification channels configured for DevOps Guru. Each notific (POST /channels)
 - delete_channels: Removes a notification channel from DevOps Guru. A notification channel is used (DELETE /channels/{Id})
-- update_channels: <p> Adds a notification channel to DevOps Guru. A notification channel is used t (PUT /channels)
+- update_channels: Adds a notification channel to DevOps Guru. A notification channel is used to no (PUT /channels)
 
 ## Fields
 
@@ -72,10 +76,21 @@ Manage cards and boards via Guru knowledge base. Use when the user mentions guru
 
 **Create Card:**
 ```json
-{"preferredPhrase": "Onboarding Guide", "content": "<p>Welcome to the team! Here is everything you need to get started.</p>", "collection": {"id": "col-abc123"}}
+{"preferredPhrase": "Onboarding Guide", "content": "Welcome to the team! Here is everything you need to get started.", "collection": {"id": "col-abc123"}}
 ```
 
 **Search Cards:**
 ```json
 {"searchTerms": "deployment process", "collectionIds": ["col-abc123"]}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

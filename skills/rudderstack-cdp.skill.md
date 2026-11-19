@@ -18,7 +18,6 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://www.rudderstack.com/docs/api/
-compatibility: Requires RUDDERSTACK_BASE_URL and RUDDERSTACK_WRITE_KEY environment variables.
 ---
 
 # Rudderstack-CDP

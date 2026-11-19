@@ -1,7 +1,6 @@
 ---
 name: survicate-surveys
-description: Manage surveys and responses via Survicate. Use when the user mentions
-  survicate, survey, feedback, response, nps.
+description: "Manage surveys and responses via Survicate. Use when the user mentions survicate, survey, feedback, response, nps."
 version: 1.0.0
 skill_type: external
 base_url_env: SURVICATE_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires SURVICATE_BASE_URL and SURVICATE_API_KEY environment variables.
+annotations:
+  readOnlyHint: true
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Survicate-Surveys
 
 Manage surveys and responses via Survicate. Use when the user mentions survicate, survey, feedback, response, nps.
+
 
 ## API Endpoints
 
@@ -70,3 +74,14 @@ Manage surveys and responses via Survicate. Use when the user mentions survicate
   "limit": 100
 }
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

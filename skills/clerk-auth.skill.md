@@ -1,7 +1,6 @@
 ---
 name: clerk-auth
-description: Manage users and organizations via the Clerk Backend API. Use when the
-  user mentions clerk, user, organization, session, invite.
+description: "Manage users and organizations via the Clerk Backend API. Use when the user mentions clerk, user, organization, session, invite."
 version: 1.0.0
 skill_type: external
 base_url_env: CLERK_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires CLERK_BASE_URL and CLERK_SECRET_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Clerk-Auth
 
 Manage users and organizations via the Clerk Backend API. Use when the user mentions clerk, user, organization, session, invite.
+
 
 ## API Endpoints
 
@@ -82,3 +86,14 @@ Manage users and organizations via the Clerk Backend API. Use when the user ment
 ```json
 {"first_name": "Updated", "last_name": "Name"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: sendgrid-email
-description: Send emails and manage contacts via SendGrid. Use when the user mentions
-  sendgrid, email, send email, template, marketing email.
+description: "Send emails and manage contacts via SendGrid. Use when the user mentions sendgrid, email, send email, template, marketing email."
 version: 1.0.0
 skill_type: external
 base_url_env: SENDGRID_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires SENDGRID_BASE_URL and SENDGRID_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Sendgrid-Email
 
 Send emails and manage contacts via SendGrid. Use when the user mentions sendgrid, email, send email, template, marketing email.
+
 
 ## API Endpoints
 
@@ -87,3 +91,14 @@ Send emails and manage contacts via SendGrid. Use when the user mentions sendgri
 ```json
 {"email": "user@example.com"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

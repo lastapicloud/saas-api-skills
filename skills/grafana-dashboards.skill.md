@@ -1,7 +1,9 @@
 ---
 name: grafana-dashboards
-description: Manage dashboards, alerts, and datasources via the Grafana HTTP API.
+description: 'Manage dashboards, alerts, and datasources via the Grafana HTTP API.
   Use when the user mentions grafana, dashboard, alert, monitor, metric, panel.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: GRAFANA_BASE_URL
@@ -19,11 +21,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires GRAFANA_BASE_URL and GRAFANA_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Grafana-Dashboards
 
 Manage dashboards, alerts, and datasources via the Grafana HTTP API. Use when the user mentions grafana, dashboard, alert, monitor, metric, panel.
+
 
 ## API Endpoints
 
@@ -50,26 +57,26 @@ Manage dashboards, alerts, and datasources via the Grafana HTTP API. Use when th
 - get_by_id: Get dashboard by UID (GET /api/dashboards/uid/{uid})
 - delete: Delete dashboard by UID (DELETE /api/dashboards/uid/{uid})
 - list: List alert rules (GET /api/v1/provisioning/alert-rules)
-- create_alert_rules: Create an alert rule (POST /api/v1/provisioning/alert-rules)
+- create_alert_rule: Create an alert rule (POST /api/v1/provisioning/alert-rules)
 - list_datasources: List datasources (GET /api/datasources)
-- create_dashboards: Creates a new dashboard. (POST /apis/dashboard.grafana.app/v1beta1/namespaces/:namespace/dashboards)
-- create_dashboards_2: POST /apis/dashboard.grafana.app/v1beta1/namespaces/default/dashboards (POST /apis/dashboard.grafana.app/v1beta1/namespaces/default/dashboards)
-- put_:uid: Updates an existing dashboard via the dashboard uid. (PUT /apis/dashboard.grafana.app/v1beta1/namespaces/:namespace/dashboards/:uid)
+- create_new_dashboard: Creates a new dashboard. (POST /apis/dashboard.grafana.app/v1beta1/namespaces/:namespace/dashboards)
+- create_dashboards: POST /apis/dashboard.grafana.app/v1beta1/namespaces/default/dashboards (POST /apis/dashboard.grafana.app/v1beta1/namespaces/default/dashboards)
+- put_: uid: Updates an existing dashboard via the dashboard uid. (PUT /apis/dashboard.grafana.app/v1beta1/namespaces/:namespace/dashboards/:uid)
 - create_gdxccn: POST /apis/dashboard.grafana.app/v1beta1/namespaces/default/dashboards/gdxccn (POST /apis/dashboard.grafana.app/v1beta1/namespaces/default/dashboards/gdxccn)
-- list_uid: Gets a dashboard via the dashboard uid. (GET /apis/dashboard.grafana.app/v1beta1/namespaces/:namespace/dashboards/:uid)
-- list_gdxccn: Example Response: (GET /apis/dashboard.grafana.app/v1beta1/namespaces/default/dashboards/gdxccn)
-- list_dto: Retrieves a dashboard with additional access information. (GET /apis/dashboard.grafana.app/v1beta1/namespaces/:namespace/dashboards/:uid/dto)
-- list_dashboards: Lists all dashboards in the given organization. You can control the maximum numb (GET /apis/dashboard.grafana.app/v1beta1/namespaces/:namespace/dashboards)
+- gets_dashboard_dashboard_uid: Gets a dashboard via the dashboard uid. (GET /apis/dashboard.grafana.app/v1beta1/namespaces/:namespace/dashboards/:uid)
+- get_example_response: Example Response: (GET /apis/dashboard.grafana.app/v1beta1/namespaces/default/dashboards/gdxccn)
+- get_dashboard_additional_access: Retrieves a dashboard with additional access information. (GET /apis/dashboard.grafana.app/v1beta1/namespaces/:namespace/dashboards/:uid/dto)
+- list_dashboards_given_organization: Lists all dashboards in the given organization. You can control the maximum numb (GET /apis/dashboard.grafana.app/v1beta1/namespaces/:namespace/dashboards)
 
 ## Fields
 
-- `uid`: string [REQUIRED for get_dashboard, delete_dashboard] (dashboard UID)
-- `dashboard`: object [REQUIRED for create_dashboard] (dashboard JSON model)
-- `overwrite`: boolean [OPTIONAL for create_dashboard] (overwrite existing dashboard)
-- `title`: string [REQUIRED for create_alert] (alert rule title)
-- `condition`: string [REQUIRED for create_alert] (alert condition expression)
-- `query`: string [OPTIONAL for list_dashboards] (search query)
-- `type`: string [OPTIONAL for list_dashboards] (filter by type: dash-db, dash-folder)
+- `uid`: string [REQUIRED for get_dashboard, delete_dashboard] (dashboard UID) — U unique identifier
+- `dashboard`: object [REQUIRED for create_dashboard] (dashboard JSON model) — Dashboard configuration
+- `overwrite`: boolean [OPTIONAL for create_dashboard] (overwrite existing dashboard) — Whether overwrite is enabled
+- `title`: string [REQUIRED for create_alert] (alert rule title) — Title or heading
+- `condition`: string [REQUIRED for create_alert] (alert condition expression) — Condition
+- `query`: string [OPTIONAL for list_dashboards] (search query) — Search or filter query
+- `type`: string [OPTIONAL for list_dashboards] (filter by type: dash-db, dash-folder) — Resource type
 
 ## Example Request Bodies
 
@@ -82,3 +89,24 @@ Manage dashboards, alerts, and datasources via the Grafana HTTP API. Use when th
 ```json
 {"title": "High CPU Alert", "condition": "A", "data": [{"refId": "A", "queryType": ""}]}
 ```
+
+## Response
+
+**Dashboard object:**
+- `id`: string — Unique dashboard identifier
+- `name`: string — Dashboard name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

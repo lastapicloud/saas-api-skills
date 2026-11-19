@@ -1,7 +1,6 @@
 ---
 name: filestack-uploads
-description: Upload and transform files via Filestack. Use when the user mentions
-  filestack, upload, file, transform, image, cdn.
+description: "Upload and transform files via Filestack. Use when the user mentions filestack, upload, file, transform, image, cdn."
 version: 1.0.0
 skill_type: external
 base_url_env: FILESTACK_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires FILESTACK_BASE_URL and FILESTACK_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Filestack-Uploads
 
 Upload and transform files via Filestack. Use when the user mentions filestack, upload, file, transform, image, cdn.
+
 
 ## API Endpoints
 
@@ -65,3 +69,14 @@ Upload and transform files via Filestack. Use when the user mentions filestack, 
   "accept": ["image/*", "application/pdf"]
 }
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

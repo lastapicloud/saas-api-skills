@@ -1,7 +1,6 @@
 ---
 name: aws-s3-storage
-description: Manage buckets and objects in Amazon S3. Use when the user mentions s3,
-  aws, bucket, object, storage, upload, download, file.
+description: "Manage buckets and objects in Amazon S3. Use when the user mentions s3, aws, bucket, object, storage, upload, download, file."
 version: 1.0.0
 skill_type: external
 base_url_env: AWS_S3_BASE_URL
@@ -21,11 +20,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires AWS_S3_BASE_URL and AWS_S3_BASE_URL environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Aws-S3-Storage
 
 Manage buckets and objects in Amazon S3. Use when the user mentions s3, aws, bucket, object, storage, upload, download, file.
+
 
 ## API Endpoints
 
@@ -42,22 +46,26 @@ Manage buckets and objects in Amazon S3. Use when the user mentions s3, aws, buc
 - **GET** `/{bucket}?uploads` - List multipart uploads
 - **POST** `/{bucket}/{key}?partNumber` - Upload part (multipart)
 - **POST** `/{bucket}/{key}?uploadId` - Complete multipart upload
+- **PUT** `/{Bucket}` - <p>Creates a new S3 bucket. To create a bucket, you must register with Amazon S3 and have a valid Amazon Web Services
+- **GET** `/{Bucket}` - <p>Returns some or all (up to 1,000) of the objects in a bucket. You can use the request parameters as selection
 
 ## Actions
 
 - list: List all buckets (GET /)
-- create: Create a bucket (PUT /{bucket})
+- update: Create a bucket (PUT /{bucket})
 - delete: Delete a bucket (DELETE /{bucket})
-- list_objects: List objects in a bucket (GET /{bucket})
-- head_bucket: Get bucket metadata (HEAD /{bucket})
-- upload: Upload an object (PUT /{bucket}/{key})
-- download: Download an object (GET /{bucket}/{key})
-- delete_object: Delete an object (DELETE /{bucket}/{key})
-- head_object: Get object metadata (HEAD /{bucket}/{key})
-- delete_multiple: Delete multiple objects (POST /{bucket})
-- list_uploads: List multipart uploads (GET /{bucket}?uploads)
-- upload_part: Upload part (POST /{bucket}/{key}?partNumber)
-- complete_upload: Complete multipart upload (POST /{bucket}/{key}?uploadId)
+- get_by_id: List objects in a bucket (GET /{bucket})
+- head_resource: Get bucket metadata (HEAD /{bucket})
+- update_resource: Upload an object (PUT /{bucket}/{key})
+- get_by_id_resource: Download an object (GET /{bucket}/{key})
+- delete_resource: Delete an object (DELETE /{bucket}/{key})
+- head_resource_8: Get object metadata (HEAD /{bucket}/{key})
+- create_resource: Delete multiple objects (batch delete) (POST /{bucket})
+- list_resource: List multipart uploads (GET /{bucket}?uploads)
+- create: Upload part (multipart) (POST /{bucket}/{key}?partNumber)
+- create_resource_2: Complete multipart upload (POST /{bucket}/{key}?uploadId)
+- create_bucket: <p>Creates a new S3 bucket. To create a bucket, you must register with Amazon S3 (PUT /{Bucket})
+- list_objects: <p>Returns some or all (up to 1,000) of the objects in a bucket. You can use the (GET /{Bucket})
 
 ## Fields
 
@@ -80,3 +88,14 @@ Query parameter: `list-type=2&prefix=photos/&max-keys=100`
 
 **Upload Object:**
 Binary body with `Content-Type` header set to the file's MIME type.
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: confluence-pages
-description: Create, search, and manage Confluence pages and spaces. Use when the
-  user mentions confluence, page, wiki, documentation, doc, space.
+description: "Create, search, and manage Confluence pages and spaces. Use when the user mentions confluence, page, wiki, documentation, doc, space."
 version: 1.0.0
 skill_type: external
 base_url_env: ATLASSIAN_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires ATLASSIAN_BASE_URL and ATLASSIAN_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Confluence-Pages
 
 Create, search, and manage Confluence pages and spaces. Use when the user mentions confluence, page, wiki, documentation, doc, space.
+
 
 ## API Endpoints
 
@@ -59,5 +63,16 @@ Create, search, and manage Confluence pages and spaces. Use when the user mentio
 
 **Create Page:**
 ```json
-{"spaceId": "12345", "title": "Meeting Notes", "body": {"representation": "storage", "value": "<p>Notes here</p>"}}
+{"spaceId": "12345", "title": "Meeting Notes", "body": {"representation": "storage", "value": "Notes here"}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

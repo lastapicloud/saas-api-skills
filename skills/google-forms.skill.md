@@ -1,7 +1,6 @@
 ---
 name: google-forms
-description: Manage forms and responses via Google Forms. Use when the user mentions
-  google forms, form, response, quiz, survey.
+description: "Manage forms and responses via Google Forms. Use when the user mentions google forms, form, response, quiz, survey."
 version: 1.0.0
 skill_type: external
 base_url_env: GOOGLE_FORMS_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires GOOGLE_FORMS_BASE_URL and GOOGLE_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Google-Forms
 
 Manage forms and responses via Google Forms. Use when the user mentions google forms, form, response, quiz, survey.
+
 
 ## API Endpoints
 
@@ -76,3 +80,14 @@ Manage forms and responses via Google Forms. Use when the user mentions google f
 ```json
 {"requests": [{"createItem": {"item": {"title": "How satisfied are you?", "questionItem": {"question": {"required": true, "scaleQuestion": {"low": 1, "high": 5}}}}, "location": {"index": 0}}}]}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

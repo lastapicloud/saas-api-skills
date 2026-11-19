@@ -1,7 +1,6 @@
 ---
 name: smartsheet-data
-description: Manage Smartsheet sheets, rows, and columns. Use when the user mentions
-  smartsheet, sheet, row, column, workspace.
+description: "Manage Smartsheet sheets, rows, and columns. Use when the user mentions smartsheet, sheet, row, column, workspace."
 version: 1.0.0
 skill_type: external
 base_url_env: SMARTSHEET_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires SMARTSHEET_BASE_URL and SMARTSHEET_ACCESS_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Smartsheet-Data
 
 Manage Smartsheet sheets, rows, and columns. Use when the user mentions smartsheet, sheet, row, column, workspace.
+
 
 ## API Endpoints
 
@@ -70,3 +74,14 @@ Manage Smartsheet sheets, rows, and columns. Use when the user mentions smartshe
 ```json
 [{"toBottom": true, "cells": [{"columnId": 1234567890, "value": "Design homepage"}, {"columnId": 1234567891, "value": "In Progress"}]}]
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: amazonses-email
-description: Send emails via Amazon SES. Use when the user mentions amazon ses, SES,
-  email, send email, aws email.
+description: "Send emails via Amazon SES. Use when the user mentions amazon ses, SES, email, send email, aws email."
 version: 1.0.0
 skill_type: external
 base_url_env: AMAZON_SES_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires AMAZON_SES_BASE_URL and AMAZON_SES_BASE_URL environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Amazonses-Email
 
 Send emails via Amazon SES. Use when the user mentions amazon ses, SES, email, send email, aws email.
+
 
 ## API Endpoints
 
@@ -67,3 +71,14 @@ Send emails via Amazon SES. Use when the user mentions amazon ses, SES, email, s
 ```json
 {"TemplateName": "welcome_email", "SubjectPart": "Welcome, {{name}}!", "HtmlPart": "<h1>Hello {{name}}</h1>"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

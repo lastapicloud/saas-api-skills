@@ -1,7 +1,6 @@
 ---
 name: checkoutcom-payments
-description: Manage Checkout.com payments and payouts. Use when the user mentions
-  checkout.com, checkout, payment, payout.
+description: "Manage Checkout.com payments and payouts. Use when the user mentions checkout.com, checkout, payment, payout."
 version: 1.0.0
 skill_type: external
 base_url_env: CHECKOUTCOM_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires CHECKOUTCOM_BASE_URL and CHECKOUTCOM_SECRET_KEY environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Checkoutcom-Payments
 
 Manage Checkout.com payments and payouts. Use when the user mentions checkout.com, checkout, payment, payout.
+
 
 ## API Endpoints
 
@@ -67,3 +71,14 @@ Manage Checkout.com payments and payouts. Use when the user mentions checkout.co
 **Create Customer:**
 ```json
 {"email": "customer@example.com", "name": "Jane Doe"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

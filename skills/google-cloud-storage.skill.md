@@ -1,7 +1,6 @@
 ---
 name: google-cloud-storage
-description: Manage buckets and objects via Google Cloud Storage. Use when the user
-  mentions google cloud storage, gcs, bucket, object, cloud storage.
+description: "Manage buckets and objects via Google Cloud Storage. Use when the user mentions google cloud storage, gcs, bucket, object, cloud storage."
 version: 1.0.0
 skill_type: external
 base_url_env: GOOGLE_CLOUD_STORAGE_BASE_URL
@@ -17,13 +16,20 @@ license: Apache-2.0
 metadata:
   author: lastapi
   version: 1.0.0
-compatibility: Requires GOOGLE_CLOUD_STORAGE_BASE_URL and GOOGLE_API_TOKEN environment
+compatibility: 'Requires GOOGLE_CLOUD_STORAGE_BASE_URL and GOOGLE_API_TOKEN environment
   variables.
+
+  '
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Google-Cloud-Storage
 
 Manage buckets and objects via Google Cloud Storage. Use when the user mentions google cloud storage, gcs, bucket, object, cloud storage.
+
 
 ## API Endpoints
 
@@ -64,3 +70,14 @@ Manage buckets and objects via Google Cloud Storage. Use when the user mentions 
 ```json
 {"name": "documents/report.pdf", "contentType": "application/pdf"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

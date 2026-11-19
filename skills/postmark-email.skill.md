@@ -1,7 +1,6 @@
 ---
 name: postmark-email
-description: Send emails, manage templates, and track delivery via the Postmark API.
-  Use when the user mentions postmark, email, send email, bounce, delivery.
+description: "Send emails, manage templates, and track delivery via the Postmark API. Use when the user mentions postmark, email, send email, bounce, delivery."
 version: 1.0.0
 skill_type: external
 base_url_env: POSTMARK_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires POSTMARK_BASE_URL and POSTMARK_SERVER_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Postmark-Email
 
 Send emails, manage templates, and track delivery via the Postmark API. Use when the user mentions postmark, email, send email, bounce, delivery.
+
 
 ## API Endpoints
 
@@ -76,10 +80,21 @@ Send emails, manage templates, and track delivery via the Postmark API. Use when
 
 **Send Email:**
 ```json
-{"From": "noreply@example.com", "To": "user@example.com", "Subject": "Hello", "HtmlBody": "<p>Hello from PythonREST!</p>"}
+{"From": "noreply@example.com", "To": "user@example.com", "Subject": "Hello", "HtmlBody": "Hello from PythonREST!"}
 ```
 
 **Send Template Email:**
 ```json
 {"TemplateId": 12345, "To": "user@example.com", "TemplateModel": {"name": "Test User"}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

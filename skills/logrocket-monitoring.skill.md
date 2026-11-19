@@ -17,7 +17,6 @@ metadata:
   author: lastapi
   version: 1.0.0
   documentation: https://docs.logrocket.com/
-compatibility: Requires LOGROCKET_BASE_URL and LOGROCKET_APP_ID environment variables.
 ---
 
 # Logrocket-Monitoring

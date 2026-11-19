@@ -1,7 +1,6 @@
 ---
 name: akamai-cdn
-description: Manage CDN configurations and purge cache via Akamai. Use when the user
-  mentions akamai, cdn, cache, purge, edge, delivery.
+description: "Manage CDN configurations and purge cache via Akamai. Use when the user mentions akamai, cdn, cache, purge, edge, delivery."
 version: 1.0.0
 skill_type: external
 base_url_env: AKAMAI_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires AKAMAI_BASE_URL and AKAMAI_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Akamai-Cdn
 
 Manage CDN configurations and purge cache via Akamai. Use when the user mentions akamai, cdn, cache, purge, edge, delivery.
+
 
 ## API Endpoints
 
@@ -64,3 +68,14 @@ Manage CDN configurations and purge cache via Akamai. Use when the user mentions
 ```json
 {"objects": ["https://www.example.com/images/logo.png", "https://www.example.com/css/main.css"]}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

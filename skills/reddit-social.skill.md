@@ -1,7 +1,9 @@
 ---
 name: reddit-social
-description: Manage Reddit posts, comments, and subreddits. Use when the user mentions
+description: 'Manage Reddit posts, comments, and subreddits. Use when the user mentions
   reddit, post, comment, subreddit, social.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: REDDIT_BASE_URL
@@ -18,11 +20,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires REDDIT_BASE_URL and REDDIT_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Reddit-Social
 
 Manage Reddit posts, comments, and subreddits. Use when the user mentions reddit, post, comment, subreddit, social.
+
 
 ## API Endpoints
 
@@ -41,36 +48,34 @@ Manage Reddit posts, comments, and subreddits. Use when the user mentions reddit
 - **GET** `/user/{username}/posts` - Get user posts
 - **GET** `/user/{username}/comments` - Get user comments
 - **GET** `/subreddits/mine/subscriber` - List subscribed subreddits
-- **GET** `/me/karma` - Get user karma
 
 ## Actions
 
 - list: Get current user (GET /api/v1/me)
-- list_hot: List hot posts (GET /r/{subreddit}/hot)
-- list_new: List new posts (GET /r/{subreddit}/new)
-- list_top: List top posts (GET /r/{subreddit}/top)
-- list_rising: List rising posts (GET /r/{subreddit}/rising)
+- list_hot_posts: List hot posts (GET /r/{subreddit}/hot)
+- list_new_posts: List new posts (GET /r/{subreddit}/new)
+- list_top_posts: List top posts (GET /r/{subreddit}/top)
+- list_rising_posts: List rising posts (GET /r/{subreddit}/rising)
 - create: Create a post (POST /api/submit)
-- create_comment: Add a comment (POST /api/comment)
-- create_vote: Vote on a post/comment (POST /api/vote)
+- add_comment: Add a comment (POST /api/comment)
+- create_vote_postcomment: Vote on a post/comment (POST /api/vote)
 - delete: Delete a post or comment (DELETE /api/delete)
-- list_about: Get subreddit info (GET /r/{subreddit}/about)
+- get_subreddit_info: Get subreddit info (GET /r/{subreddit}/about)
 - search: Search in subreddit (GET /r/{subreddit}/search)
-- list_about_2: Get user info (GET /user/{username}/about)
-- list_posts: Get user posts (GET /user/{username}/posts)
-- list_comments: Get user comments (GET /user/{username}/comments)
-- list_subscriber: List subscribed subreddits (GET /subreddits/mine/subscriber)
-- list_karma: Get user karma (GET /me/karma)
+- get_user_info: Get user info (GET /user/{username}/about)
+- get_user_posts: Get user posts (GET /user/{username}/posts)
+- get_user_comments: Get user comments (GET /user/{username}/comments)
+- list_subscribed_subreddits: List subscribed subreddits (GET /subreddits/mine/subscriber)
 
 ## Fields
 
-- `sr`: string [REQUIRED for create post] (subreddit name)
-- `title`: string [REQUIRED for create post]
-- `kind`: string [REQUIRED] ("self", "link", "image")
-- `text`: string [OPTIONAL for self posts]
-- `url`: string [OPTIONAL for link posts]
-- `parent`: string [REQUIRED for comment] (thing ID)
-- `dir`: integer [REQUIRED for vote] (1, 0, or -1)
+- `sr`: string [REQUIRED for create post] (subreddit name) — Sr
+- `title`: string [REQUIRED for create post] — Title or heading
+- `kind`: string [REQUIRED] ("self", "link", "image") — Kind
+- `text`: string [OPTIONAL for self posts] — Text content
+- `url`: string [OPTIONAL for link posts] — URL
+- `parent`: string [REQUIRED for comment] (thing ID) — Parent
+- `dir`: integer [REQUIRED for vote] (1, 0, or -1) — Dir value
 
 ## Example Request Bodies
 
@@ -88,3 +93,24 @@ Manage Reddit posts, comments, and subreddits. Use when the user mentions reddit
 ```json
 {"id": "t3_abc123", "dir": 1}
 ```
+
+## Response
+
+**About object:**
+- `id`: string — Unique about identifier
+- `name`: string — About name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

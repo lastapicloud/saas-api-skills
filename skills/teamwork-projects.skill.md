@@ -1,7 +1,6 @@
 ---
 name: teamwork-projects
-description: Manage Teamwork projects, tasks, and milestones. Use when the user mentions
-  teamwork, project, task, milestone.
+description: "Manage Teamwork projects, tasks, and milestones. Use when the user mentions teamwork, project, task, milestone."
 version: 1.0.0
 skill_type: external
 base_url_env: TEAMWORK_BASE_URL
@@ -17,11 +16,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires TEAMWORK_BASE_URL and TEAMWORK_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Teamwork-Projects
 
 Manage Teamwork projects, tasks, and milestones. Use when the user mentions teamwork, project, task, milestone.
+
 
 ## API Endpoints
 
@@ -70,3 +74,14 @@ Manage Teamwork projects, tasks, and milestones. Use when the user mentions team
 ```json
 {"content": "Design new homepage mockup", "due-date": "2026-04-15", "priority": "high"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

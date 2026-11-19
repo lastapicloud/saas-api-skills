@@ -1,7 +1,9 @@
 ---
 name: magicbell-notifications
-description: Send and manage notifications via MagicBell. Use when the user mentions
+description: 'Send and manage notifications via MagicBell. Use when the user mentions
   magicbell, notification, notify, inbox, bell.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: MAGICBELL_BASE_URL
@@ -19,11 +21,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires MAGICBELL_BASE_URL and MAGICBELL_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Magicbell-Notifications
 
 Send and manage notifications via MagicBell. Use when the user mentions magicbell, notification, notify, inbox, bell.
+
 
 ## API Endpoints
 
@@ -41,16 +48,16 @@ Send and manage notifications via MagicBell. Use when the user mentions magicbel
 - list: List notifications (GET /notifications)
 - get_by_id: Get notification (GET /notifications/{id})
 - delete: Delete notification (DELETE /notifications/{id})
-- create_read: Mark as read (POST /notifications/{id}/read)
-- create_unread: Mark as unread (POST /notifications/{id}/unread)
-- list_notification_preferences: Get preferences (GET /notification_preferences)
+- create_mark_as_read: Mark as read (POST /notifications/{id}/read)
+- create_mark_as_unread: Mark as unread (POST /notifications/{id}/unread)
+- get_preferences: Get preferences (GET /notification_preferences)
 
 ## Fields
 
-- `title`: string [REQUIRED for create]
-- `recipients`: array [REQUIRED for create]
-- `content`: string [OPTIONAL]
-- `action_url`: string [OPTIONAL]
+- `title`: string [REQUIRED for create] — Title or heading
+- `recipients`: array [REQUIRED for create] — List of recipients
+- `content`: string [OPTIONAL] — Content body
+- `action_url`: string [OPTIONAL] — Action url
 
 ## Example Request Bodies
 
@@ -63,3 +70,24 @@ Send and manage notifications via MagicBell. Use when the user mentions magicbel
 ```json
 {}
 ```
+
+## Response
+
+**Notification object:**
+- `id`: string — Unique notification identifier
+- `name`: string — Notification name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

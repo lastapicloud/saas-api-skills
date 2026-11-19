@@ -1,7 +1,6 @@
 ---
 name: pagerduty-incidents
-description: Manage incidents, services, and on-call schedules in PagerDuty. Use when
-  the user mentions pagerduty, incident, alert, on-call, escalate.
+description: "Manage incidents, services, and on-call schedules in PagerDuty. Use when the user mentions pagerduty, incident, alert, on-call, escalate."
 version: 1.0.0
 skill_type: external
 base_url_env: PAGERDUTY_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires PAGERDUTY_BASE_URL and PAGERDUTY_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Pagerduty-Incidents
 
 Manage incidents, services, and on-call schedules in PagerDuty. Use when the user mentions pagerduty, incident, alert, on-call, escalate.
+
 
 ## API Endpoints
 
@@ -86,3 +90,14 @@ Manage incidents, services, and on-call schedules in PagerDuty. Use when the use
 ```json
 {"incident": {"type": "incident_reference", "status": "resolved"}}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

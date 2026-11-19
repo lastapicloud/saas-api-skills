@@ -1,7 +1,9 @@
 ---
 name: savvycal-scheduling
-description: Manage scheduling links and events via SavvyCal. Use when the user mentions
+description: 'Manage scheduling links and events via SavvyCal. Use when the user mentions
   savvycal, scheduling, calendar, event, booking, availability.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: SAVVYCAL_BASE_URL
@@ -19,11 +21,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires SAVVYCAL_BASE_URL and SAVVYCAL_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Savvycal-Scheduling
 
 Manage scheduling links and events via SavvyCal. Use when the user mentions savvycal, scheduling, calendar, event, booking, availability.
+
 
 ## API Endpoints
 
@@ -43,12 +50,12 @@ Manage scheduling links and events via SavvyCal. Use when the user mentions savv
 - update: Update link (PATCH /v1/links/{id})
 - delete: Delete link (DELETE /v1/links/{id})
 - list_events: List events (GET /v1/events)
-- get_by_id_events: Get event (GET /v1/events/{id})
+- get_event: Get event (GET /v1/events/{id})
 
 ## Fields
 
-- `name`: string [REQUIRED for create]
-- `duration`: integer [OPTIONAL]
+- `name`: string [REQUIRED for create] — Display name
+- `duration`: integer [OPTIONAL] — Duration value
 
 ## Example Request Bodies
 
@@ -61,3 +68,24 @@ Manage scheduling links and events via SavvyCal. Use when the user mentions savv
 ```json
 {"name": "45-Minute Consultation", "duration": 45}
 ```
+
+## Response
+
+**Link object:**
+- `id`: string — Unique link identifier
+- `name`: string — Link name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |

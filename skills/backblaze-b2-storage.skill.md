@@ -1,7 +1,6 @@
 ---
 name: backblaze-b2-storage
-description: Manage buckets and files via Backblaze B2 cloud storage. Use when the
-  user mentions backblaze, b2, cloud storage, bucket, file, backup.
+description: "Manage buckets and files via Backblaze B2 cloud storage. Use when the user mentions backblaze, b2, cloud storage, bucket, file, backup."
 version: 1.0.0
 skill_type: external
 base_url_env: BACKBLAZE_B2_BASE_URL
@@ -19,13 +18,20 @@ license: Apache-2.0
 metadata:
   author: lastapi
   version: 1.0.0
-compatibility: Requires BACKBLAZE_B2_BASE_URL and BACKBLAZE_B2_APPLICATION_KEY environment
+compatibility: 'Requires BACKBLAZE_B2_BASE_URL and BACKBLAZE_B2_APPLICATION_KEY environment
   variables.
+
+  '
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Backblaze-B2-Storage
 
 Manage buckets and files via Backblaze B2 cloud storage. Use when the user mentions backblaze, b2, cloud storage, bucket, file, backup.
+
 
 ## API Endpoints
 
@@ -66,3 +72,14 @@ Manage buckets and files via Backblaze B2 cloud storage. Use when the user menti
 ```json
 {"bucketId": "b2f1a7c8d9e0", "maxFileCount": 100}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

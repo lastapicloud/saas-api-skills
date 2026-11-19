@@ -1,7 +1,6 @@
 ---
 name: ringcentral-communications
-description: Manage RingCentral calls, messages, and meetings. Use when the user mentions
-  ringcentral, call, phone, SMS, meeting, fax.
+description: "Manage RingCentral calls, messages, and meetings. Use when the user mentions ringcentral, call, phone, SMS, meeting, fax."
 version: 1.0.0
 skill_type: external
 base_url_env: RINGCENTRAL_BASE_URL
@@ -18,13 +17,20 @@ license: Apache-2.0
 metadata:
   author: lastapi
   version: 1.0.0
-compatibility: Requires RINGCENTRAL_BASE_URL and RINGCENTRAL_ACCESS_TOKEN environment
+compatibility: 'Requires RINGCENTRAL_BASE_URL and RINGCENTRAL_ACCESS_TOKEN environment
   variables.
+
+  '
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Ringcentral-Communications
 
 Manage RingCentral calls, messages, and meetings. Use when the user mentions ringcentral, call, phone, SMS, meeting, fax.
+
 
 ## API Endpoints
 
@@ -77,3 +83,14 @@ Manage RingCentral calls, messages, and meetings. Use when the user mentions rin
 ```json
 {"topic": "Weekly Standup", "meetingType": "Scheduled"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

@@ -1,7 +1,6 @@
 ---
 name: betterstack-monitoring
-description: Manage uptime monitors and incidents via Better Stack. Use when the user
-  mentions better stack, betterstack, uptime, monitor, incident, status page.
+description: "Manage uptime monitors and incidents via Better Stack. Use when the user mentions better stack, betterstack, uptime, monitor, incident, status page."
 version: 1.0.0
 skill_type: external
 base_url_env: BETTERSTACK_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires BETTERSTACK_BASE_URL and BETTERSTACK_API_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Betterstack-Monitoring
 
 Manage uptime monitors and incidents via Better Stack. Use when the user mentions better stack, betterstack, uptime, monitor, incident, status page.
+
 
 ## API Endpoints
 
@@ -64,3 +68,14 @@ Manage uptime monitors and incidents via Better Stack. Use when the user mention
 **Update Monitor:**
 ```json
 {"url": "https://example.com/health", "check_frequency": 60}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

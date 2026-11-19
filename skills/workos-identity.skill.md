@@ -1,7 +1,6 @@
 ---
 name: workos-identity
-description: Manage WorkOS users, organizations, and SSO connections. Use when the
-  user mentions workos, user, organization, SSO, directory.
+description: "Manage WorkOS users, organizations, and SSO connections. Use when the user mentions workos, user, organization, SSO, directory."
 version: 1.0.0
 skill_type: external
 base_url_env: WORKOS_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires WORKOS_BASE_URL and WORKOS_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Workos-Identity
 
 Manage WorkOS users, organizations, and SSO connections. Use when the user mentions workos, user, organization, SSO, directory.
+
 
 ## API Endpoints
 
@@ -69,3 +73,14 @@ Manage WorkOS users, organizations, and SSO connections. Use when the user menti
 ```json
 {"name": "Acme Corp", "domains": ["acme.com"]}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

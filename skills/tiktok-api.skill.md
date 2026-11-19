@@ -1,7 +1,6 @@
 ---
 name: tiktok-api
-description: Manage videos and user info via TikTok API. Use when the user mentions
-  tiktok, video, social media, creator, content.
+description: "Manage videos and user info via TikTok API. Use when the user mentions tiktok, video, social media, creator, content."
 version: 1.0.0
 skill_type: external
 base_url_env: TIKTOK_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires TIKTOK_BASE_URL and TIKTOK_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Tiktok-Api
 
 Manage videos and user info via TikTok API. Use when the user mentions tiktok, video, social media, creator, content.
+
 
 ## API Endpoints
 
@@ -59,3 +63,14 @@ Manage videos and user info via TikTok API. Use when the user mentions tiktok, v
 **Query Video Info:**
 ```json
 {"fields": ["id", "title", "view_count", "share_count"]}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

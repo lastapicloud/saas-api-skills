@@ -1,7 +1,6 @@
 ---
 name: google-drive
-description: Manage files and folders in Google Drive. Use when the user mentions
-  drive, google drive, file, upload, download, folder, storage.
+description: "Manage files and folders in Google Drive. Use when the user mentions drive, google drive, file, upload, download, folder, storage."
 version: 1.0.0
 skill_type: external
 base_url_env: GOOGLE_DRIVE_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires GOOGLE_DRIVE_BASE_URL and GOOGLE_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Google-Drive
 
 Manage files and folders in Google Drive. Use when the user mentions drive, google drive, file, upload, download, folder, storage.
+
 
 ## API Endpoints
 
@@ -87,3 +91,14 @@ Manage files and folders in Google Drive. Use when the user mentions drive, goog
 
 **Search Files (Query Params):**
 Query parameter: `q=name+contains+'report'&fields=files(id,name,mimeType)`
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

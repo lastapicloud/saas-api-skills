@@ -1,7 +1,6 @@
 ---
 name: keycloak-identity
-description: Manage Keycloak users, roles, and realms. Use when the user mentions
-  keycloak, user, identity, realm, role, SSO.
+description: "Manage Keycloak users, roles, and realms. Use when the user mentions keycloak, user, identity, realm, role, SSO."
 version: 1.0.0
 skill_type: external
 base_url_env: KEYCLOAK_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires KEYCLOAK_BASE_URL and KEYCLOAK_ACCESS_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Keycloak-Identity
 
 Manage Keycloak users, roles, and realms. Use when the user mentions keycloak, user, identity, realm, role, SSO.
+
 
 ## API Endpoints
 
@@ -81,3 +85,14 @@ Manage Keycloak users, roles, and realms. Use when the user mentions keycloak, u
 ```json
 {"name": "app-admin", "description": "Application administrator role"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

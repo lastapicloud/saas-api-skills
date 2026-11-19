@@ -63,7 +63,7 @@ Description of what this skill enables.
 ```
 ```
 
-**Frontmatter keys:** `name` (must equal the filename stem), `description`, `version`, `skill_type`, `base_url_env`, `auth_env_var`, `auth_type`, `triggers`, `license`, `metadata` (`author`, `version`, optional `documentation`), `compatibility`. Add `auth_user_env` when the API needs a second credential (e.g. username + password for basic auth).
+**Frontmatter keys:** `name` (must equal the filename stem), `description`, `version`, `skill_type`, `base_url_env`, `auth_env_var`, `auth_type`, `triggers`, `license`, `metadata` (`author`, `version`, optional `documentation`), `compatibility`. Add `auth_user_env` when the API needs a second credential (e.g. username + password for basic auth). `annotations` holds `readOnlyHint` (true when every endpoint is GET), `destructiveHint` (true when any endpoint is DELETE) and `idempotentHint`.
 
 ### 2. Improving Existing Skills
 

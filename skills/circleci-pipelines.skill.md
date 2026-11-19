@@ -1,7 +1,6 @@
 ---
 name: circleci-pipelines
-description: Manage pipelines, workflows, and jobs via CircleCI. Use when the user
-  mentions circleci, ci, cd, pipeline, workflow, build, continuous integration.
+description: "Manage pipelines, workflows, and jobs via CircleCI. Use when the user mentions circleci, ci, cd, pipeline, workflow, build, continuous integration."
 version: 1.0.0
 skill_type: external
 base_url_env: CIRCLECI_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires CIRCLECI_BASE_URL and CIRCLECI_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Circleci-Pipelines
 
 Manage pipelines, workflows, and jobs via CircleCI. Use when the user mentions circleci, ci, cd, pipeline, workflow, build, continuous integration.
+
 
 ## API Endpoints
 
@@ -64,7 +68,7 @@ Manage pipelines, workflows, and jobs via CircleCI. Use when the user mentions c
 
 ## Fields
 
-- `branch`: string [OPTIONAL for trigger]
+- `branch`: string [OPTIONAL for trigger] [REQUIRED for create]
 - `parameters`: object [OPTIONAL]
 
 ## Example Request Bodies
@@ -77,3 +81,14 @@ Manage pipelines, workflows, and jobs via CircleCI. Use when the user mentions c
 **Trigger Build:**
 ```json
 {"branch": "develop"}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

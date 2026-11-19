@@ -1,7 +1,6 @@
 ---
 name: nylas-email
-description: Manage emails, calendars, and contacts via Nylas. Use when the user mentions
-  nylas, email, calendar, contact, inbox, scheduling.
+description: "Manage emails, calendars, and contacts via Nylas. Use when the user mentions nylas, email, calendar, contact, inbox, scheduling."
 version: 1.0.0
 skill_type: external
 base_url_env: NYLAS_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires NYLAS_BASE_URL and NYLAS_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Nylas-Email
 
 Manage emails, calendars, and contacts via Nylas. Use when the user mentions nylas, email, calendar, contact, inbox, scheduling.
+
 
 ## API Endpoints
 
@@ -65,3 +69,14 @@ Manage emails, calendars, and contacts via Nylas. Use when the user mentions nyl
 ```json
 {"title": "Team Standup", "when": {"start_time": 1700000000, "end_time": 1700003600}, "participants": [{"email": "team@example.com"}]}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

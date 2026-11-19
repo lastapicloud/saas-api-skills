@@ -1,7 +1,6 @@
 ---
 name: redis-cloud
-description: Manage Redis databases and subscriptions via Redis Cloud. Use when the
-  user mentions redis cloud, redis, cache, database, subscription.
+description: "Manage Redis databases and subscriptions via Redis Cloud. Use when the user mentions redis cloud, redis, cache, database, subscription."
 version: 1.0.0
 skill_type: external
 base_url_env: REDIS_CLOUD_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires REDIS_CLOUD_BASE_URL and REDIS_CLOUD_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Redis-Cloud
 
 Manage Redis databases and subscriptions via Redis Cloud. Use when the user mentions redis cloud, redis, cache, database, subscription.
+
 
 ## API Endpoints
 
@@ -78,3 +82,14 @@ Manage Redis databases and subscriptions via Redis Cloud. Use when the user ment
 ```json
 {"name": "session-cache", "memoryLimitInGb": 1}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

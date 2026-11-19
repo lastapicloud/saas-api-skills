@@ -1,10 +1,6 @@
 ---
 name: salesforce-crm
-description: "Complete Salesforce CRM platform \u2014 sObjects CRUD, SOQL queries,\
-  \ SOSL search, metadata describe, composite operations, limits, approvals, analytics\
-  \ reports, and recently viewed records. Use when the user mentions salesforce, CRM,\
-  \ lead, opportunity, contact, account, deal, pipeline, case, task, sobject, SOQL,\
-  \ SOSL."
+description: "Complete Salesforce CRM platform \u2014 sObjects CRUD, SOQL queries, SOSL search, metadata describe, composite operations, limits, approvals, analytics reports, and recently viewed records. Use when the user mentions salesforce, CRM, lead, opportunity, contact, account, deal, pipeline, case, task, sobject, SOQL, SOSL."
 version: 1.0.0
 skill_type: external
 base_url_env: SALESFORCE_BASE_URL
@@ -25,11 +21,16 @@ metadata:
   version: 2.0.0
 compatibility: Requires SALESFORCE_BASE_URL and SALESFORCE_ACCESS_TOKEN environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Salesforce-Crm
 
 Complete Salesforce CRM platform — sObjects CRUD, SOQL queries, SOSL search, metadata describe, composite operations, limits, approvals, analytics reports, and recently viewed records. Use when the user mentions salesforce, CRM, lead, opportunity, contact, account, deal, pipeline, case, task, sobject, SOQL, SOSL.
+
 
 ## API Endpoints
 
@@ -369,3 +370,22 @@ PATCH /sobjects/Account/External_System_Id__c/EXT-12345
   }
 }
 ```
+
+## Error Responses
+
+Salesforce returns errors as a JSON array of objects with `errorCode`, `message`, and optional `fields` array.
+
+| Status | Error Code | Meaning |
+|--------|-----------|---------|
+| 400 | `MALFORMED_ID` | Record ID is not a valid 15- or 18-character Salesforce ID |
+| 400 | `INVALID_FIELD` | Field name does not exist on the sObject |
+| 400 | `MALFORMED_QUERY` | SOQL/SOSL syntax error |
+| 400 | `REQUIRED_FIELD_MISSING` | A required field was not included in the request |
+| 400 | `FIELD_INTEGRITY_EXCEPTION` | Foreign key or picklist constraint violated |
+| 400 | `DUPLICATE_VALUE` | Unique field constraint violated |
+| 400 | `STRING_TOO_LONG` | Field value exceeds max length |
+| 401 | `INVALID_SESSION_ID` | Session expired or access token is invalid |
+| 403 | `REQUEST_LIMIT_EXCEEDED` | API request limit hit for the org (24-hour rolling window) |
+| 404 | `NOT_FOUND` | Record or sObject type does not exist |
+| 405 | `METHOD_NOT_ALLOWED` | HTTP method not supported for this resource |
+| 500 | `SERVER_ERROR` | Internal Salesforce error — retry is safe |

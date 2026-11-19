@@ -1,7 +1,6 @@
 ---
 name: slite-wiki
-description: Manage Slite notes, channels, and collections. Use when the user mentions
-  slite, note, wiki, documentation, channel.
+description: "Manage Slite notes, channels, and collections. Use when the user mentions slite, note, wiki, documentation, channel."
 version: 1.0.0
 skill_type: external
 base_url_env: SLITE_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires SLITE_BASE_URL and SLITE_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Slite-Wiki
 
 Manage Slite notes, channels, and collections. Use when the user mentions slite, note, wiki, documentation, channel.
+
 
 ## API Endpoints
 
@@ -64,3 +68,14 @@ Manage Slite notes, channels, and collections. Use when the user mentions slite,
 ```json
 {"question": "What is our deployment process?"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

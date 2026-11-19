@@ -1,7 +1,6 @@
 ---
 name: remote-hr
-description: Manage employees and payroll via Remote. Use when the user mentions remote,
-  hr, employee, contractor, payroll, global employment.
+description: "Manage employees and payroll via Remote. Use when the user mentions remote, hr, employee, contractor, payroll, global employment."
 version: 1.0.0
 skill_type: external
 base_url_env: REMOTE_BASE_URL
@@ -19,11 +18,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires REMOTE_BASE_URL and REMOTE_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Remote-Hr
 
 Manage employees and payroll via Remote. Use when the user mentions remote, hr, employee, contractor, payroll, global employment.
+
 
 ## API Endpoints
 
@@ -79,3 +83,14 @@ Manage employees and payroll via Remote. Use when the user mentions remote, hr, 
 ```json
 {"job_title": "Senior Software Engineer"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

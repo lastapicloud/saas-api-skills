@@ -1,7 +1,6 @@
 ---
 name: cohere-ai
-description: Generate text, embeddings, and rerank via Cohere AI. Use when the user
-  mentions cohere, ai, generate, embed, rerank, classify, llm.
+description: "Generate text, embeddings, and rerank via Cohere AI. Use when the user mentions cohere, ai, generate, embed, rerank, classify, llm."
 version: 1.0.0
 skill_type: external
 base_url_env: COHERE_AI_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires COHERE_AI_BASE_URL and COHERE_AI_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Cohere-Ai
 
 Generate text, embeddings, and rerank via Cohere AI. Use when the user mentions cohere, ai, generate, embed, rerank, classify, llm.
+
 
 ## API Endpoints
 
@@ -67,3 +71,14 @@ Generate text, embeddings, and rerank via Cohere AI. Use when the user mentions 
 ```json
 {"model": "rerank-v3.5", "query": "What is deep learning?", "documents": ["Deep learning uses neural networks.", "SQL is a database language.", "Neural networks mimic the brain."]}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

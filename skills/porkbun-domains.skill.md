@@ -1,7 +1,6 @@
 ---
 name: porkbun-domains
-description: Manage domains and DNS via Porkbun. Use when the user mentions porkbun,
-  domain, dns, registrar.
+description: "Manage domains and DNS via Porkbun. Use when the user mentions porkbun, domain, dns, registrar."
 version: 1.0.0
 skill_type: external
 base_url_env: PORKBUN_BASE_URL
@@ -18,11 +17,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires PORKBUN_BASE_URL and PORKBUN_API_KEY environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Porkbun-Domains
 
 Manage domains and DNS via Porkbun. Use when the user mentions porkbun, domain, dns, registrar.
+
 
 ## API Endpoints
 
@@ -71,3 +75,14 @@ Manage domains and DNS via Porkbun. Use when the user mentions porkbun, domain, 
   "ttl": 300
 }
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

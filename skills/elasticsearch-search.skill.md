@@ -1,7 +1,6 @@
 ---
 name: elasticsearch-search
-description: Manage Elasticsearch indexes, documents, and searches. Use when the user
-  mentions elasticsearch, elastic, index, document, search, query.
+description: "Manage Elasticsearch indexes, documents, and searches. Use when the user mentions elasticsearch, elastic, index, document, search, query."
 version: 1.0.0
 skill_type: external
 base_url_env: ELASTICSEARCH_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires ELASTICSEARCH_BASE_URL and ELASTICSEARCH_API_KEY environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Elasticsearch-Search
 
 Manage Elasticsearch indexes, documents, and searches. Use when the user mentions elasticsearch, elastic, index, document, search, query.
+
 
 ## API Endpoints
 
@@ -71,3 +75,14 @@ Manage Elasticsearch indexes, documents, and searches. Use when the user mention
 **Search Documents:**
 ```json
 {"query": {"match": {"content": "getting started"}}, "size": 10, "sort": [{"created_at": "desc"}]}
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

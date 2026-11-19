@@ -1,7 +1,6 @@
 ---
 name: fireworks-ai
-description: Generate text and embeddings via Fireworks AI. Use when the user mentions
-  fireworks, fireworks ai, llm, text generation, embedding, inference.
+description: "Generate text and embeddings via Fireworks AI. Use when the user mentions fireworks, fireworks ai, llm, text generation, embedding, inference."
 version: 1.0.0
 skill_type: external
 base_url_env: FIREWORKS_AI_BASE_URL
@@ -20,11 +19,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires FIREWORKS_AI_BASE_URL and FIREWORKS_AI_API_KEY environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: false
+  idempotentHint: false
 ---
 
 # Fireworks-Ai
 
 Generate text and embeddings via Fireworks AI. Use when the user mentions fireworks, fireworks ai, llm, text generation, embedding, inference.
+
 
 ## API Endpoints
 
@@ -62,3 +66,14 @@ Generate text and embeddings via Fireworks AI. Use when the user mentions firewo
 ```json
 {"model": "nomic-ai/nomic-embed-text-v1.5", "input": "Sample text for embedding"}
 ```
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

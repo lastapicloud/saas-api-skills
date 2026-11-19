@@ -1,7 +1,6 @@
 ---
 name: cloudinary-media
-description: Upload and manage images, videos, and media assets via the Cloudinary
-  API. Use when the user mentions cloudinary, image, upload, media, video, transform.
+description: "Upload and manage images, videos, and media assets via the Cloudinary API. Use when the user mentions cloudinary, image, upload, media, video, transform."
 version: 1.0.0
 skill_type: external
 base_url_env: CLOUDINARY_BASE_URL
@@ -21,11 +20,16 @@ metadata:
   version: 1.0.0
 compatibility: Requires CLOUDINARY_BASE_URL and CLOUDINARY_API_SECRET environment
   variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Cloudinary-Media
 
 Upload and manage images, videos, and media assets via the Cloudinary API. Use when the user mentions cloudinary, image, upload, media, video, transform.
+
 
 ## API Endpoints
 
@@ -82,3 +86,14 @@ Upload and manage images, videos, and media assets via the Cloudinary API. Use w
 
 **Delete Resource (Query Params):**
 Query parameter: `public_ids[]=test-image&public_ids[]=test-image-2`
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request — missing required field, wrong type, or constraint violation |
+| 401 | Authentication failed — check API credentials |
+| 403 | Forbidden — insufficient permissions |
+| 404 | Resource not found |
+| 429 | Rate limited — retry after delay |
+| 500 | Server error |

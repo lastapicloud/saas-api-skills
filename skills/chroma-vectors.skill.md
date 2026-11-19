@@ -1,7 +1,9 @@
 ---
 name: chroma-vectors
-description: Manage Chroma vector collections and embeddings. Use when the user mentions
+description: 'Manage Chroma vector collections and embeddings. Use when the user mentions
   chroma, chromadb, vector, embedding, collection.
+
+  '
 version: 1.0.0
 skill_type: external
 base_url_env: CHROMA_BASE_URL
@@ -18,11 +20,16 @@ metadata:
   author: lastapi
   version: 1.0.0
 compatibility: Requires CHROMA_BASE_URL and CHROMA_API_TOKEN environment variables.
+annotations:
+  readOnlyHint: false
+  destructiveHint: true
+  idempotentHint: false
 ---
 
 # Chroma-Vectors
 
 Manage Chroma vector collections and embeddings. Use when the user mentions chroma, chromadb, vector, embedding, collection.
+
 
 ## API Endpoints
 
@@ -43,22 +50,22 @@ Manage Chroma vector collections and embeddings. Use when the user mentions chro
 - create: Create a collection (POST /api/v1/collections)
 - get_by_id: Get a collection (GET /api/v1/collections/{collectionId})
 - delete: Delete a collection (DELETE /api/v1/collections/{collectionName})
-- create_add: Add documents (POST /api/v1/collections/{collectionId}/add)
+- add_documents: Add documents (POST /api/v1/collections/{collectionId}/add)
 - query: Query collection (POST /api/v1/collections/{collectionId}/query)
-- create_get: Get documents (POST /api/v1/collections/{collectionId}/get)
-- create_update: Update documents (POST /api/v1/collections/{collectionId}/update)
-- create_delete: Delete documents (POST /api/v1/collections/{collectionId}/delete)
-- list_heartbeat: Health check (GET /api/v1/heartbeat)
+- get_documents: Get documents (POST /api/v1/collections/{collectionId}/get)
+- update_documents: Update documents (POST /api/v1/collections/{collectionId}/update)
+- delete_documents: Delete documents (POST /api/v1/collections/{collectionId}/delete)
+- get_health_check: Health check (GET /api/v1/heartbeat)
 
 ## Fields
 
-- `name`: string [REQUIRED for create collection]
-- `ids`: array [REQUIRED for add/update/get]
-- `documents`: array [OPTIONAL for add] (text documents)
-- `embeddings`: array [OPTIONAL for add] (vector embeddings)
-- `metadatas`: array [OPTIONAL for add]
-- `query_embeddings`: array [REQUIRED for query]
-- `n_results`: integer [OPTIONAL for query]
+- `name`: string [REQUIRED for create collection] — Display name
+- `ids`: array [REQUIRED for add/update/get] — List of ids
+- `documents`: array [OPTIONAL for add] (text documents) — List of documents
+- `embeddings`: array [OPTIONAL for add] (vector embeddings) — List of embeddings
+- `metadatas`: array [OPTIONAL for add] — List of metadatas
+- `query_embeddings`: array [REQUIRED for query] — List of query embeddings
+- `n_results`: integer [OPTIONAL for query] — N Results value
 
 ## Example Request Bodies
 
@@ -71,3 +78,24 @@ Manage Chroma vector collections and embeddings. Use when the user mentions chro
 ```json
 {"query_embeddings": [[0.12, -0.34, 0.56, 0.78]], "n_results": 5}
 ```
+
+## Response
+
+**Collection object:**
+- `id`: string — Unique collection identifier
+- `name`: string — Collection name or title
+- `status`: string — Current status
+- `created_at`: string — Creation timestamp (ISO 8601)
+- `updated_at`: string — Last update timestamp (ISO 8601)
+
+## Error Responses
+
+| Status | Meaning |
+|--------|---------|
+| 400 | Invalid request body — check required fields and types |
+| 401 | Authentication failed — verify API key or token is valid and not expired |
+| 403 | Forbidden — insufficient permissions or scope for this action |
+| 404 | Resource not found — check the ID or identifier |
+| 409 | Conflict — resource already exists or concurrent modification |
+| 429 | Rate limited — too many requests, retry after delay |
+| 500 | Server error — retry or check service status page |
