@@ -9,7 +9,7 @@ A community-oriented index of `*.skill.md` files, each describing how an AI agen
 - External agents — anyone running an MCP-style agent can clone this repo and load the skill files
 - Public showcase of the integrations LastAPI-generated APIs ship with
 
-**This repo is a published mirror, not the runtime source.** The canonical skill files live in `lastapi-framework` (`apigenerator/resources/1 - Project/1 - BaseProject/Project/skills/`); that copy is committed into every generated customer API and read by its `SkillLoader` (`/assistant/*` routes). Nothing fetches this repo at deploy time. The two copies share filenames. Syncing is manual (no automation exists): copy the framework's `skills/*.skill.md` over `skills/` in a PR here.
+**This repo is a published mirror, not the runtime source.** The canonical skill files live in `lastapi-framework` (`apigenerator/resources/1 - Project/1 - BaseProject/Project/skills/`); that copy is committed into every generated customer API and read by its `SkillLoader` (`/assistant/*` routes). Nothing fetches this repo at deploy time. The two copies share filenames. A skill change merges here first, then in the framework: the framework's `pr.yml` (job `skills-mirror`, required by its `gate`) compares its `skills/` with this repo's `main` and fails while they differ.
 
 ## Stack
 
